@@ -1,7 +1,7 @@
 /****************************************************************************************
  *  @Purpose        :  To create a dashboard and it contains other components.
  *  @file           : dashboard.jsx
- *  @author         : RRASHANTH S
+ *  @author         : PRASHANTH S
  *  @version        : v0.1
  *  @since          : 22-03-2019
  *****************************************************************************************/

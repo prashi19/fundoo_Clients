@@ -8,6 +8,7 @@ import {
   Button
 } from "@material-ui/core";
 import { createNote } from "../services/noteServices";
+import Tools from "./tools";
 
 const theme = createMuiTheme({
   overrides: {
@@ -37,6 +38,7 @@ export default class CreateNote extends Component {
     this.handleTitle = this.handleTitle.bind(this);
     this.handleDescription = this.handleDescription.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleColor = this.handleColor.bind(this);
   }
 
   handleTitle(evt) {
@@ -53,32 +55,38 @@ export default class CreateNote extends Component {
       console.log("error at handleDescription in createNotes");
     }
   }
+  handleColor(value) {
+    try {
+      this.setState({ color: value });
+    } catch (err) {
+      console.log("error at handleColor in createNotes");
+    }
+  }
 
   handleToggle() {
     try {
       this.setState({ openNote: !this.state.openNote });
-      if (this.state.title !== "" || this.state.description !== "") {
+      if (this.state.title !== "" || this.state.description !== ""  || this.state.color !== "rgb(255, 255, 255)" ) {
         const note = {
           title: this.state.title,
-          description: this.state.description
+          description: this.state.description,
+          color: this.state.color,
         };
         createNote(note)
           .then(result => {
-            console.log(
-              "create note result from back-end====>",
-              result.data.data
-            );
+            console.log("create note result from back-end====>", result);
             this.setState({
               newNote: result.data.data.note
             });
-            //this.props.getNewNote(this.state.newNote);
+            // this.props.getNewNote(this.state.newNote);
           })
           .catch(error => {
             alert(error);
           });
         this.setState({
           title: "",
-          description: ""
+          description: "",
+          color: "rgb(255, 255, 255)",
         });
       }
     } catch (err) {
@@ -133,7 +141,13 @@ export default class CreateNote extends Component {
               value={this.state.description}
               onChange={this.handleDescription}
             />
-            <div className="close_butn">
+            <div className="cardToolsClose">
+              <Tools
+                // reminder={this.handleReminder}
+                createNotePropsToTools={this.handleColor}
+                // archiveNote={this.handleArchive}
+                // archiveStatus={this.state.archive}
+              />
               <Button id="close" onClick={this.handleToggle}>
                 Close
               </Button>

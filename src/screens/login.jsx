@@ -106,8 +106,8 @@ export default class Login extends Component {
           localStorage.clear();
           localStorage.setItem("firstName",response.data.result.firstName);              
           localStorage.setItem("Email",this.state.Email);
-          localStorage.setItem("token",response.data.token);
-          console.log(response);
+        localStorage.setItem("token",response.data.token.token);
+         
           this.setState({
             openSnackBar: true,
             snackBarMessage: "Login Successfull!!"

@@ -68,6 +68,7 @@ export default class CreateNote extends Component {
       this.setState({ openNote: !this.state.openNote });
       if (this.state.title !== "" || this.state.description !== ""  || this.state.color !== "rgb(255, 255, 255)" ) {
         const note = {
+          userId:localStorage.getItem('user_id'),
           title: this.state.title,
           description: this.state.description,
           color: this.state.color,
@@ -78,7 +79,7 @@ export default class CreateNote extends Component {
             this.setState({
               newNote: result.data.data.note
             });
-            // this.props.getNewNote(this.state.newNote);
+             this.props.getNewNote(this.state.newNote);
           })
           .catch(error => {
             alert(error);

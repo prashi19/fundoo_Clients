@@ -9,13 +9,17 @@ import React, { Component } from "react";
 import "../App.css";
 import PrimarySearchAppBar from "../components/appbar";
 import CreateNotes from "../components/createNote";
+import Notes from "../components/notes";
 export default class DashBoard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      slideCards: false
+      slideCards: false,
     };
     this.slideCards = this.slideCards.bind(this);
+    this.getNewNote = this.getNewNote.bind(this);
+
+    this.noteToCards = React.createRef();
   }
 
   slideCards() {
@@ -23,6 +27,17 @@ export default class DashBoard extends Component {
       this.setState({ slideCards: !this.state.slideCards });
     } catch (err) {
       console.log("error at slideCards in dashBoard");
+    }
+  }
+  
+
+  getNewNote(newCard) {
+    console.log("new card", newCard);
+
+    try {
+      this.noteToCards.current.displayNewCard(newCard);
+    } catch (err) {
+      console.log("error at getNewNote in dashBoard");
     }
   }
 
@@ -36,8 +51,10 @@ export default class DashBoard extends Component {
             slideCards={this.slideCards}
           />
         </div>
-        <div className="dash_content">
-          <CreateNotes />
+
+        <div className="dashboard">
+          <CreateNotes getNewNote={this.getNewNote} />
+          <Notes ref={this.noteToCards} />
         </div>
       </div>
     );

@@ -48,3 +48,13 @@ export function updateColor(data) {
         }
     )
 }
+
+/*********************************************************************************************** */
+
+export function otherArray(notesData) {
+  let otherArr = [];
+  for (let i = 0; i < notesData.length; i++) {  
+          otherArr.push(notesData[i]); 
+  }
+  return otherArr;
+}

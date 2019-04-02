@@ -6,10 +6,10 @@
  *  @since          : 30-03-2019
  *****************************************************************************************/
 import React, { Component } from 'react';
-// import Reminder from '../components/reminder';
+import Reminder from '../components/reminder';
 import ColorBox from '../components/colorBox';
 // import UploadImage from '../components/uploadImage';
-// import Archive from '../components/archive';
+import Archive from '../components/archive';
 // import MoreOptions from '../components/moreOptions';
 // import Collaborator from '../components/collaborator';
 export default class Tools extends Component {
@@ -33,15 +33,15 @@ export default class Tools extends Component {
     render() {
         // const setNoteTime = parseInt(new Date().getHours()) >= 8 ? "PM" : "AM";
         return (
-            <div>
+          
                 <div className="cardTools">
-                    {/* <Reminder
+                    <Reminder
                         handleToggle={this.handleToggle}
-                        parentToolsProps={setNoteTime}
+                        // parentToolsProps={setNoteTime}
                         reminder={this.props.reminder}
                         noteID={this.props.noteID}
                     />
-                    <Collaborator /> */}
+                    {/* <Collaborator /> */}
                     <ColorBox
                         handleToggle={this.handleToggle}
                         toolsPropsToColorpallete={this.props.createNotePropsToTools}
@@ -50,20 +50,20 @@ export default class Tools extends Component {
                     {/* <UploadImage
                         uploadImage={this.props.uploadImage}
                         noteID={this.props.noteID}
-                    />
+                    /> 
+                    */}
                     <Archive
                         archiveNote={this.props.archiveNote}
                         noteID={this.props.noteID}
                         archiveStatus={this.props.archiveStatus}
                     />
-                    <MoreOptions
+                    {/* <MoreOptions
                         handleToggle={this.handleToggle}
                         addLabelToNote={this.props.addLabelToNote}
                         trashNote={this.props.trashNote}
                         noteID={this.props.noteID}
-                    /> */}
+                    />  */}
                 </div>
-            </div>
         )
     }
 }

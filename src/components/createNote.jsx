@@ -5,7 +5,7 @@ import {
   Card,
   createMuiTheme,
   MuiThemeProvider,
-  Button
+  Button,Chip
 } from "@material-ui/core";
 import { createNote } from "../services/noteServices";
 import Tools from "./tools";
@@ -32,6 +32,8 @@ export default class CreateNote extends Component {
       openNote: false,
       title: "",
       description: "",
+      reminder: "",
+      archive: false,
       color: "rgb(255, 255, 255)",
       newNote: {}
     };
@@ -39,6 +41,8 @@ export default class CreateNote extends Component {
     this.handleDescription = this.handleDescription.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleColor = this.handleColor.bind(this);
+    this.handleReminder = this.handleReminder.bind(this);
+    this.handleArchive = this.handleArchive.bind(this);
   }
 
   handleTitle(evt) {
@@ -63,15 +67,40 @@ export default class CreateNote extends Component {
     }
   }
 
+  handleReminder(value) {
+    try {
+      this.setState({ reminder: value });
+    } catch (err) {
+      console.log("error at handleReminder in createNotes");
+    }
+  }
+  reminderNote = () => {
+    this.setState({ reminder: "" })
+}
+
+handleArchive(value) {
+  try {
+      this.setState({ archive: value });
+  } catch (err) {
+      console.log("error at handleArchive in createNotes");
+  }
+}
+
   handleToggle() {
     try {
       this.setState({ openNote: !this.state.openNote });
-      if (this.state.title !== "" || this.state.description !== ""  || this.state.color !== "rgb(255, 255, 255)" ) {
+      if (
+        this.state.title !== "" ||
+        this.state.description !== "" ||
+        this.state.color !== "rgb(255, 255, 255)"
+      ) {
         const note = {
-          userId:localStorage.getItem('user_id'),
+          userId: localStorage.getItem("user_id"),
           title: this.state.title,
           description: this.state.description,
           color: this.state.color,
+          reminder: this.state.reminder,
+          archive: this.state.archive,
         };
         createNote(note)
           .then(result => {
@@ -79,7 +108,7 @@ export default class CreateNote extends Component {
             this.setState({
               newNote: result.data.data.note
             });
-             this.props.getNewNote(this.state.newNote);
+            this.props.getNewNote(this.state.newNote);
           })
           .catch(error => {
             alert(error);
@@ -88,6 +117,8 @@ export default class CreateNote extends Component {
           title: "",
           description: "",
           color: "rgb(255, 255, 255)",
+          reminder: "",
+          archive: false,
         });
       }
     } catch (err) {
@@ -142,12 +173,18 @@ export default class CreateNote extends Component {
               value={this.state.description}
               onChange={this.handleDescription}
             />
+            {this.state.reminder ? (
+              <Chip
+                label={this.state.reminder}
+                onDelete={() => this.reminderNote()}
+              />
+            ) : null}
             <div className="cardToolsClose">
               <Tools
-                // reminder={this.handleReminder}
+                reminder={this.handleReminder}
                 createNotePropsToTools={this.handleColor}
-                // archiveNote={this.handleArchive}
-                // archiveStatus={this.state.archive}
+                archiveNote={this.handleArchive}
+                archiveStatus={this.state.archive}
               />
               <Button id="close" onClick={this.handleToggle}>
                 Close

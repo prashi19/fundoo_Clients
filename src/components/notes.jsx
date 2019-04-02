@@ -1,7 +1,14 @@
 import React, { Component } from "react";
-import { Card, MuiThemeProvider, createMuiTheme } from "@material-ui/core";
+import { Card, MuiThemeProvider, createMuiTheme ,Chip} from "@material-ui/core";
 import Tools from "../components/tools";
-import { getNotes, updateColor, otherArray } from "../services/noteServices";
+import {
+  getNotes,
+  updateColor,
+  otherArray,
+  setReminder,
+  updateArchiveStatus,
+  
+} from "../services/noteServices";
 
 import "../App.css";
 
@@ -71,19 +78,72 @@ export default class Cards extends Component {
       notes: [...this.state.notes, newCard]
     });
   };
+
+  reminderNote = (value, noteId) => {
+    const reminder = {
+      noteID: noteId,
+      reminder: value
+    };
+    setReminder(reminder)
+      .then(result => {
+        let newArray = this.state.notes;
+        for (let i = 0; i < newArray.length; i++) {
+          if (newArray[i]._id === noteId) {
+            newArray[i].reminder = result.data.data;
+            this.setState({
+              notes: newArray
+            });
+          }
+        }
+      })
+      .catch(error => {
+        alert(error);
+      });
+  };
+
+  archiveNote = (value, noteId) => {
+    const isArchived = {
+        noteID: noteId,
+        archive: value
+    }
+    updateArchiveStatus(isArchived)
+        .then((result) => {
+            let newArray = this.state.notes
+            for (let i = 0; i < newArray.length; i++) {
+                if (newArray[i]._id === noteId) {
+                    newArray[i].archive = result.data.data;
+                    newArray[i].pinned = false;
+                    newArray[i].trash = false;
+                    this.setState({
+                        notes: newArray
+                    })
+                }
+            }
+        })
+        .catch((error) => {
+            alert(error)
+        });
+}
+
   render() {
     let notesArray = otherArray(this.state.notes);
     // let cardsView = this.props.noteProps ? "listCards" : "cards";
     return (
       <MuiThemeProvider theme={theme}>
-        <div >
+        <div>
           {Object.keys(notesArray)
             .slice(0)
             .reverse()
             .map(key => {
               return (
                 <div key={key} id="gap">
-                  <Card className="CardsView" style={{ backgroundColor: notesArray[key].color, borderRadius: "15px", border: "1px solid #dadce0"}}
+                  <Card
+                    className="CardsView"
+                    style={{
+                      backgroundColor: notesArray[key].color,
+                      borderRadius: "15px",
+                      border: "1px solid #dadce0"
+                    }}
                   >
                     <div>
                       <div
@@ -102,14 +162,28 @@ export default class Cards extends Component {
                           wordBreak: "break-word"
                         }}
                       >
-                         {notesArray[key].description}
+                        {notesArray[key].description}
                       </div>
+                    </div>
+                    <div>
+                      {/* <img src={clockIcon} alt="clockIcon" /> */}
+                      {notesArray[key].reminder ? (
+                        <Chip
+                          label={notesArray[key].reminder}
+                          onDelete={() =>
+                            this.reminderNote("", notesArray[key]._id)
+                          }
+                        />
+                      ) : null}
                     </div>
                     <div id="displaycontentdiv">
                       <Tools
                         createNotePropsToTools={this.getColor}
                         noteID={notesArray[key]._id}
                         note={notesArray[key].note}
+                        reminder={this.reminderNote}
+                        archiveNote={this.archiveNote}
+                        archiveStatus={notesArray[key].archive}
                       />
                     </div>
                   </Card>

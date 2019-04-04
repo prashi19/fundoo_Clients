@@ -54,7 +54,7 @@ export default class CreateNote extends Component {
   }
   handleDescription(evt) {
     try {
-      this.setState({ description: evt.target.value });
+      this.setState ({ description: evt.target.value });
     } catch (err) {
       console.log("error at handleDescription in createNotes");
     }

@@ -46,7 +46,7 @@
   width: 72%;
 }
 
-/*********************** Css for Forgot Password page ******************************/
+/*********************** Css for Register Password page ******************************/
 
 #reg_logo {
   width: 25%;
@@ -72,6 +72,7 @@
   text-align: center;
 }
 
+
 #reg_hed {
   margin-left: 10%;
 }
@@ -82,9 +83,14 @@
   display: inline-block;
   margin-left: 10%;
 }
+
 .reg_textfield4 {
   display: inline-block;
 }
+/* .reg_textfield3{
+ width:650px;
+ margin-left: -8%;
+} */
 .reg_textfield5 {
   display: inline-block;
   margin-left: 5%;
@@ -97,6 +103,11 @@
   margin-top: 2%;
 }
 
+.popinfo{
+  width:fit-content;
+  float: right;
+  margin-top: 16%;
+}
 /*********************** Css for Forgot Password page ******************************/
 .for_content {
   text-align: center;
@@ -267,26 +278,31 @@ width:fit-content;
   
 }
 .CardsView {
-  width: 700px;
+  width: 499px;
   margin-top: 25px;
   text-align: left;
   padding: 15px;
   border: 1px solid #dadce0;
   border-radius: 10px;
   justify-content: space-between;
+  margin-left: 160px;
   }
   
   #gap {
   display: flex;
-  margin-left: 12%;
+  /* margin-left: 12%; */
+  margin-left: 140px;
+  width:fit-content;
   }
   .cardTools{
   margin-top: 4%;
   display: flex;
+  
   /* opacity: .71;  */
   
   }
 
+  
   .colorPalleteCard{
     position: absolute;
     max-width: 126px;
@@ -300,3 +316,4 @@ width:fit-content;
     transition: 5s;
     overflow: auto;
   }
+

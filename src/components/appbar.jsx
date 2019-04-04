@@ -124,9 +124,6 @@ class PrimarySearchAppBar extends React.Component {
     this.setState({openPopper:!this.state.openPopper});
   }
 
-  handleLogout = event => {
-    this.props.props.history.push("/login");
-  };
   render() {
     const { classes } = this.props;
     return (
@@ -180,13 +177,13 @@ class PrimarySearchAppBar extends React.Component {
               </IconButton>
             </div>
 
-            <div className={classes.setting}>
+            {/* <div className={classes.setting}>
               <IconButton id="Button1">
                 <Tooltip title="Settings">
                   <img src={require("../assets/setting.svg")} alt="Setting" />
                 </Tooltip>
               </IconButton>
-            </div>
+            </div> */}
 
             <div className={classes.list}>
               <IconButton id="Button1">

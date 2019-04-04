@@ -63,7 +63,7 @@ export default class Archive extends Component {
                             horizontal: 'right',
                         }}
                         open={this.state.openSnackBar}
-                        autoHideDuration={6000}
+                        autoHideDuration={3000}
                         onClose={this.handleSnackClose}
                         variant="error"
                         ContentProps={{

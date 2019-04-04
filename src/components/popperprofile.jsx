@@ -51,6 +51,7 @@ export default class Profile extends Component {
   handlelogout = event => {
     try {
       event.preventDefault();
+      localStorage.clear();
       this.props.props.props.history.push("/login");
     } catch (err) {
       console.log("error at registrationclick in userProfile");
@@ -121,12 +122,11 @@ export default class Profile extends Component {
             <Fade {...TransitionProps} timeout={350}>
               <Paper id="papperlogout">
                 <ClickAwayListener onClickAway={this.handleToggle}>
-                  <div
+                  <div className="pop"
                     style={{
-                      width: "280px",
+                      width: "fit-content",
                       padding: "15px",
                       marginTop: "13px",
-                      textAlign: "center"
                     }}
                   >
                     <div id="userProfileDetails">
@@ -164,7 +164,7 @@ export default class Profile extends Component {
                           </Avatar>
                         </Tooltip>
                       </IconButton>
-                      <span style={{ marginTop: "-1px", marginLeft: "20px" }}>
+                    <div className="popinfo">
                         <p style={{ marginBottom: "0px" }}>
                           {firstName}
                           <br />{" "}
@@ -172,7 +172,7 @@ export default class Profile extends Component {
                         <small style={{ marginBottom: "0px" }}>
                           {localStorage.getItem("Email")}{" "}
                         </small>
-                      </span>
+                        </div>
                     </div>
                     <Divider />
                     <div id="profilebutton">

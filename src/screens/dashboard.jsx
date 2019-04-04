@@ -18,7 +18,6 @@ export default class DashBoard extends Component {
     };
     this.slideCards = this.slideCards.bind(this);
     this.getNewNote = this.getNewNote.bind(this);
-
     this.noteToCards = React.createRef();
   }
 

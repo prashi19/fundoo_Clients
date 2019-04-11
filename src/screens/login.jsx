@@ -108,6 +108,7 @@ export default class Login extends Component {
           localStorage.setItem("Email",this.state.Email);
           localStorage.setItem("token",response.data.token.token);
           localStorage.setItem("user_id",response.data.result._id);
+          localStorage.setItem("profilePic",response.data.result.profilePic);
          
           this.setState({
             openSnackBar: true,

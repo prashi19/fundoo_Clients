@@ -9,6 +9,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Fade from "@material-ui/core/Fade";
 import { Button } from "@material-ui/core";
 import "../App.css";
+import { uploadProfilePic } from "../services/userServices";
 /**
  * @description:This method is used to Logout ui..
  */
@@ -17,7 +18,7 @@ export default class Profile extends Component {
     super(props);
     this.state = {
       anchorEl: null,
-      open: false,
+      open: false,   
       placement: null,
       profilePic: ""
     };
@@ -78,18 +79,35 @@ export default class Profile extends Component {
       console.log("error at triggerInputFile in userProfile");
     }
   }
+
+  componentDidMount() {
+    if (localStorage.getItem("profilePic") !== "undefined") {
+      this.setState({
+        profilePic: localStorage.getItem("profilePic")
+      });
+    }
+  }
   /**
    * @description:it will upload the image
    * @param {*} evt
    */
-  uploadImage(evt) {
-    try {
-      console.log("upload image", evt.target.files[0]);
-      this.props.uploadImage(evt.target.files[0], this.props.note._id);
-    } catch (err) {
-      console.log("error at uploadImage in userProfile");
-    }
-  }
+  uploadImage = evt => {
+    let data = new FormData();
+    // console.log("image:------------", e.target.files[0]);
+    data.append("image", evt.target.files[0]);
+
+    uploadProfilePic(data)
+      .then(result => {
+        console.log("profile", result.data.data);
+        localStorage.setItem("profilePic", result.data.data);
+        this.setState({
+          profilePic: result.data.data
+        });
+      })
+      .catch(err => {
+        alert(err);
+      });
+  };
   /**
    * @description:it will open the userProfile
    */
@@ -122,11 +140,12 @@ export default class Profile extends Component {
             <Fade {...TransitionProps} timeout={350}>
               <Paper id="papperlogout">
                 <ClickAwayListener onClickAway={this.handleToggle}>
-                  <div className="pop"
+                  <div
+                    className="pop"
                     style={{
                       width: "fit-content",
                       padding: "15px",
-                      marginTop: "13px",
+                      marginTop: "13px"
                     }}
                   >
                     <div id="userProfileDetails">
@@ -145,8 +164,8 @@ export default class Profile extends Component {
                             {this.state.profilePic !== "" ? (
                               <img
                                 style={{
-                                  width: "80px",
-                                  height: "80px"
+                                  width: "-webkit-fill-available",
+                                  height: "-webkit-fill-available"
                                 }}
                                 src={this.state.profilePic}
                                 alt="change Profile pic"
@@ -164,7 +183,7 @@ export default class Profile extends Component {
                           </Avatar>
                         </Tooltip>
                       </IconButton>
-                    <div className="popinfo">
+                      <div className="popinfo">
                         <p style={{ marginBottom: "0px" }}>
                           {firstName}
                           <br />{" "}
@@ -172,7 +191,7 @@ export default class Profile extends Component {
                         <small style={{ marginBottom: "0px" }}>
                           {localStorage.getItem("Email")}{" "}
                         </small>
-                        </div>
+                      </div>
                     </div>
                     <Divider />
                     <div id="profilebutton">
@@ -186,33 +205,31 @@ export default class Profile extends Component {
           )}
         </Popper>
         <div className="iconButton">
-          <IconButton id="userProfileIcon">
-            <Tooltip
-              title={"Fundoo Account   :" + localStorage.getItem("firstName")}
+          <Tooltip
+            title={"Fundoo Account   :" + localStorage.getItem("firstName")}
+          >
+            <Avatar
+              style={{
+                width: "35px",
+                height: "35px",
+                backgroundColor: "blur"
+              }}
+              onClick={this.handleClick("bottom-end")}
             >
-              <Avatar
-                style={{
-                  width: "35px",
-                  height: "35px",
-                  backgroundColor: "blur"
-                }}
-                onClick={this.handleClick("bottom-end")}
-              >
-                {this.state.profilePic !== "" ? (
-                  <img
-                    style={{
-                      width: "40px",
-                      height: "40px"
-                    }}
-                    src={this.state.profilePic}
-                    alt="change Profile pic"
-                  />
-                ) : (
-                  initial
-                )}
-              </Avatar>
-            </Tooltip>
-          </IconButton>
+              {this.state.profilePic !== "" ? (
+                <img
+                  style={{
+                    width: "-webkit-fill-available",
+                    height: "-webkit-fill-available"
+                  }}
+                  src={this.state.profilePic}
+                  alt="change Profile pic"
+                />
+              ) : (
+                initial
+              )}
+            </Avatar>
+          </Tooltip>
         </div>
       </div>
     );

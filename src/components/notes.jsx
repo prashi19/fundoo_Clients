@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { Card, MuiThemeProvider, createMuiTheme ,Chip} from "@material-ui/core";
+import {
+  Card,
+  MuiThemeProvider,
+  createMuiTheme,
+  Chip
+} from "@material-ui/core";
 import Tools from "../components/tools";
 import {
   getNotes,
@@ -7,9 +12,9 @@ import {
   otherArray,
   setReminder,
   updateArchiveStatus,
-  
+  updateTrashStatus
 } from "../services/noteServices";
-
+import AlertDialog from "../components/cardDialog";
 import "../App.css";
 
 const theme = createMuiTheme({
@@ -37,7 +42,8 @@ export default class Cards extends Component {
   constructor() {
     super();
     this.state = {
-      notes: []
+      notes: [],
+      openDialog: false
     };
   }
   componentDidMount() {
@@ -62,6 +68,7 @@ export default class Cards extends Component {
         let newArray = this.state.notes;
         for (let i = 0; i < newArray.length; i++) {
           if (newArray[i]._id === noteId) {
+            console.log("new Array--->", newArray[i]._id, "noteID--->", noteId);
             newArray[i].color = result.data.data;
             this.setState({
               notes: newArray
@@ -77,6 +84,10 @@ export default class Cards extends Component {
     this.setState({
       notes: [...this.state.notes, newCard]
     });
+  };
+
+  handleOpenDialog = () => {
+    this.setState({ openDialog: true });
   };
 
   reminderNote = (value, noteId) => {
@@ -103,95 +114,125 @@ export default class Cards extends Component {
 
   archiveNote = (value, noteId) => {
     const isArchived = {
-        noteID: noteId,
-        archive: value
-    }
+      noteID: noteId,
+      archive: value
+    };
     updateArchiveStatus(isArchived)
-        .then((result) => {
-            let newArray = this.state.notes
-            for (let i = 0; i < newArray.length; i++) {
-                if (newArray[i]._id === noteId) {
-                    newArray[i].archive = result.data.data;
-                    newArray[i].pinned = false;
-                    newArray[i].trash = false;
-                    this.setState({
-                        notes: newArray
-                    })
-                }
-            }
-        })
-        .catch((error) => {
-            alert(error)
-        });
-}
+      .then(result => {
+        let newArray = this.state.notes;
+        for (let i = 0; i < newArray.length; i++) {
+          if (newArray[i]._id === noteId) {
+            newArray[i].archive = result.data.data;
+            // newArray[i].pinned = false;
+            newArray[i].trash = false;
+            this.setState({
+              notes: newArray
+            });
+          }
+        }
+      })
+      .catch(error => {
+        alert(error);
+      });
+  };
+
+  trashNote = (value, noteId) => {
+    const isTrashed = {
+      noteID: noteId,
+      trash: value
+    };
+    updateTrashStatus(isTrashed)
+      .then(result => {
+        let newArray = this.state.notes;
+        for (let i = 0; i < newArray.length; i++) {
+          if (newArray[i]._id === noteId) {
+            newArray[i].trash = result.data.data;
+            // newArray[i].pinned = false;
+            newArray[i].archive = false;
+            this.setState({
+              notes: newArray
+            });
+          }
+        }
+      })
+      .catch(error => {
+        alert(error);
+      });
+  };
 
   render() {
     let notesArray = otherArray(this.state.notes);
-    // let cardsView = this.props.noteProps ? "listCards" : "cards";
+    let cardsView = this.props.noteProps ? "listCards" : "cards";
     return (
-      <MuiThemeProvider theme={theme}>
-        <div>
-          {Object.keys(notesArray)
-            .slice(0)
-            .reverse()
-            .map(key => {
-              return (
-                <div key={key} id="gap">
-                  <Card
-                    className="CardsView"
-                    style={{
-                      backgroundColor: notesArray[key].color,
-                      borderRadius: "15px",
-                      border: "1px solid #dadce0"
-                    }}
-                  >
-                    <div>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          wordBreak: "break-word"
-                        }}
-                      >
-                        <b> {notesArray[key].title}</b>
+      <div className="root">
+        <MuiThemeProvider theme={theme}>
+          <div className="CardsView">
+            {Object.keys(notesArray)
+              .slice(0)
+              .reverse()
+              .map(key => {
+                return (
+                  <div key={key}>
+                    <Card
+                      className={cardsView}
+                      style={{
+                        backgroundColor: notesArray[key].color,
+                        borderRadius: "15px",
+                        border: "1px solid #dadce0"
+                      }}
+                    >
+                      <div id="dispNote">
+                        <div
+                          onClick={this.handleOpenDialog}
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            wordBreak: "break-word"
+                          }}
+                        >
+                          <b> {notesArray[key].title}</b>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            wordBreak: "break-word"
+                          }}
+                        >
+                          {notesArray[key].description}
+                        </div>
                       </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          wordBreak: "break-word"
-                        }}
-                      >
-                        {notesArray[key].description}
+                      <div>
+                        {/* <img src={clockIcon} alt="clockIcon" /> */}
+                        {notesArray[key].reminder ? (
+                          <Chip
+                            label={notesArray[key].reminder}
+                            onDelete={() =>
+                              this.reminderNote("", notesArray[key]._id)
+                            }
+                          />
+                        ) : null}
                       </div>
-                    </div>
-                    <div>
-                      {/* <img src={clockIcon} alt="clockIcon" /> */}
-                      {notesArray[key].reminder ? (
-                        <Chip
-                          label={notesArray[key].reminder}
-                          onDelete={() =>
-                            this.reminderNote("", notesArray[key]._id)
-                          }
+                      <div id="displaycontentdiv">
+                        <Tools
+                          createNotePropsToTools={this.getColor}
+                          noteID={notesArray[key]._id}
+                          note={notesArray[key].note}
+                          reminder={this.reminderNote}
+                          archiveNote={this.archiveNote}
+                          archiveStatus={notesArray[key].archive}
+                          trashNote={this.trashNote}
+                          trashStatus={notesArray[key].trash}
                         />
-                      ) : null}
-                    </div>
-                    <div id="displaycontentdiv">
-                      <Tools
-                        createNotePropsToTools={this.getColor}
-                        noteID={notesArray[key]._id}
-                        note={notesArray[key].note}
-                        reminder={this.reminderNote}
-                        archiveNote={this.archiveNote}
-                        archiveStatus={notesArray[key].archive}
-                      />
-                    </div>
-                  </Card>
-                </div>
-              );
-            })}
-        </div>
-      </MuiThemeProvider>
+                      </div>
+                    </Card>
+                  </div>
+                );
+              })}
+          </div>
+        </MuiThemeProvider>
+        <AlertDialog open={this.state.openDialog} />
+      </div>
     );
   }
 }

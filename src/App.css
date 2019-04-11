@@ -239,7 +239,7 @@
 }
 
 #createNoteParent {
-  margin-left: 200px;
+  margin-left: 0px;
 }
 .staticCreateNote {
   /* display:flex; */
@@ -275,17 +275,30 @@ width:fit-content;
   margin:0 8px;
   cursor: pointer;
   opacity: .71; 
-  
+  height: 20px;
+    width: 20px;
+     
 }
+#cardViewIcon:focus,
+#cardViewIcon:active{
+  outline:none;
+  box-shadow :none;
+  }
+
+
 .CardsView {
-  width: 499px;
+  /* width: 499px;
   margin-top: 25px;
   text-align: left;
   padding: 15px;
   border: 1px solid #dadce0;
   border-radius: 10px;
   justify-content: space-between;
-  margin-left: 160px;
+  margin-left: 160px; */
+
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 3%;
   }
   
   #gap {
@@ -317,3 +330,24 @@ width:fit-content;
     overflow: auto;
   }
 
+/***************************************************************************************************************/
+/***************************************************************************************************************/
+
+.root{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.listCards{
+  width:550px;
+  margin-left: 90px;
+  margin-top: 10px;
+  padding:15px;
+}
+.cards{
+  width:250px;
+  padding: 15px;
+  margin:8px;
+}
+
+/*****************/

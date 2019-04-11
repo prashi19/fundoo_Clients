@@ -16,7 +16,8 @@ export default class Register extends Component {
       Password: "",
       ConfirmPassword: "",
       snackBarMessage: "",
-      showPassword: false
+      showPassword: false,
+      profilePic:"",
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -85,7 +86,8 @@ export default class Register extends Component {
           firstName: this.state.firstName,
           lastName: this.state.lastName,
           Email: this.state.Email,
-          Password: this.state.Password
+          Password: this.state.Password,
+          profilePic:this.state.profilePic,
         };
         userRegister(data)
           .then(response => {

@@ -5,7 +5,7 @@ import {
   Card,
   createMuiTheme,
   MuiThemeProvider,
-  Button,Chip
+  Button, Chip
 } from "@material-ui/core";
 import { createNote } from "../services/noteServices";
 import Tools from "./tools";
@@ -35,7 +35,8 @@ export default class CreateNote extends Component {
       reminder: "",
       archive: false,
       color: "rgb(255, 255, 255)",
-      newNote: {}
+      newNote: {},
+      trash: false,
     };
     this.handleTitle = this.handleTitle.bind(this);
     this.handleDescription = this.handleDescription.bind(this);
@@ -43,6 +44,7 @@ export default class CreateNote extends Component {
     this.handleColor = this.handleColor.bind(this);
     this.handleReminder = this.handleReminder.bind(this);
     this.handleArchive = this.handleArchive.bind(this);
+    this.handleTrash = this.handleTrash.bind(this);
   }
 
   handleTitle(evt) {
@@ -54,7 +56,7 @@ export default class CreateNote extends Component {
   }
   handleDescription(evt) {
     try {
-      this.setState ({ description: evt.target.value });
+      this.setState({ description: evt.target.value });
     } catch (err) {
       console.log("error at handleDescription in createNotes");
     }
@@ -76,15 +78,26 @@ export default class CreateNote extends Component {
   }
   reminderNote = () => {
     this.setState({ reminder: "" })
-}
-
-handleArchive(value) {
-  try {
-      this.setState({ archive: value });
-  } catch (err) {
-      console.log("error at handleArchive in createNotes");
   }
-}
+
+  handleArchive(value) {
+    try {
+      this.setState({ archive: value });
+    } catch (err) {
+      console.log("error at handleArchive in createNotes");
+    }
+  }
+
+
+  handleTrash(value) {
+    try {
+      this.setState({ trash: value });
+    } catch (err) {
+      console.log("error at handleTrash in createNotes");
+    }
+  }
+
+
 
   handleToggle() {
     try {
@@ -101,6 +114,7 @@ handleArchive(value) {
           color: this.state.color,
           reminder: this.state.reminder,
           archive: this.state.archive,
+          trash: this.state.trash,
         };
         createNote(note)
           .then(result => {
@@ -119,6 +133,7 @@ handleArchive(value) {
           color: "rgb(255, 255, 255)",
           reminder: "",
           archive: false,
+          trash: false,
         });
       }
     } catch (err) {
@@ -147,52 +162,54 @@ handleArchive(value) {
         </div>
       </MuiThemeProvider>
     ) : (
-      <MuiThemeProvider theme={theme}>
-        <div id="createNoteParent">
-          <Card
-            className="createNote1"
-            style={{ backgroundColor: this.state.color }}
-          >
-            <div className="createNotePinIcon">
+        <MuiThemeProvider theme={theme}>
+          <div id="createNoteParent">
+            <Card
+              className="createNote1"
+              style={{ backgroundColor: this.state.color }}
+            >
+              <div className="createNotePinIcon">
+                <Input
+                  className="noteInputBase"
+                  multiline
+                  disableUnderline={true}
+                  id="title"
+                  placeholder="Title"
+                  value={this.state.title}
+                  onChange={this.handleTitle}
+                />
+              </div>
               <Input
                 className="noteInputBase"
                 multiline
                 disableUnderline={true}
-                id="title"
-                placeholder="Title"
-                value={this.state.title}
-                onChange={this.handleTitle}
+                placeholder="Take a note..."
+                id="description"
+                value={this.state.description}
+                onChange={this.handleDescription}
               />
-            </div>
-            <Input
-              className="noteInputBase"
-              multiline
-              disableUnderline={true}
-              placeholder="Take a note..."
-              id="description"
-              value={this.state.description}
-              onChange={this.handleDescription}
-            />
-            {this.state.reminder ? (
-              <Chip
-                label={this.state.reminder}
-                onDelete={() => this.reminderNote()}
-              />
-            ) : null}
-            <div className="cardToolsClose">
-              <Tools
-                reminder={this.handleReminder}
-                createNotePropsToTools={this.handleColor}
-                archiveNote={this.handleArchive}
-                archiveStatus={this.state.archive}
-              />
-              <Button id="close" onClick={this.handleToggle}>
-                Close
+              {this.state.reminder ? (
+                <Chip
+                  label={this.state.reminder}
+                  onDelete={() => this.reminderNote()}
+                />
+              ) : null}
+              <div className="cardToolsClose">
+                <Tools
+                  reminder={this.handleReminder}
+                  createNotePropsToTools={this.handleColor}
+                  archiveNote={this.handleArchive}
+                  archiveStatus={this.state.archive}
+                  trashNote={this.handleTrash}
+                  trashStatus={this.state.trash}
+                />
+                <Button id="close" onClick={this.handleToggle}>
+                  Close
               </Button>
-            </div>
-          </Card>
-        </div>
-      </MuiThemeProvider>
-    );
+              </div>
+            </Card>
+          </div>
+        </MuiThemeProvider>
+      );
   }
 }

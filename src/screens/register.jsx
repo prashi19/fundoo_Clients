@@ -126,7 +126,7 @@ export default class Register extends Component {
             <div>
               <img
                 id="reg_logo"
-                src={require("/home/admin1/fundoo/Client/src/assets/Fundoo.png")}
+                src={require("../assets/Fundoo")}
                 alt="Fundoo"
               />
             </div>

@@ -3,7 +3,7 @@ import {
     shallow
 } from 'enzyme';
 import ResetPassword from '../screens/reset';
-import '/home/admin1/fundoo/Client/src/setupTest.js'
+import '../setupTest.js'
 /**
  * describe what we are testing
  **/

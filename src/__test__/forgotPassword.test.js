@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import ForgotPassword from "../screens/forgot";
-import "/home/admin1/fundoo/Client/src/setupTest.js";
+import "../setupTest";
 /**
  * describe what we are testing
  **/

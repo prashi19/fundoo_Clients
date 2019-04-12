@@ -134,7 +134,7 @@ export default class Login extends Component {
             <div>
               <img
                 id="logo"
-                src={require("/home/admin1/fundoo/Client/src/assets/Fundoo.png")}
+                src={require("../assets/Fundoo")}
                 alt="Fundoo"
               />
             </div>

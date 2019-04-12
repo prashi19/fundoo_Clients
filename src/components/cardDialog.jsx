@@ -8,12 +8,12 @@ import Tools from "../components/tools";
 // import { ClickAwayListener } from '@material-ui/core/ClickAwayListener';
 
 class AlertDialog extends React.Component {
-  state = {
-    open: false
-  };
-  handleClose = () => {
-    this.setState({ open: true });
-  };
+  // state = {
+  //   open: false
+  // };
+  // handleClose = () => {
+  //   this.setState({ open: true });
+  // };
 
   render() {
     const { open } = this.props;

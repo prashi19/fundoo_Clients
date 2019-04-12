@@ -10,6 +10,7 @@ import Fade from "@material-ui/core/Fade";
 import { Button } from "@material-ui/core";
 import "../App.css";
 import { uploadProfilePic } from "../services/userServices";
+import CropProfile from './CropProfile';
 /**
  * @description:This method is used to Logout ui..
  */
@@ -20,7 +21,8 @@ export default class Profile extends Component {
       anchorEl: null,
       open: false,   
       placement: null,
-      profilePic: ""
+      profilePic: "",
+      openProfileDialog:false,
     };
   }
   /**
@@ -79,6 +81,12 @@ export default class Profile extends Component {
       console.log("error at triggerInputFile in userProfile");
     }
   }
+/************ */
+  handleProfileDialog=()=>{
+    this.setState({openProfileDialog:true})
+
+  }
+  /**************** */
 
   componentDidMount() {
     if (localStorage.getItem("profilePic") !== "undefined") {
@@ -136,8 +144,8 @@ export default class Profile extends Component {
           placement={placement}
           transition
         >
-          {({ TransitionProps }) => (
-            <Fade {...TransitionProps} timeout={350}>
+          {/* {({ TransitionProps }) => ( */}
+            {/* // <Fade {...TransitionProps} timeout={350}> */}
               <Paper id="papperlogout">
                 <ClickAwayListener onClickAway={this.handleToggle}>
                   <div
@@ -157,9 +165,12 @@ export default class Profile extends Component {
                               height: "100px",
                               backgroundColor: "blur"
                             }}
-                            onClick={() => {
-                              this.triggerInputFile();
-                            }}
+                            // onClick={() => {
+                            //   this.triggerInputFile();
+                            // }}
+
+                            onClick={this.handleProfileDialog}
+                           
                           >
                             {this.state.profilePic !== "" ? (
                               <img
@@ -201,8 +212,8 @@ export default class Profile extends Component {
                   </div>
                 </ClickAwayListener>
               </Paper>
-            </Fade>
-          )}
+            {/* // </Fade> */}
+          {/* // )} */}
         </Popper>
         <div className="iconButton">
           <Tooltip
@@ -230,6 +241,9 @@ export default class Profile extends Component {
               )}
             </Avatar>
           </Tooltip>
+          <CropProfile
+            open={this.state.openProfileDialog}
+          />
         </div>
       </div>
     );

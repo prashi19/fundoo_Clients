@@ -66,7 +66,7 @@ export default class Forgot extends Component {
             <div>
               <img
                 id="for_logo"
-                src={require("../assets/Fundoo")}
+                src={require("../assets/Fundoo.png")}
                 alt="Fundoo"
               />
             </div>

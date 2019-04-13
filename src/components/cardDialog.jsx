@@ -5,15 +5,10 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { ClickAwayListener } from "@material-ui/core";
 import Tools from "../components/tools";
 
-// import { ClickAwayListener } from '@material-ui/core/ClickAwayListener';
-
 class AlertDialog extends React.Component {
-  // state = {
-  //   open: false
-  // };
-  // handleClose = () => {
-  //   this.setState({ open: true });
-  // };
+  handleClose = () => {
+    this.props.close();
+  };
 
   render() {
     const { open } = this.props;
@@ -28,7 +23,9 @@ class AlertDialog extends React.Component {
         >
           <DialogTitle id="alert-dialog-title">
             {"Use Google's location service?"}
+            <button onClick={this.handleClose}>Close</button>
           </DialogTitle>
+         
           <Tools
                           createNotePropsToTools={this.getColor}
                         //   noteID={notesArray[key]._id}

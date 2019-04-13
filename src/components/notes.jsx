@@ -89,6 +89,9 @@ export default class Cards extends Component {
   handleOpenDialog = () => {
     this.setState({ openDialog: true });
   };
+  handleClose=()=>{
+    this.setState({openDialog:false});
+  }
 
   reminderNote = (value, noteId) => {
     const reminder = {
@@ -231,7 +234,9 @@ export default class Cards extends Component {
               })}
           </div>
         </MuiThemeProvider>
-        <AlertDialog open={this.state.openDialog} />
+        <AlertDialog 
+        open={this.state.openDialog}
+        close={this.handleClose} />
       </div>
     );
   }

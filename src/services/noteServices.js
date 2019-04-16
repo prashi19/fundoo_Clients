@@ -84,6 +84,28 @@ export function updateTrashStatus(data) {
       }
   )
 }
+
+
+export function updateTitle(data) {
+  var headers = {
+      "token": localStorage.getItem("token")
+  }
+  return axios.put('/editTitle',
+      data, {
+          headers: headers
+      }
+  )
+}
+export function updateDescription(data) {
+  var headers = {
+      "token": localStorage.getItem("token")
+  }
+  return axios.put('/editDescription',
+      data, {
+          headers: headers
+      }
+  )
+}
 /*********************************************************************************************** */
 
 export function otherArray(notesData) {

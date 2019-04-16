@@ -12,9 +12,11 @@ import {
   otherArray,
   setReminder,
   updateArchiveStatus,
-  updateTrashStatus
+  updateTrashStatus,
+  updateDescription,
+  updateTitle
 } from "../services/noteServices";
-import AlertDialog from "../components/cardDialog";
+import DialogBox from "../components/cardDialog";
 import "../App.css";
 
 const theme = createMuiTheme({
@@ -45,7 +47,15 @@ export default class Cards extends Component {
       notes: [],
       openDialog: false
     };
+    this.cardsToDialogBox = React.createRef();
   }
+
+  async handleClick(note) {
+    console.log("note--------------------->", note);
+    this.cardsToDialogBox.current.getData(note);
+    await this.setState({ openDialog: true });
+  }
+
   componentDidMount() {
     getNotes()
       .then(result => {
@@ -85,13 +95,15 @@ export default class Cards extends Component {
       notes: [...this.state.notes, newCard]
     });
   };
-
   handleOpenDialog = () => {
-    this.setState({ openDialog: true });
+    this.setState({ openDialog: !this.state.openDialog });
   };
-  handleClose=()=>{
-    this.setState({openDialog:false});
-  }
+  handleClose = () => {
+    this.setState({ openDialog: false });
+  };
+  closeDialogBox = e => {
+    this.setState({ openDialog: false });
+  };
 
   reminderNote = (value, noteId) => {
     const reminder = {
@@ -163,6 +175,51 @@ export default class Cards extends Component {
       });
   };
 
+  editTitle = (value, noteId) => {
+    const title = {
+      noteID: noteId,
+      title: value
+    };
+    console.log("title-->", title);
+
+    updateTitle(title)
+      .then(result => {
+        let newArray = this.state.notes;
+        for (let i = 0; i < newArray.length; i++) {
+          if (newArray[i]._id === noteId) {
+            newArray[i].title = result.data.data;
+            this.setState({
+              notes: newArray
+            });
+          }
+        }
+      })
+      .catch(error => {
+        alert(error);
+      });
+  };
+  editDescription = (value, noteId) => {
+    const description = {
+      noteID: noteId,
+      description: value
+    };
+    updateDescription(description)
+      .then(result => {
+        let newArray = this.state.notes;
+        for (let i = 0; i < newArray.length; i++) {
+          if (newArray[i]._id === noteId) {
+            newArray[i].description = result.data.data;
+            this.setState({
+              notes: newArray
+            });
+          }
+        }
+      })
+      .catch(error => {
+        alert(error);
+      });
+  };
+
   render() {
     let notesArray = otherArray(this.state.notes);
     let cardsView = this.props.noteProps ? "listCards" : "cards";
@@ -184,9 +241,27 @@ export default class Cards extends Component {
                         border: "1px solid #dadce0"
                       }}
                     >
-                      <div id="dispNote">
+                      <div>
                         <div
-                          onClick={this.handleOpenDialog}
+                          onClick={() => this.handleClick(notesArray[key])}
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between"
+                          }}
+                        >
+                          <b> {notesArray[key].title}</b>
+                        </div>
+
+                        <div
+                          onClick={() => this.handleClick(notesArray[key])}
+                          style={{ paddingBottom: "10px", paddingTop: "10px" }}
+                        >
+                          {notesArray[key].description}
+                        </div>
+                      </div>
+
+                      <div id="dispNote">
+                        {/* <div
                           style={{
                             display: "flex",
                             justifyContent: "space-between",
@@ -203,7 +278,7 @@ export default class Cards extends Component {
                           }}
                         >
                           {notesArray[key].description}
-                        </div>
+                        </div> */}
                       </div>
                       <div>
                         {/* <img src={clockIcon} alt="clockIcon" /> */}
@@ -233,10 +308,19 @@ export default class Cards extends Component {
                 );
               })}
           </div>
+          <DialogBox
+            ref={this.cardsToDialogBox}
+            close={this.handleClose}
+            parentProps={this.state.openDialog}
+            handleEdit={this.handleClick}
+            closeEditBox={this.closeDialogBox}
+            // editTitle={this.editTitle}
+            // editDescription={this.editDescription}
+            createNotePropsToTools={this.getColor}
+            reminderNote={this.reminderNote}
+            trashNote={this.trashNote}
+          />
         </MuiThemeProvider>
-        <AlertDialog 
-        open={this.state.openDialog}
-        close={this.handleClose} />
       </div>
     );
   }

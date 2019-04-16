@@ -95,7 +95,7 @@ export default class MoreOptions extends Component {
           open={open}
           anchorEl={anchorEl}
           placement={placement}
-          transition
+          transition style={{zIndex:9999}}
         >
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>

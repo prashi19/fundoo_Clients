@@ -310,6 +310,7 @@ export default class Cards extends Component {
           </div>
           <DialogBox
             ref={this.cardsToDialogBox}
+            // ref={this.cardsToDialogBox}
             close={this.handleClose}
             parentProps={this.state.openDialog}
             handleEdit={this.handleClick}

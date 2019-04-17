@@ -128,6 +128,16 @@ export function remiderArray(notesData) {
   return reminderArr;
 }
 
+export function archiveArray(notesData) {
+  let archiveArr = [];
+  for (let i = 0; i < notesData.length; i++) {
+      if (notesData[i].archive) {
+          archiveArr.push(notesData[i]);
+      }
+  }
+  return archiveArr;
+}
+
 
 export function trashArray(notesData) {
   let trashArr = [];

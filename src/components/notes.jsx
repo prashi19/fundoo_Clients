@@ -11,12 +11,14 @@ import {
   updateColor,
   otherArray,
   setReminder,
+  archiveArray,
   updateArchiveStatus,
   updateTrashStatus,
   updateDescription,
   updateTitle
 } from "../services/noteServices";
 import DialogBox from "../components/cardDialog";
+import ArchivedNavigator from "../components/archiveNavigator"
 import "../App.css";
 
 const theme = createMuiTheme({
@@ -175,7 +177,7 @@ export default class Cards extends Component {
       });
   };
 
-  editTitle = (value, noteId) => {
+  editTitle = (noteId,value) => {
     const title = {
       noteID: noteId,
       title: value
@@ -198,7 +200,7 @@ export default class Cards extends Component {
         alert(error);
       });
   };
-  editDescription = (value, noteId) => {
+  editDescription = (noteId,value) => {
     const description = {
       noteID: noteId,
       description: value
@@ -223,6 +225,18 @@ export default class Cards extends Component {
   render() {
     let notesArray = otherArray(this.state.notes);
     let cardsView = this.props.noteProps ? "listCards" : "cards";
+    if (this.props.navigateArchived) {
+      return (
+          <ArchivedNavigator
+              archiveArray={archiveArray(this.state.notes)}
+              othersArray={otherArray}
+              getColor={this.getColor}
+              noteProps={this.props.noteProps}
+              reminder={this.reminderNote}
+              archiveNote={this.archiveNote}
+          />
+      )
+  }
     return (
       <div className="root">
         <MuiThemeProvider theme={theme}>
@@ -301,7 +315,7 @@ export default class Cards extends Component {
                           archiveStatus={notesArray[key].archive}
                           trashNote={this.trashNote}
                           trashStatus={notesArray[key].trash}
-                        />
+                       />
                       </div>
                     </Card>
                   </div>
@@ -310,15 +324,15 @@ export default class Cards extends Component {
           </div>
           <DialogBox
             ref={this.cardsToDialogBox}
-            // ref={this.cardsToDialogBox}
             close={this.handleClose}
             parentProps={this.state.openDialog}
             handleEdit={this.handleClick}
             closeEditBox={this.closeDialogBox}
-            // editTitle={this.editTitle}
-            // editDescription={this.editDescription}
+            editTitle={this.editTitle}
+            editDescription={this.editDescription}
             createNotePropsToTools={this.getColor}
             reminderNote={this.reminderNote}
+            archiveNote={this.archiveNote}
             trashNote={this.trashNote}
           />
         </MuiThemeProvider>

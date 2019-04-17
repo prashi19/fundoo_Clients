@@ -163,7 +163,7 @@ export default class CreateNote extends Component {
       </MuiThemeProvider>
     ) : (
         <MuiThemeProvider theme={theme}>
-          <div id="createNoteParent">
+          <div id="createNoteParent1">
             <Card
               className="createNote1"
               style={{ backgroundColor: this.state.color }}

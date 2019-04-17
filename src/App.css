@@ -125,6 +125,16 @@
   margin-left: 20%;
   width: 60%;
 }
+/******************************** Appbar *********************************/
+#typo{
+  opacity:.70 ;
+  font-weight: 300;
+}
+.PersistentDrawerLeft-drawerPaper-140 {
+  width: 220px;
+  margin-top: 84px;
+}
+
 /*********************** Css for Reset page ******************************/
 .res_password {
   width: 60%;
@@ -209,7 +219,7 @@
 
 .createNote {
   height: 0px;
-  width: 500px;
+  width: 530px;
   margin-left: 100px;
   margin-top: 100px;
   text-align: left;
@@ -219,7 +229,7 @@
 
 .createNote1 {
   /* height: 100px; */
-  width: 500px;
+  width: 600px;
   margin-left: 100px;
   margin-top: 100px;
   border-radius: 10px;
@@ -239,7 +249,11 @@
 }
 
 #createNoteParent {
-  margin-left: 0px;
+  margin-left: 160px;
+}
+
+#createNoteParent1{
+  margin-left:160px; 
 }
 .staticCreateNote {
   /* display:flex; */
@@ -299,6 +313,7 @@ width:fit-content;
   display: flex;
   flex-wrap: wrap;
   margin-top: 3%;
+  margin-left: 160px;
   }
   
   #gap {
@@ -353,4 +368,77 @@ width:fit-content;
   float: right;
   margin-top: -5%;
 }
-/*****************/
+
+/***************** MEDIA QUERY ****************/
+
+/* @media only screen and (max-width: 900px) {
+  #createNoteParent {
+    margin-left:40px;
+  }
+  #createNoteParent1{
+    margin-left:40px; 
+  }
+  .CardsView{
+    margin-left: 40px;
+  }
+ 
+}
+
+@media only screen and (max-width:800px){
+  #createNoteParent {
+    margin-left: -50px;
+  }
+  #createNoteParent1{
+    margin-left:-50px; 
+  }
+  .CardsView{
+    margin-left: 0px;
+  }
+}
+
+@media only screen and (max-width:400px){
+  #createNoteParent {
+    margin-left: -10px;
+  }
+  #createNoteParent1{
+    margin-left:-10px; 
+  }
+  .CardsView{
+    margin-left: -10px;
+  }
+} */
+
+
+@media screen and (max-width:320px){
+  .afterSlide {
+    margin-left: 100px;
+    transition: margin-left 0.25s;
+  }
+  
+  .beforeSlide {
+    margin-left: 100px;
+    transition: 0.25s;
+  }
+
+  #createNoteParent {
+    margin-left:-100px;
+  }
+  #createNoteParent1{
+    margin-left:-100px; 
+  }
+  .CardsView{
+    margin-left: -100px;
+    
+  }
+  .root{
+    margin-left:-50px;
+  }
+
+  .cards {
+    width: 550px;
+    margin-left: 90px;
+}
+#cardViewIcon{
+  display: none;
+}
+}

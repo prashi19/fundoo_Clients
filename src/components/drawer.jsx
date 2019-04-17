@@ -37,7 +37,10 @@ const styles = theme => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    marginTop: "84px",
+    marginTop: 59,
+    [theme.breakpoints.up("sm")]:{
+      marginTop:66
+    }
     
   },
   drawerHeader: {
@@ -74,9 +77,23 @@ const styles = theme => ({
 
 class PersistentDrawerLeft extends React.Component {
   state = {
-    open: false
+    open: false,
+    navigateArchived: false
   };
 
+  // handleClick=evt=>{
+  //   this.props.name(evt);
+  // }
+  async handleArchived(evt) {
+    await this.setState({
+    
+        navigateReminder: false,
+        navigateArchived: true,
+        navigateTrashed: false
+    })
+    this.props.name(evt);
+    this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
+}
   render() {
     const { classes } = this.props;
     return (
@@ -89,7 +106,7 @@ class PersistentDrawerLeft extends React.Component {
             paper: classes.drawerPaper
           }}
         >
-          <MenuItem id="noteMenu" className={classes.menuItem}>
+          <MenuItem id="noteMenu" className={classes.menuItem} onClick={()=>this.handleClick("fundoo")}>
             <img
               src={require("../assets/menuNote.svg")}
               alt="note icon"
@@ -97,7 +114,7 @@ class PersistentDrawerLeft extends React.Component {
             />
             Notes
           </MenuItem>
-          <MenuItem id="reminderMenu" className={classes.menuItem}>
+          <MenuItem id="reminderMenu" className={classes.menuItem} onClick={()=>this.handleClick("Reminder")}>
             <img
               src={require("../assets/menuReminder.svg")}
               alt="reminder icon"
@@ -124,7 +141,7 @@ class PersistentDrawerLeft extends React.Component {
               LABELS
             </div>
             <div>
-              <MenuItem id="labelMenu" className={classes.menuItem}>
+              <MenuItem id="labelMenu" className={classes.menuItem} onClick={()=>this.handleClick("Label")}>
                 <img
                   src={require("../assets/menuEdit.svg")}
                   alt="edit icon"
@@ -134,7 +151,7 @@ class PersistentDrawerLeft extends React.Component {
               </MenuItem>
             </div>
           </div>
-          <MenuItem id="archiveMenu" className={classes.menuItem}>
+          <MenuItem id="archiveMenu" className={classes.menuItem} onClick={()=>this.handleArchived("Archive")}>
             <img
               src={require("../assets/menuArchive.svg")}
               alt="archive icon"
@@ -142,7 +159,7 @@ class PersistentDrawerLeft extends React.Component {
             />
             Archive
           </MenuItem>
-          <MenuItem id="trashIcon" className={classes.menuItem}>
+          <MenuItem id="trashIcon" className={classes.menuItem} onClick={()=>this.handleClick("Trash")}>
             <img
               src={require("../assets/menuTrash.svg")}
               alt="trash icon"

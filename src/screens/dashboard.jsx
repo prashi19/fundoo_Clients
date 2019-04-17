@@ -25,7 +25,6 @@ export default class DashBoard extends Component {
     this.handlecardStyles = this.handlecardStyles.bind(this);
     this.noteToCards = React.createRef();
     console.log();
-    
   }
 
   slideCards = () => {
@@ -49,6 +48,14 @@ export default class DashBoard extends Component {
     }
   }
 
+  handleNavigation =( reminder,archive,trash) => {
+    if (archive === true) {
+      this.setState({ archive: archive });
+    } else {
+      this.setState({ archive: false });
+    }
+  };
+
   render() {
     const slidingCards = this.state.slideCards ? "afterSlide" : "beforeSlide";
     return (
@@ -58,16 +65,28 @@ export default class DashBoard extends Component {
             props={this.props}
             slideCards={this.slideCards}
             notePropsToApp={this.handlecardStyles}
+            handleNavigation={this.handleNavigation}
           />
         </div>
-
-        <div className="dashboard">
-          <CreateNotes getNewNote={this.getNewNote} />
-          <Notes
-            ref={this.noteToCards}
-            noteProps={this.state.cardStyles}
-            uploadImage={this.state.image}
-          />
+        <div className="setFixedMargin">
+          {this.state.archive || this.state.trash || this.state.searchNote ? (
+            <div id="dashboard1">
+              <Notes
+                noteProps={this.state.cardStyles}
+                ref={this.noteToCards}
+                navigateArchived={this.state.archive}
+              />
+            </div>
+          ) : (
+            <div id="dashboard">
+              <CreateNotes getNewNote={this.getNewNote} />
+              <Notes
+                noteProps={this.state.cardStyles}
+                ref={this.noteToCards}
+                navigateArchived={this.state.archive}
+              />
+            </div>
+          )}
         </div>
       </div>
     );

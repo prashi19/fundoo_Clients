@@ -14,7 +14,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import PersistentDrawerLeft from "../components/drawer";
 import Profile from "../components/popperprofile";
 import { Tooltip } from "@material-ui/core";
-import CardsView from "../components/cardView"
+import CardsView from "../components/cardView";
 
 const styles = theme => ({
   root: {
@@ -105,7 +105,8 @@ class PrimarySearchAppBar extends React.Component {
     super(props);
     this.state = {
       open: false,
-      openPopper: false
+      openPopper: false,
+      name: "fundoo"
       // anchorEl: null,
       // mobileMoreAnchorEl: null,
     };
@@ -121,13 +122,13 @@ class PrimarySearchAppBar extends React.Component {
     window.location.reload();
   }
 
-  handleAppbar=()=> {
+  handleAppbar = () => {
     this.props.notePropsToApp();
-    
-}
-
+  };
+  handleName = evt => {
+    this.setState({ name: evt });
+  };
   render() {
-
     const { classes } = this.props;
     return (
       <div className={classes.root}>
@@ -143,18 +144,27 @@ class PrimarySearchAppBar extends React.Component {
                 <MenuIcon />
               </Tooltip>
             </IconButton>
-            <img
+
+            {this.state.name === "fundoo" ? (
+              <img
+                src={"https://img.icons8.com/color/48/000000/google-keep.png"}
+                alt="Fundoo"
+              />
+            ) : null}
+
+            {/* <img
               src={"https://img.icons8.com/color/48/000000/google-keep.png"}
               alt="Fundoo"
-            />
+            /> */}
+            <div id="typo">
             <Typography
               className={classes.title}
               variant="h6"
               color="inherit"
               noWrap
             >
-              Fundoo
-            </Typography>
+             {this.state.name}
+            </Typography></div>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <Tooltip title="Search">
@@ -181,10 +191,8 @@ class PrimarySearchAppBar extends React.Component {
             </div>
 
             <div className={classes.list}>
-              <CardsView 
-            appPropstoCardsView={this.handleAppbar} />
+              <CardsView appPropstoCardsView={this.handleAppbar} />
             </div>
-
 
             {/* <div className={classes.list}>
               <IconButton id="Button1">
@@ -194,13 +202,13 @@ class PrimarySearchAppBar extends React.Component {
                 </Tooltip>
               </IconButton>
             </div> */}
-            
-              <IconButton id="Button" onClick={this.handlePopper}>
-                <Tooltip title="Fundoo Account">
-                  <Profile props={this.props} />
-                </Tooltip>
-              </IconButton>
-          
+
+            <IconButton id="Button" onClick={this.handlePopper}>
+              <Tooltip title="Fundoo Account">
+                <Profile props={this.props} />
+              </Tooltip>
+            </IconButton>
+
             {/* </div> */}
 
             {/* <div className={classes.sectionMobile}>
@@ -214,7 +222,11 @@ class PrimarySearchAppBar extends React.Component {
             </div> */}
           </Toolbar>
         </AppBar>
-        <PersistentDrawerLeft appBarProps={this.state.open} />
+        <PersistentDrawerLeft
+          appBarProps={this.state.open}
+          name={this.handleName}
+          handleNavigation={this.props.handleNavigation}
+        />
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Archiveicon from '../assets/menuArchive.svg';
 import { Snackbar, IconButton, Tooltip } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+// import CloseIcon from '@material-ui/icons/Close';
 export default class Archive extends Component {
     constructor(props) {
         super(props);
@@ -50,7 +50,9 @@ export default class Archive extends Component {
         return (
             this.state.isArchived ?
                 <div>
-                    <img src={Archiveicon}
+                    <img 
+                    // src={require("../assets/archive.jsx")}
+                    src={Archiveicon}
                         onClick={
                             this.handleArchive
                         }
@@ -78,7 +80,7 @@ export default class Archive extends Component {
                                     color="inherit"
                                     onClick={this.handleSnackClose}
                                 >
-                                    <CloseIcon />
+                                    {/* <CloseIcon /> */}
                                 </IconButton>
                             </div>
                         ]}
@@ -89,7 +91,10 @@ export default class Archive extends Component {
                     <Tooltip title="Archive Note" onClick={
                         this.handleArchive
                     }>
-                        <img src={Archiveicon}
+                        <img 
+                        // src={require("../assets/archive.jsx")}
+                        //{Archiveicon}
+                        src={Archiveicon}
                             alt="archive note icon"
                         />
                     </Tooltip>

@@ -54,6 +54,8 @@ class ResponsiveDialog extends React.Component {
       reminder: ""
     };
     this.getData = this.getData.bind(this);
+    this.handleTitleClick=this.handleTitleClick.bind(this);
+    this.handleDescClick=this.handleDescClick.bind(this);
   }
   async handleTitleClick(evt) {
     await this.setState({ title: evt.target.value })
@@ -62,6 +64,8 @@ class ResponsiveDialog extends React.Component {
     await this.setState({ description: evt.target.value })
   }
   handleClose=(event)=>{
+    this.props.editTitle(this.state._id,this.state.title);
+    this.props.editDescription(this.state._id,this.state.description);
    this.props.close();
   }
   

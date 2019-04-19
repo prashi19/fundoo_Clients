@@ -23,7 +23,8 @@ const theme = createMuiTheme({
     MuiInputBase:
     {
       multiline: {
-        padding: "9px 30px 7px"
+        padding: "9px 30px 7px",
+        wordBreak:"break-word"
       }
     },
     MuiChip: {

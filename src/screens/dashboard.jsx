@@ -48,11 +48,11 @@ export default class DashBoard extends Component {
     }
   }
 
-  handleNavigation =( reminder,archive,trash) => {
-    if (archive === true) {
-      this.setState({ archive: archive });
+  handleNavigation = (reminder, archive, trash) => {
+    if (archive === true || trash === true || reminder===true) {
+      this.setState({ archive: archive, trash: trash ,reminder :reminder });
     } else {
-      this.setState({ archive: false });
+      this.setState({ archive: false, trash: false , reminder:false});
     }
   };
 
@@ -68,27 +68,30 @@ export default class DashBoard extends Component {
             handleNavigation={this.handleNavigation}
           />
         </div>
-        <div className="setFixedMargin">
-          {this.state.archive || this.state.trash || this.state.searchNote ? (
-            <div id="dashboard1">
+        
+          {this.state.archive || this.state.trash ? (
+            <div id="dashboard_navigation">
               <Notes
                 noteProps={this.state.cardStyles}
                 ref={this.noteToCards}
                 navigateArchived={this.state.archive}
+                navigateTrashed={this.state.trash}
+                navigateReminder={this.state.reminder}
               />
             </div>
           ) : (
-            <div id="dashboard">
-              <CreateNotes getNewNote={this.getNewNote} />
-              <Notes
-                noteProps={this.state.cardStyles}
-                ref={this.noteToCards}
-                navigateArchived={this.state.archive}
-              />
-            </div>
-          )}
+              <div id="dashboard_createdisp">
+                <CreateNotes getNewNote={this.getNewNote} />
+                <Notes
+                  noteProps={this.state.cardStyles}
+                  ref={this.noteToCards}
+                  navigateArchived={this.state.archive}
+                  navigateTrashed={this.state.trash}
+                  navigateReminder={this.state.reminder}
+                />
+              </div>
+            )}
         </div>
-      </div>
     );
   }
 }

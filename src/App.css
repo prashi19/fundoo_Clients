@@ -1,6 +1,7 @@
 .App {
   /* text-align: center; */
   justify-items: center;
+  
 }
 
 .content {
@@ -46,6 +47,27 @@
   width: 72%;
 }
 
+
+@media screen and (max-width:425px){
+.content{
+  display:contents;
+}
+#password1{
+  margin-left: 14%;
+}
+}
+
+@media screen and (max-width:768px){
+  .content{
+    /* width:700px; */
+   width:448px;
+   height:500px;    
+  }
+  #input{
+    width:238px;
+  }
+}
+
 /*********************** Css for Register Password page ******************************/
 
 #reg_logo {
@@ -71,7 +93,6 @@
 .reg_center {
   text-align: center;
 }
-
 
 #reg_hed {
   margin-left: 10%;
@@ -103,8 +124,8 @@
   margin-top: 2%;
 }
 
-.popinfo{
-  width:fit-content;
+.popinfo {
+  width: fit-content;
   float: right;
   margin-top: 16%;
 }
@@ -126,13 +147,9 @@
   width: 60%;
 }
 /******************************** Appbar *********************************/
-#typo{
-  opacity:.70 ;
+#typo {
+  opacity: 0.7;
   font-weight: 300;
-}
-.PersistentDrawerLeft-drawerPaper-140 {
-  width: 220px;
-  margin-top: 84px;
 }
 
 /*********************** Css for Reset page ******************************/
@@ -219,8 +236,8 @@
 
 .createNote {
   height: 0px;
-  width: 530px;
-  margin-left: 100px;
+  width: 550px;
+  margin-left: 90px;
   margin-top: 100px;
   text-align: left;
   padding: 20px;
@@ -229,8 +246,8 @@
 
 .createNote1 {
   /* height: 100px; */
-  width: 600px;
-  margin-left: 100px;
+  width: 550px;
+  margin-left: 90px;
   margin-top: 100px;
   border-radius: 10px;
   text-align: left;
@@ -252,8 +269,8 @@
   margin-left: 160px;
 }
 
-#createNoteParent1{
-  margin-left:160px; 
+#createNoteParent1 {
+  margin-left: 160px;
 }
 .staticCreateNote {
   /* display:flex; */
@@ -264,10 +281,11 @@
 #close {
   float: right;
   text-transform: none;
-  font-weight:450;
+  font-weight: 450;
   outline: none;
   box-shadow: none;
-  opacity: .70;
+  opacity: 0.7;
+  margin-top: -26px;
 }
 
 #avatar:focus,
@@ -278,167 +296,242 @@
 
 #userProfileIcon:focus,
 #userProfileIcon:active {
-  outline:none;
-  box-shadow :none;
+  outline: none;
+  box-shadow: none;
 }
 
 .ColorBox {
-width:fit-content;
+  width: fit-content;
 }
 #ToolButton {
-  margin:0 8px;
+  margin: 0 16px;
   cursor: pointer;
-  opacity: .71; 
-  height: 20px;
-    width: 20px;
-     
+  opacity: 0.71;
+  height: 24px;
+  width: 24px;
 }
 #cardViewIcon:focus,
-#cardViewIcon:active{
-  outline:none;
-  box-shadow :none;
-  }
-
+#cardViewIcon:active {
+  outline: none;
+  box-shadow: none;
+}
 
 .CardsView {
-  /* width: 499px;
-  margin-top: 25px;
-  text-align: left;
-  padding: 15px;
-  border: 1px solid #dadce0;
-  border-radius: 10px;
-  justify-content: space-between;
-  margin-left: 160px; */
-
+  width:900px;
   display: flex;
   flex-wrap: wrap;
   margin-top: 3%;
   margin-left: 160px;
-  }
-  
-  #gap {
+  word-break: break-word;
+
+}
+
+.dialogInputBase{
+  width:550px;
+}
+
+#gap {
   display: flex;
   /* margin-left: 12%; */
   margin-left: 140px;
-  width:fit-content;
-  }
-  .cardTools{
+  width: fit-content;
+}
+.cardTools {
   margin-top: 4%;
   display: flex;
-  
+
   /* opacity: .71;  */
-  
-  }
+}
 
-  
-  .colorPalleteCard{
-    position: absolute;
-    max-width: 126px;
-    /* margin-left: 26.5%;
+.Reminder_Contents {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 3%;
+  margin-left: 160px;
+  width: 530px;
+}
+.colorPalleteCard {
+  position: absolute;
+  max-width: 126px;
+  /* margin-left: 26.5%;
     margin-top: -4%; */
-    padding: 3px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    z-index: 2;
-    transition: 5s;
-    overflow: auto;
+  padding: 3px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  z-index: 2;
+  transition: 5s;
+  overflow: auto;
+}
+
+/* .displaycontentdiv{
+    visibility:hidden;
+    display: none
   }
+  .displaycontentdiv:hover.CardsView1{
+    visibility:visible;
+    display: block;
+  } */
+
+
 
 /***************************************************************************************************************/
 /***************************************************************************************************************/
 
-.root{
+.root {
   display: flex;
   flex-wrap: wrap;
 }
 
-.listCards{
-  width:550px;
+.listCards {
+  width: 550px;
   margin-left: 90px;
   margin-top: 10px;
-  padding:15px;
-}
-.cards{
-  width:250px;
   padding: 15px;
-  margin:8px;
 }
-#dibut{
+.cards {
+  width: 250px;
+  padding: 15px;
+  margin: 8px;
+}
+#dibut {
   float: right;
   margin-top: -5%;
 }
 
-/***************** MEDIA QUERY ****************/
 
-/* @media only screen and (max-width: 900px) {
-  #createNoteParent {
-    margin-left:40px;
-  }
-  #createNoteParent1{
-    margin-left:40px; 
-  }
-  .CardsView{
-    margin-left: 40px;
-  }
- 
+
+/***************** ARCHIVE NAVIGATOR CSS ******************/
+
+/**************** TRASH NAVIGATOR CSS ********************/
+
+.TrashNavi1 {
+  margin-top: 20px;
+  margin-left: -120px;
 }
 
-@media only screen and (max-width:800px){
-  #createNoteParent {
-    margin-left: -50px;
-  }
-  #createNoteParent1{
-    margin-left:-50px; 
-  }
-  .CardsView{
-    margin-left: 0px;
-  }
+.a1{
+  margin-top: 20px;
+  margin-left: -120px;
 }
-
-@media only screen and (max-width:400px){
-  #createNoteParent {
-    margin-left: -10px;
-  }
-  #createNoteParent1{
-    margin-left:-10px; 
-  }
-  .CardsView{
-    margin-left: -10px;
-  }
-} */
-
-
-@media screen and (max-width:320px){
+/***************** MEDIA QUERY for MOBILE ****************/
+@media screen and (max-width: 425px) {
+  /* body{
+    font-size: 2rem;
+  } */
   .afterSlide {
     margin-left: 100px;
     transition: margin-left 0.25s;
   }
-  
+
   .beforeSlide {
     margin-left: 100px;
     transition: 0.25s;
   }
 
   #createNoteParent {
-    margin-left:-100px;
-  }
-  #createNoteParent1{
-    margin-left:-100px; 
-  }
-  .CardsView{
-    margin-left: -100px;
+    margin-left: 0px;
     
   }
-  .root{
-    margin-left:-50px;
+  #createNoteParent1 {
+    margin-left: 0px;
+  }
+  .CardsView {
+    margin-top: 20px;
+    margin-left: -120px;
+    width:350px;
+  }
+  .root {
+    margin-left: -110px;
   }
 
   .cards {
     width: 550px;
-    margin-left: 90px;
+    margin-left: 80px;
+  }
+  #cardViewIcon {
+    display: none;
+  }
+  .createNote {
+    margin-left: 40px;
+  }
+  .createNote1 {
+    margin-left: 40px;
+  }
+
+  .Reminder_Contents {
+    margin-left: -170px;
+  }
+  .CardsView1 {
+    margin-left: 0px;
+  }
+  #notesfont{
+    font-size: 1.6rem;
+    margin-left:10px; 
+    
+  }
+  #close{
+    font-size: 1.5rem;
+  }
+
+  #title{
+    font-size: 1.6rem;
+  }
+  #description{
+    font-size: 1.6rem; 
+    padding:2px;
+
+  }
+  
 }
-#cardViewIcon{
+
+/***************** MEDIA QUERY for TABLETS ****************/
+@media screen and (max-width: 768px) {
+  .afterSlide {
+    margin-left: 100px;
+    transition: margin-left 0.25s;
+  }
+
+  .beforeSlide {
+    margin-left: 100px;
+    transition: 0.25s;
+  }
+
+  #createNoteParent {
+    margin-left: -17px;
+  }
+  #createNoteParent1 {
+    margin-left: -17px;
+  }
+  .CardsView {
+    margin-top: 20px;
+    margin-left: -17px;
+  }
+  .root {
+    margin-left: -50px;
+  }
+  /* 
+  .cards {
+    width: 550px;
+    margin-left: 180px; 
+    width:250px;
+  padding: 15px;
+  margin:8px;
+} */
+  /* #cardViewIcon{
   display: none;
-}
+} */
+  .createNote {
+    margin-left: 40px;
+  }
+  .createNote1 {
+    margin-left: 40px;
+  }
+
+  .Reminder_Contents {
+    margin-left: -170px;
+  }
+  .CardsView1 {
+    margin-left: 0px;
+  }
 }

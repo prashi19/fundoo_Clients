@@ -85,19 +85,6 @@ const styles = theme => ({
   list: {
     opacity: 0.6
   }
-
-  // sectionDesktop: {
-  //   display: "none",
-  //   [theme.breakpoints.up("md")]: {
-  //     display: "flex"
-  //   }
-  // },
-  // sectionMobile: {
-  //   display: "flex",
-  //   [theme.breakpoints.up("md")]: {
-  //     display: "none"
-  //   }
-  // }
 });
 
 class PrimarySearchAppBar extends React.Component {
@@ -107,8 +94,6 @@ class PrimarySearchAppBar extends React.Component {
       open: false,
       openPopper: false,
       name: "fundoo"
-      // anchorEl: null,
-      // mobileMoreAnchorEl: null,
     };
   }
 

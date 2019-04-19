@@ -118,7 +118,7 @@ export function otherArray(notesData) {
   return otherArr;
 }
 
-export function remiderArray(notesData) {
+export function reminderArray(notesData) {
   let reminderArr = [];
   for (let i = 0; i < notesData.length; i++) {
       if (notesData[i].reminder !== "" && !notesData[i].trash) {

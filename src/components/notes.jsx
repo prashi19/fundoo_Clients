@@ -12,13 +12,17 @@ import {
   otherArray,
   setReminder,
   archiveArray,
+  trashArray,
+  reminderArray,
   updateArchiveStatus,
   updateTrashStatus,
   updateDescription,
   updateTitle
 } from "../services/noteServices";
 import DialogBox from "../components/cardDialog";
-import ArchivedNavigator from "../components/archiveNavigator"
+import ArchivedNavigator from "../components/archiveNavigator";
+import TrashNavigator from "../components/trashNavigator";
+import ReminderNavigator from "../components/reminderNavigator"
 import "../App.css";
 
 const theme = createMuiTheme({
@@ -29,7 +33,8 @@ const theme = createMuiTheme({
         marginTop: 20,
         height: 25,
         backgroundColor: "rgba(0, 0, 0, 0.10)",
-        padding: 0
+        padding: 10,
+       
       },
       deleteIcon: {
         width: 20,
@@ -107,6 +112,7 @@ export default class Cards extends Component {
     this.setState({ openDialog: false });
   };
 
+
   reminderNote = (value, noteId) => {
     const reminder = {
       noteID: noteId,
@@ -177,7 +183,7 @@ export default class Cards extends Component {
       });
   };
 
-  editTitle = (noteId,value) => {
+  editTitle = (noteId, value) => {
     const title = {
       noteID: noteId,
       title: value
@@ -200,7 +206,7 @@ export default class Cards extends Component {
         alert(error);
       });
   };
-  editDescription = (noteId,value) => {
+  editDescription = (noteId, value) => {
     const description = {
       noteID: noteId,
       description: value
@@ -227,16 +233,38 @@ export default class Cards extends Component {
     let cardsView = this.props.noteProps ? "listCards" : "cards";
     if (this.props.navigateArchived) {
       return (
-          <ArchivedNavigator
-              archiveArray={archiveArray(this.state.notes)}
-              othersArray={otherArray}
-              getColor={this.getColor}
-              noteProps={this.props.noteProps}
-              reminder={this.reminderNote}
-              archiveNote={this.archiveNote}
-          />
+        <ArchivedNavigator
+          archiveArray={archiveArray(this.state.notes)}
+          othersArray={otherArray}
+          getColor={this.getColor}
+          noteProps={this.props.noteProps}
+          reminder={this.reminderNote}
+          archiveNote={this.archiveNote}
+        />
+      );
+    } else if (this.props.navigateTrashed) {
+      return (
+        <TrashNavigator
+          trashArray={trashArray(this.state.notes)}
+          othersArray={otherArray}
+          getColor={this.getColor}
+          noteProps={this.props.noteProps}
+          reminder={this.reminderNote}
+          trashNote={this.trashNote}
+        />
+      );
+    }else if(this.props.navigateReminder){
+      return(
+        <ReminderNavigator
+        reminderArray={reminderArray(this.state.notes)}
+        othersArray={otherArray}
+        getColor={this.getColor}
+        noteProps={this.props.noteProps}
+        reminder={this.reminderNote}
+        trashNote={this.trashNote}
+        />
       )
-  }
+    }
     return (
       <div className="root">
         <MuiThemeProvider theme={theme}>
@@ -249,10 +277,12 @@ export default class Cards extends Component {
                   <div key={key}>
                     <Card
                       className={cardsView}
+                      id="notesfont"
                       style={{
                         backgroundColor: notesArray[key].color,
                         borderRadius: "15px",
-                        border: "1px solid #dadce0"
+                        border: "1px solid #dadce0",
+                      
                       }}
                     >
                       <div>
@@ -274,8 +304,8 @@ export default class Cards extends Component {
                         </div>
                       </div>
 
-                      <div id="dispNote">
-                        {/* <div
+                     {/* <div id="dispNote">
+                         <div
                           style={{
                             display: "flex",
                             justifyContent: "space-between",
@@ -292,8 +322,8 @@ export default class Cards extends Component {
                           }}
                         >
                           {notesArray[key].description}
-                        </div> */}
-                      </div>
+                        </div> 
+                      </div>*/}
                       <div>
                         {/* <img src={clockIcon} alt="clockIcon" /> */}
                         {notesArray[key].reminder ? (
@@ -305,8 +335,8 @@ export default class Cards extends Component {
                           />
                         ) : null}
                       </div>
-                      <div id="displaycontentdiv">
-                        <Tools
+                      <div className="displaycontentdiv">
+                        <Tools id="noteToolSize"
                           createNotePropsToTools={this.getColor}
                           noteID={notesArray[key]._id}
                           note={notesArray[key].note}
@@ -315,7 +345,7 @@ export default class Cards extends Component {
                           archiveStatus={notesArray[key].archive}
                           trashNote={this.trashNote}
                           trashStatus={notesArray[key].trash}
-                       />
+                        />
                       </div>
                     </Card>
                   </div>

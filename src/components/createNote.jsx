@@ -17,7 +17,9 @@ const theme = createMuiTheme({
         borderRadius: "15px"
       },
       elevation1: {
-        boxShadow: "0 3px 5px rgba(0,0,0,0.20)"
+        boxShadow: "0 3px 5px rgba(0,0,0,0.20)",
+        marginLeft: "-50px",
+            
       }
     }
   },
@@ -210,6 +212,7 @@ export default class CreateNote extends Component {
             </Card>
           </div>
         </MuiThemeProvider>
+       
       );
   }
 }

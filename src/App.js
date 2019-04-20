@@ -35,7 +35,6 @@ class App extends Component {
         <Route path="/register" component={Register}/>
         <Route path="/forgot" component={Forgot}/>
         <Route path="/resetPassword" component={Reset}/>
-        {/* <Route path="/dil" component={Dil}/> */}
         <PrivateRoute path="/dashboard" component={Dashboard}/>
         
         </div>

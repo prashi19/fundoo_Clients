@@ -9,8 +9,7 @@ export function userLogin(data) {
   }
 
   export function forgotPassword(Email) {
-    axios
-      .post("/forgot", {
+    axios.post("/forgot", {
         Email: Email
       })
       .then(function(response) {

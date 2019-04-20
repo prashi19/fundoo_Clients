@@ -14,11 +14,15 @@ import {
   archiveArray,
   trashArray,
   reminderArray,
+  pinArray,
   updateArchiveStatus,
   updateTrashStatus,
   updateDescription,
-  updateTitle
+  updateTitle,
+  updatePin
 } from "../services/noteServices";
+import EditPin from "../components/editpin"
+import PinAndOthers from "../components/notePin"
 import DialogBox from "../components/cardDialog";
 import ArchivedNavigator from "../components/archiveNavigator";
 import TrashNavigator from "../components/trashNavigator";
@@ -34,7 +38,7 @@ const theme = createMuiTheme({
         height: 25,
         backgroundColor: "rgba(0, 0, 0, 0.10)",
         padding: 10,
-       
+
       },
       deleteIcon: {
         width: 20,
@@ -228,6 +232,30 @@ export default class Cards extends Component {
       });
   };
 
+  pinNote = (value, noteId) => {
+    const isPinned = {
+      noteID: noteId,
+      pinned: value
+    }
+    updatePin(isPinned)
+      .then((result) => {
+        let newArray = this.state.notes
+        for (let i = 0; i < newArray.length; i++) {
+          if (newArray[i]._id === noteId) {
+            newArray[i].archive = false;
+            newArray[i].trash = false;
+            newArray[i].pinned = result.data.data;
+            this.setState({
+              notes: newArray
+            })
+          }
+        }
+
+      })
+      .catch((error) => {
+      });
+  }
+
   render() {
     let notesArray = otherArray(this.state.notes);
     let cardsView = this.props.noteProps ? "listCards" : "cards";
@@ -240,6 +268,7 @@ export default class Cards extends Component {
           noteProps={this.props.noteProps}
           reminder={this.reminderNote}
           archiveNote={this.archiveNote}
+          pinNote={this.pinNote}
         />
       );
     } else if (this.props.navigateTrashed) {
@@ -251,23 +280,57 @@ export default class Cards extends Component {
           noteProps={this.props.noteProps}
           reminder={this.reminderNote}
           trashNote={this.trashNote}
+          pinNote={this.pinNote}
         />
       );
-    }else if(this.props.navigateReminder){
-      return(
+    } else if (this.props.navigateReminder) {
+      return (
         <ReminderNavigator
-        reminderArray={reminderArray(this.state.notes)}
-        othersArray={otherArray}
-        getColor={this.getColor}
-        noteProps={this.props.noteProps}
-        reminder={this.reminderNote}
-        trashNote={this.trashNote}
+          reminderArray={reminderArray(this.state.notes)}
+          othersArray={otherArray}
+          getColor={this.getColor}
+          noteProps={this.props.noteProps}
+          reminder={this.reminderNote}
+          trashNote={this.trashNote}
+          pinNote={this.pinNote}
         />
       )
     }
     return (
       <div className="root">
         <MuiThemeProvider theme={theme}>
+        {notesArray.length === 0 && pinArray(this.state.notes).length === 0 ?
+                        <div>
+                            <div id="blurimage3"  >
+                                <img src={require('../assets/pinAfter.svg')} alt="note icon"
+                                    style={{ width: "inherit" }}
+                                />
+                            </div>
+                            <div id="text3" style={{ fontFamily: "georgia", color: "grey", fontSize: "25px", width: "inherit" }}>
+                                Notes you add appear here
+                                    </div>
+                        </div>
+                        :
+                        null
+                    }
+                    {pinArray(this.state.notes).length !== 0 ?
+                        <PinAndOthers
+                            createNotePropsToTools={this.getColor}
+                            pinArray={pinArray(this.state.notes)}
+                            pinNote={this.pinNote}
+                            othersArray={otherArray(this.state.notes)}
+                            getColor={this.getColor}
+                            noteProps={this.props.noteProps}
+                            reminder={this.reminderNote}
+                            trashNote={this.trashNote}
+                            archiveNote={this.archiveNote}
+                            uploadImage={this.uploadImage}
+                            editTitle={this.editTitle}
+                            editDescription={this.editDescription}
+                            addLabelToNote={this.addLabelToNote}
+                            deleteLabelFromNote={this.deleteLabelFromNote}
+                        />
+                        :
           <div className="CardsView">
             {Object.keys(notesArray)
               .slice(0)
@@ -282,7 +345,7 @@ export default class Cards extends Component {
                         backgroundColor: notesArray[key].color,
                         borderRadius: "15px",
                         border: "1px solid #dadce0",
-                      
+
                       }}
                     >
                       <div>
@@ -295,7 +358,13 @@ export default class Cards extends Component {
                         >
                           <b> {notesArray[key].title}</b>
                         </div>
-
+                        <div>
+                          <EditPin
+                            cardPropsToPin={this.pinNote}
+                            noteID={notesArray[key]._id}
+                            pinStatus={notesArray[key].pinned}
+                          />
+                        </div>
                         <div
                           onClick={() => this.handleClick(notesArray[key])}
                           style={{ paddingBottom: "10px", paddingTop: "10px" }}
@@ -304,7 +373,7 @@ export default class Cards extends Component {
                         </div>
                       </div>
 
-                     {/* <div id="dispNote">
+                      {/* <div id="dispNote">
                          <div
                           style={{
                             display: "flex",
@@ -352,6 +421,7 @@ export default class Cards extends Component {
                 );
               })}
           </div>
+                    }
           <DialogBox
             ref={this.cardsToDialogBox}
             close={this.handleClose}
@@ -364,9 +434,50 @@ export default class Cards extends Component {
             reminderNote={this.reminderNote}
             archiveNote={this.archiveNote}
             trashNote={this.trashNote}
+            ispinned={this.ispinned}
           />
         </MuiThemeProvider>
       </div>
     );
   }
 }
+
+
+
+/**
+ *  {notesArray.length === 0 && pinArray(this.state.notes).length === 0 ?
+                        <div>
+                            <div id="blurimage3"  >
+                                <img src={require('../assets/images/note.svg')} alt="note icon"
+                                    style={{ width: "inherit" }}
+                                />
+                            </div>
+                            <div id="text3" style={{ fontFamily: "georgia", color: "grey", fontSize: "25px", width: "inherit" }}>
+                                Notes you add appear here
+                                    </div>
+                        </div>
+                        :
+                        null
+                    }
+                    {pinArray(this.state.notes).length !== 0 ?
+                        <PinAndOthers
+                            createNotePropsToTools={this.getColor}
+                            pinArray={pinArray(this.state.notes)}
+                            pinNote={this.pinNote}
+                            othersArray={otherArray(this.state.notes)}
+                            getColor={this.getColor}
+                            noteProps={this.props.noteProps}
+                            reminder={this.reminderNote}
+                            trashNote={this.trashNote}
+                            archiveNote={this.archiveNote}
+                            uploadImage={this.uploadImage}
+                            editTitle={this.editTitle}
+                            editDescription={this.editDescription}
+                            addLabelToNote={this.addLabelToNote}
+                            deleteLabelFromNote={this.deleteLabelFromNote}
+                        />
+                        :
+ * 
+ * 
+ * 
+ */

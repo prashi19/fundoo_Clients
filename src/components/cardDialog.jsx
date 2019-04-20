@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Tools from '../components/tools';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import EditPin from "../components/editpin";
 const theme = createMuiTheme({
   overrides: {
     MuiDialog: {
@@ -24,7 +25,7 @@ const theme = createMuiTheme({
     {
       multiline: {
         padding: "9px 30px 7px",
-        wordBreak:"break-word"
+        wordBreak: "break-word"
       }
     },
     MuiChip: {
@@ -55,8 +56,8 @@ class ResponsiveDialog extends React.Component {
       reminder: ""
     };
     this.getData = this.getData.bind(this);
-    this.handleTitleClick=this.handleTitleClick.bind(this);
-    this.handleDescClick=this.handleDescClick.bind(this);
+    this.handleTitleClick = this.handleTitleClick.bind(this);
+    this.handleDescClick = this.handleDescClick.bind(this);
   }
   async handleTitleClick(evt) {
     await this.setState({ title: evt.target.value })
@@ -64,12 +65,12 @@ class ResponsiveDialog extends React.Component {
   async handleDescClick(evt) {
     await this.setState({ description: evt.target.value })
   }
-  handleClose=(event)=>{
-    this.props.editTitle(this.state._id,this.state.title);
-    this.props.editDescription(this.state._id,this.state.description);
-   this.props.close();
+  handleClose = (event) => {
+    this.props.editTitle(this.state._id, this.state.title);
+    this.props.editDescription(this.state._id, this.state.description);
+    this.props.close();
   }
-  
+
   getData(note) {
     console.log("note in dialog==>", note);
     if (note.title !== undefined || note.description !== undefined) {
@@ -89,21 +90,24 @@ class ResponsiveDialog extends React.Component {
     this.props.archiveNote(value, noteId)
     this.props.close();
   }
-  reminderNote=(value,noteId)=>
-  {
-    this.setState({reminder:value})
-    this.props.reminderNote(value,noteId)
+  reminderNote = (value, noteId) => {
+    this.setState({ reminder: value })
+    this.props.reminderNote(value, noteId)
   }
 
-  trashNote=(value,noteId)=>
-  {
-    this.setState({trash:value})
-    this.props.trashNote(value,noteId)
+  trashNote = (value, noteId) => {
+    this.setState({ trash: value })
+    this.props.trashNote(value, noteId)
     this.props.close();
   }
 
+  ispinned = (value, noteID) => {
+    this.setState({ pinned: value })
+    this.props.ispinned(value, noteID);
+}
+
   createNotePropsToTools = (value, noteID) => {
-    console.log("note id in dialog---->",noteID);  
+    console.log("note id in dialog---->", noteID);
     this.setState({ color: value })
     this.props.createNotePropsToTools(value, noteID)
   }
@@ -114,7 +118,7 @@ class ResponsiveDialog extends React.Component {
           <Dialog
             open={this.props.parentProps}
           >
-            <div id="dialogbox" style={{ backgroundColor: this.state.color  ,width:"600px", padding:"16px"}} >
+            <div id="dialogbox" style={{ backgroundColor: this.state.color, width: "600px", padding: "16px" }} >
               <div className="createNotePinIcon1">
                 <Input
                   className="dialogInputBase"
@@ -124,6 +128,13 @@ class ResponsiveDialog extends React.Component {
                   value={this.state.title}
                   onChange={this.handleTitleClick}
                 />
+                <div>
+                  <EditPin
+                    initialpinstatus={this.state.pinned}
+                    noteID={this.state._id}
+                    pinstatus={this.ispinned}
+                  />
+                </div>
               </div>
               <div className="createNotePinIcon2">
                 <Input
@@ -135,10 +146,10 @@ class ResponsiveDialog extends React.Component {
                   onChange={this.handleDescClick}
                 />
               </div>
-              {this.state.reminder?
+              {this.state.reminder ?
                 <Chip id="chipcss"
-                label={this.state.reminder}
-                onDelete={()=>this.reminderNote("",this.state._id)}
+                  label={this.state.reminder}
+                  onDelete={() => this.reminderNote("", this.state._id)}
                 />
                 :
                 null}
@@ -152,7 +163,7 @@ class ResponsiveDialog extends React.Component {
                   trashNote={this.trashNote}
                   trashStatus={this.state.trash}
                 />
-                   <Button id="dibut"onClick={this.handleClose}>close</Button>                
+                <Button id="dibut" onClick={this.handleClose}>close</Button>
               </div>
             </div>
           </Dialog>

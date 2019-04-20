@@ -18,7 +18,7 @@ export default class DashBoard extends Component {
       cardStyles: false,
       reminder: false,
       archive: false,
-      trash: false
+      trash: false,
     };
     this.slideCards = this.slideCards.bind(this);
     this.getNewNote = this.getNewNote.bind(this);

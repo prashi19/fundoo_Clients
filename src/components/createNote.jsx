@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import { createNote } from "../services/noteServices";
 import Tools from "./tools";
+import EditPin from "../components/editpin"
 
 const theme = createMuiTheme({
   overrides: {
@@ -19,7 +20,6 @@ const theme = createMuiTheme({
       elevation1: {
         boxShadow: "0 3px 5px rgba(0,0,0,0.20)",
         marginLeft: "-50px",
-            
       }
     }
   },
@@ -39,6 +39,7 @@ export default class CreateNote extends Component {
       color: "rgb(255, 255, 255)",
       newNote: {},
       trash: false,
+      pinned: false,
     };
     this.handleTitle = this.handleTitle.bind(this);
     this.handleDescription = this.handleDescription.bind(this);
@@ -47,6 +48,7 @@ export default class CreateNote extends Component {
     this.handleReminder = this.handleReminder.bind(this);
     this.handleArchive = this.handleArchive.bind(this);
     this.handleTrash = this.handleTrash.bind(this);
+    this.handlePinned = this.handlePinned.bind(this);
   }
 
   handleTitle(evt) {
@@ -91,6 +93,14 @@ export default class CreateNote extends Component {
   }
 
 
+  handlePinned(value) {
+    try {
+      this.setState({ pinned: value });
+    } catch (err) {
+      console.log("error at handleTrash in createNotes");
+    }
+  }
+
   handleTrash(value) {
     try {
       this.setState({ trash: value });
@@ -117,6 +127,7 @@ export default class CreateNote extends Component {
           reminder: this.state.reminder,
           archive: this.state.archive,
           trash: this.state.trash,
+          pinned: this.state.pinned
         };
         createNote(note)
           .then(result => {
@@ -136,6 +147,7 @@ export default class CreateNote extends Component {
           reminder: "",
           archive: false,
           trash: false,
+          pinned: false
         });
       }
     } catch (err) {
@@ -181,6 +193,12 @@ export default class CreateNote extends Component {
                   onChange={this.handleTitle}
                 />
               </div>
+              <div>
+                <EditPin
+                  pinStatus={this.state.pinned}
+                  cardPropsToPin={this.handlePinned}
+                />
+              </div>
               <Input
                 className="noteInputBase"
                 multiline
@@ -212,7 +230,7 @@ export default class CreateNote extends Component {
             </Card>
           </div>
         </MuiThemeProvider>
-       
+
       );
   }
 }

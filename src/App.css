@@ -1,7 +1,6 @@
 .App {
   /* text-align: center; */
   justify-items: center;
-  
 }
 
 .content {
@@ -47,24 +46,23 @@
   width: 72%;
 }
 
-
-@media screen and (max-width:425px){
-.content{
-  display:contents;
-}
-#password1{
-  margin-left: 14%;
-}
-}
-
-@media screen and (max-width:768px){
-  .content{
-    /* width:700px; */
-   width:448px;
-   height:500px;    
+@media screen and (max-width: 425px) {
+  .content {
+    display: contents;
   }
-  #input{
-    width:238px;
+  #password1 {
+    margin-left: 14%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+    /* width:700px; */
+    width: 448px;
+    height: 500px;
+  }
+  #input {
+    width: 238px;
   }
 }
 
@@ -317,17 +315,16 @@
 }
 
 .CardsView {
-  width:900px;
+  width: 900px;
   display: flex;
   flex-wrap: wrap;
   margin-top: 3%;
   margin-left: 160px;
   word-break: break-word;
-
 }
 
-.dialogInputBase{
-  width:550px;
+.dialogInputBase {
+  width: 550px;
 }
 
 #gap {
@@ -373,8 +370,6 @@
     display: block;
   } */
 
-
-
 /***************************************************************************************************************/
 /***************************************************************************************************************/
 
@@ -399,8 +394,6 @@
   margin-top: -5%;
 }
 
-
-
 /***************** ARCHIVE NAVIGATOR CSS ******************/
 
 /**************** TRASH NAVIGATOR CSS ********************/
@@ -410,7 +403,7 @@
   margin-left: -120px;
 }
 
-.a1{
+.a1 {
   margin-top: 20px;
   margin-left: -120px;
 }
@@ -431,7 +424,6 @@
 
   #createNoteParent {
     margin-left: 0px;
-    
   }
   #createNoteParent1 {
     margin-left: 0px;
@@ -439,7 +431,7 @@
   .CardsView {
     margin-top: 20px;
     margin-left: -120px;
-    width:350px;
+    width: 350px;
   }
   .root {
     margin-left: -110px;
@@ -465,24 +457,21 @@
   .CardsView1 {
     margin-left: 0px;
   }
-  #notesfont{
+  #notesfont {
     font-size: 1.6rem;
-    margin-left:10px; 
-    
+    margin-left: 10px;
   }
-  #close{
+  #close {
     font-size: 1.5rem;
   }
 
-  #title{
+  #title {
     font-size: 1.6rem;
   }
-  #description{
-    font-size: 1.6rem; 
-    padding:2px;
-
+  #description {
+    font-size: 1.6rem;
+    padding: 2px;
   }
-  
 }
 
 /***************** MEDIA QUERY for TABLETS ****************/

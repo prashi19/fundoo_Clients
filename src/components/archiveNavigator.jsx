@@ -35,9 +35,23 @@ export default class ArchivedNavigator extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      openSnackBar: false
+      openSnackBar: false,
+      open:false,
     };
+    this.cardsToDialogBox = React.createRef();
   }
+  openDialog = (key) => {
+    this.cardsToDialogBox.current.getData(key)
+    this.setState({
+      open: true
+    })
+  }
+  close = () => {
+    this.setState({
+      open: false
+    })
+  }
+  
   /**
    * @description:use to auto close snackBar
    */
@@ -52,8 +66,6 @@ export default class ArchivedNavigator extends Component {
   };
   render() {
     let cardsView= this.props.noteProps ? "listCards" : "cards";
-
-
     return(
       <div>
         {
@@ -65,10 +77,11 @@ export default class ArchivedNavigator extends Component {
         <div>
           <MuiThemeProvider theme={theme}>
         <div>
-          <div className="CardsView">
+          <div className="archive_cardview">
             {this.props.archiveArray.map(key => {
               return (
-                <Card
+                <Card 
+                onClick={this.props.onClick}
                   className={cardsView}
                   style={{
                     backgroundColor: key.color,
@@ -78,7 +91,7 @@ export default class ArchivedNavigator extends Component {
                   }}
                 >
                   <div className="DispCont">
-                    <div
+                    <div onClick={()=>this.openDialog(key)}
                       style={{
                         display: "flex",
                         justifyContent: "space-between"
@@ -86,7 +99,7 @@ export default class ArchivedNavigator extends Component {
                     >
                       <b> {key.title}</b>
                     </div>
-                    <div style={{ paddingBottom: "10px", paddingTop: "10px" }}>
+                    <div onClick={()=>this.openDialog(key)} style={{ paddingBottom: "10px", paddingTop: "10px" }}>
                       {key.description}
                     </div>
                     {key.reminder ? (
@@ -111,12 +124,13 @@ export default class ArchivedNavigator extends Component {
               );
             })}
             <DialogBox
-              ref={this.props.cardsToDialogBox}
-              parentProps={this.props.openDialog}
-              closeEditBox={this.props.closeEditBox}
+              ref={this.cardsToDialogBox}
+              parentProps={this.state.open}
+              close={this.close}
               archiveNote={this.props.archiveNote}
               reminder={this.props.reminderNote}
               trashNote={this.props.trashNote}
+              editTitle={this.props.editTitle}
               editDescription={this.props.editDescription}
               createNotePropsToTools={this.props.getColor}
             />

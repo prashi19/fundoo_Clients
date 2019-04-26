@@ -9,8 +9,6 @@ import { fade } from "@material-ui/core/styles/colorManipulator";
 import { withStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-// import AccountCircle from "@material-ui/icons/AccountCircle";
-// import MoreIcon from "@material-ui/icons/MoreVert";
 import PersistentDrawerLeft from "../components/drawer";
 import Profile from "../components/popperprofile";
 import { Tooltip } from "@material-ui/core";
@@ -119,43 +117,40 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="fixed" color="default" id="AppBar">
           <Toolbar>
-            <IconButton
-              className={classes.menuButton}
-              id="Button"
-              color="inherit"
-              onClick={this.handleToggle}
-            >
+            <IconButton className={classes.menuButton} id="Button" color="inherit" onClick={this.handleToggle}>
               <Tooltip title="Main Menu">
                 <MenuIcon />
               </Tooltip>
             </IconButton>
-
+          
             {this.state.name === "fundoo" ? (
               <img
                 src={"https://img.icons8.com/color/48/000000/google-keep.png"}
                 alt="Fundoo"
               />
             ) : null}
+            
 
             {/* <img
               src={"https://img.icons8.com/color/48/000000/google-keep.png"}
               alt="Fundoo"
             /> */}
             <div id="typo">
-            <Typography
-              className={classes.title}
-              variant="h6"
-              color="inherit"
-              noWrap
-            >
-             {this.state.name}
-            </Typography></div>
+              <Typography
+                className={classes.title}
+                variant="h6"
+                color="inherit"
+                noWrap
+              >
+                {this.state.name}
+              </Typography></div>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <Tooltip title="Search">
                   <SearchIcon />
                 </Tooltip>
               </div>
+             
               <InputBase
                 placeholder="Search"
                 classes={{
@@ -163,10 +158,10 @@ class PrimarySearchAppBar extends React.Component {
                   input: classes.inputInput
                 }}
               />
+         
             </div>
 
             <div className={classes.grow} />
-            {/* <div className={classes.sectionDesktop}> */}
             <div className={classes.refresh}>
               <IconButton id="Button1" onClick={this.handleRefresh}>
                 <Tooltip title="Refresh">
@@ -179,14 +174,7 @@ class PrimarySearchAppBar extends React.Component {
               <CardsView appPropstoCardsView={this.handleAppbar} />
             </div>
 
-            {/* <div className={classes.list}>
-              <IconButton id="Button1">
-                <Tooltip title="List view">
-                  <img src={require("../assets/list.svg")} alt="List view" />
-                  
-                </Tooltip>
-              </IconButton>
-            </div> */}
+
 
             <IconButton id="Button" onClick={this.handlePopper}>
               <Tooltip title="Fundoo Account">
@@ -194,23 +182,14 @@ class PrimarySearchAppBar extends React.Component {
               </Tooltip>
             </IconButton>
 
-            {/* </div> */}
 
-            {/* <div className={classes.sectionMobile}>
-              <IconButton
-                aria-haspopup="true"
-                onClick={this.handleMobileMenuOpen}
-                color="inherit"
-              >
-                <MoreIcon />
-              </IconButton>
-            </div> */}
           </Toolbar>
         </AppBar>
         <PersistentDrawerLeft
           appBarProps={this.state.open}
           name={this.handleName}
           handleNavigation={this.props.handleNavigation}
+          makeLabelFalse={this.props.makeLabelFalse}
         />
       </div>
     );

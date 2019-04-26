@@ -7,7 +7,7 @@ import {
   IconButton
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-// import Tools from "../components/tools";
+import Tools from "../components/tools";
 import DialogBox from "../components/cardDialog";
 const theme = createMuiTheme({
   overrides: {
@@ -33,8 +33,10 @@ export default class ReminderNavigator extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      openSnackBar: false
+      openSnackBar: false,
+      open:false,
     };
+    this.cardsToDialogBox = React.createRef();
   }
   /**
    * @description:use to auto close snackBar
@@ -48,6 +50,19 @@ export default class ReminderNavigator extends Component {
       console.log("error at handleSnackClose in login");
     }
   };
+
+  openDialog = (key) => {
+    this.cardsToDialogBox.current.getData(key)
+    this.setState({
+      open: true
+    })
+  }
+  close = () => {
+    this.setState({
+      open: false
+    })
+  }
+
   render() {
     let cardsView = this.props.noteProps ? "listCards" : "cards";
     return (
@@ -62,7 +77,7 @@ export default class ReminderNavigator extends Component {
             }}
           >
           </label>
-          <div className="CardsView">
+          <div className="reminder_cardview">
             {this.props.reminderArray.map(key => {
               return (
                 <Card
@@ -76,6 +91,7 @@ export default class ReminderNavigator extends Component {
                 >
                   <div className="DispCont">
                     <div
+                    onClick={()=>this.openDialog(key)}
                       style={{
                         display: "flex",
                         justifyContent: "space-between"
@@ -83,7 +99,7 @@ export default class ReminderNavigator extends Component {
                     >
                       <b> {key.title}</b>
                     </div>
-                    <div style={{ paddingBottom: "10px", paddingTop: "10px" }}>
+                    <div onClick={()=>this.openDialog(key)} style={{ paddingBottom: "10px", paddingTop: "10px" }}>
                       {key.description}
                     </div>
                     {key.reminder ? (
@@ -93,28 +109,32 @@ export default class ReminderNavigator extends Component {
                       />
                     ) : null}
                   </div>
-                  {/* <div id="displaycontentdiv">
+                  <div id="displaycontentdiv">
                     <Tools
                       createNotePropsToTools={this.props.getColor}
                       note={key}
                       noteID={key._id}
                       reminder={this.props.reminder}
                       trashNote={this.props.trashNote}
+                      trashStatus={key.trash}
+                      archiveNote={this.props.archiveNote}
+                      archiveStatus={key.archive}
                       
                     //   archiveStatus={key.archive}
-                      archiveNote={this.props.archiveNote}
+                     
                     />
-                  </div> */}
+                  </div>
                 </Card>
               );
             })}
             <DialogBox
-              ref={this.props.cardsToDialogBox}
-              parentProps={this.props.openDialog}
-              closeEditBox={this.props.closeEditBox}
+              ref={this.cardsToDialogBox}
+              parentProps={this.state.open}
+              close={this.close}
               archiveNote={this.props.archiveNote}
-              reminder={this.props.reminderNote}
+              reminderNote={this.props.reminder}
               trashNote={this.props.trashNote}
+              editTitle={this.props.editTitle}
               editDescription={this.props.editDescription}
               createNotePropsToTools={this.props.getColor}
             />

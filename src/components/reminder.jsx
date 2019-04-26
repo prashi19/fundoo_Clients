@@ -8,8 +8,11 @@ import {
     ListItem,
     createMuiTheme,
     MuiThemeProvider,
-    ClickAwayListener
+    ClickAwayListener,
+    Button
 } from "@material-ui/core";
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 const theme = createMuiTheme({
     overrides: {
         MuiMenuItem: {
@@ -33,11 +36,25 @@ const theme = createMuiTheme({
         useNextVariants: true
     }
 });
-export default class reminder extends Component {
+
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+});
+class Reminder extends Component {
     state = {
         anchorEl: null,
         open: false,
-        placement: null
+        placement: null,
+        date: ""
     };
     /**
      * @description:it handles the onclick on reminder event
@@ -64,34 +81,40 @@ export default class reminder extends Component {
             console.log("error at handleClose in reminder");
         }
     };
-    setTodayReminder = () => {
+    handleChange=(date) => event =>{
+        this.setState({[date]:new Date(event.target.value).toLocaleString()});
+    }
+    sendDate=event=>{
+        event.preventDefault();
+        // this.props.showNotification("Note Status", "Reminder set", "success");
+        this.props.reminder(this.state.date, this.props.noteID);
         this.handleClose();
-        let ampm = parseInt(new Date().getHours()) >= 8 ? "PM" : "AM";
-        var date = new Date().toDateString();
-        var reminder1 = date + ", 8 " + ampm;
-        console.log("today reminder data=====>", reminder1);
-        this.props.reminder(reminder1, this.props.noteID);
+    }
+    setTodayReminder = () => {
+        var date = new Date().toLocaleDateString();
+        var split = date.split("/");
+        split[1] = Number(split[1] - 1)
+        var reminder = new Date(split[2], split[1], split[0], 20, 0, 0).toLocaleString();
+        // this.props.showNotification("Note Status", "Reminder set", "success");
+        this.props.reminder(reminder, this.props.noteID);
+        this.handleClose();
     };
     setTomorrowReminder = () => {
-        this.handleClose();
-        let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon"];
-        var date = new Date().toDateString();
-        date = date.replace(
-            new Date().getDate().toString(),
-            new Date().getDate() + 1
-        );
-        date = date.replace(
-            days[new Date().getDay() - 1],
-            days[new Date().getDay()]
-        );
-        var reminder1 = date + ", 8 AM";
-        console.log("tomorow reminder data====>", reminder1);
+
+        var date = new Date().toLocaleDateString();
+        var split = date.split("/");
+        split[0] = Number(split[0] + 1)
+        split[1] = Number(split[1] - 1)
+        var reminder1 = new Date(split[2], split[1], split[0], 20, 0, 0).toLocaleString();
+        // this.props.showNotification("Note Status", "Reminder set", "success");
         this.props.reminder(reminder1, this.props.noteID);
+        this.handleClose();
     };
 
     render() {
         const setAMPM = this.props.parentToolsProps;
         const { anchorEl, open, placement } = this.state;
+        const { classes } = this.props;
         return (
             <MuiThemeProvider theme={theme}>
                 <div className="reminderdiv">
@@ -130,11 +153,20 @@ export default class reminder extends Component {
                                                 <div>Tomorrow</div>
                                                 <div>8:00 AM</div>
                                             </MenuItem>
-
-                                            <MenuItem className="currentDate">
-                                                <div>Home</div>
-                                                <div>Mumbai</div>
-                                            </MenuItem>
+                                            <form className={classes.container} noValidate>
+                                                <TextField
+                                                    id="datetime-local"
+                                                    label="Next appointment"
+                                                    type="datetime-local"
+                                                    defaultValue="2019-04-24T10:30"
+                                                    onChange={this.handleChange("date")}
+                                                    className={classes.textField}
+                                                    InputLabelProps={{
+                                                        shrink: true,
+                                                    }}
+                                                />
+                                                <Button onClick={this.sendDate}>save</Button>
+                                            </form>
                                         </div>
                                     </ClickAwayListener>
                                 </Paper>
@@ -146,3 +178,4 @@ export default class reminder extends Component {
         );
     }
 }
+export default withStyles(styles)(Reminder);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Tooltip } from '@material-ui/core';
+// import { Tooltip } from '@material-ui/core';
 export default class EditPin extends Component {
     constructor(props) {
         super(props);
@@ -38,7 +38,7 @@ export default class EditPin extends Component {
         // const { isPinned } = this.state;
         return (
             <div>
-                {this.props.pinStatus ?
+                {/* {this.props.pinStatus ?
                     <Tooltip title="Unpin Note" onClick={() => this.handleClick()}>
                         <img src={require('../assets/pinAfter.svg')}
                             alt="pinIcon" />
@@ -48,7 +48,7 @@ export default class EditPin extends Component {
                         <img src={require('../assets/pinBefore.svg')}
                             alt="pinIcon" />
                     </Tooltip>
-                }
+                } */}
             </div>
         )
     }

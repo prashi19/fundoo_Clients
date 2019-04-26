@@ -6,7 +6,6 @@ import {BrowserRouter as Router ,Route,Redirect} from 'react-router-dom';
 import Forgot from './screens/forgot'
 import Reset from './screens/reset'
 import Dashboard from './screens/dashboard'
-// import Dil from '../src/components/dil'
 
 
  const PrivateRoute = ({ component: Component, ...rest }) => (

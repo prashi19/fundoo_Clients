@@ -6,6 +6,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Fade from "@material-ui/core/Fade";
 import { MenuItem } from "@material-ui/core";
 import "../App.css";
+import Lable from "./lable";
 
 export default class MoreOptions extends Component {
   constructor(props) {
@@ -16,8 +17,9 @@ export default class MoreOptions extends Component {
       placement: null,
       isTrash: false,
       snackBarMessage: "",
-      openSnackBar: false
+      openSnackBar: false,
     };
+    this.moreOptionsToAddLabels = React.createRef();
   }
   /**
    * @description:it will toggle or reback the event
@@ -58,10 +60,12 @@ export default class MoreOptions extends Component {
     }
   };
 
- async handleTrash() {
+
+
+  async handleTrash() {
     console.log("(this.props.trashStatus", this.state.isTrash);
     if (this.props.trashStatus === false) {
-     await this.setState({isTrash : true});
+      await this.setState({ isTrash: true });
       this.setState({
         openSnackBar: true,
         snackBarMessage: "Note Trashed"
@@ -69,9 +73,9 @@ export default class MoreOptions extends Component {
       // console.log("this.state.isTrash changed", this.state.isTrash);
       this.props.trashNote(this.state.isTrash, this.props.noteID);
     } else {
-      
+
       this.setState({ isTrash: false });
-      console.log(" this.state.isTrash change in else", this.state.isTrash);
+      console.log(" this.state.isTrash change in elseeeee", this.state.isTrash);
       this.props.trashNote(this.state.isTrash, this.props.noteID);
     }
   };
@@ -87,6 +91,30 @@ export default class MoreOptions extends Component {
       console.log("error at handleSnackClose in login");
     }
   };
+
+
+  closeLabelPopper = () => {
+    try {
+      this.setState({
+        open: false
+      })
+    } catch (err) {
+      console.log("error at closeLabelPopper in moreOptions");
+    }
+  }
+  /**
+   * @description:it will handle add label to notes
+   */
+  handleLabelsOnNote = (event) => {
+    try {
+      this.setState({
+        open: false
+      })
+      this.moreOptionsToAddLabels.current.addLabelPopup(event);
+    } catch (err) {
+      console.log("error at handleLabelOnNote in moreOptions");
+    }
+  }
   render() {
     const { anchorEl, open, placement } = this.state;
     return (
@@ -95,7 +123,7 @@ export default class MoreOptions extends Component {
           open={open}
           anchorEl={anchorEl}
           placement={placement}
-          transition style={{zIndex:9999}}
+          transition style={{ zIndex: 9999 }}
         >
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>
@@ -112,7 +140,7 @@ export default class MoreOptions extends Component {
                     <MenuItem onClick={() => this.handleTrash()}>
                       Delete Note
                     </MenuItem>
-                    <MenuItem>Add Label</MenuItem>
+                    <MenuItem onClick={() => this.handleLable()} >Add Label</MenuItem>
                   </div>
                 </ClickAwayListener>
               </Paper>
@@ -128,6 +156,13 @@ export default class MoreOptions extends Component {
               onClick={this.handleClick("bottom-start")}
             />
           </Tooltip>
+          {/* <Lable>
+            ref={this.moreOptionsToAddLabels}
+            noteID={this.props.noteID}
+            addLabelToNote={this.props.addLabelToNote}
+            anchorEl={this.state.anchorEl}
+          </Lable> */}
+
         </div>
       </div>
     );

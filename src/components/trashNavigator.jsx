@@ -7,7 +7,8 @@ import {
   IconButton
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-// import Tools from "../components/tools";
+import TrashOptions from "../components/trashOption"
+
 import DialogBox from "../components/cardDialog";
 const theme = createMuiTheme({
   overrides: {
@@ -62,7 +63,7 @@ export default class TrashNavigator extends Component {
             }}
           >
           </label>
-          <div className="CardsView">
+          <div className="trash_cardview">
             {this.props.trashArray.map(key => {
               return (
                 <Card
@@ -93,18 +94,13 @@ export default class TrashNavigator extends Component {
                       />
                     ) : null} */}
                   </div>
-                  {/* <div id="displaycontentdiv">
-                    <Tools
-                      createNotePropsToTools={this.props.getColor}
-                      note={key}
+                  <div id="displaycontentdiv">
+                    <TrashOptions
+                      restore={this.props.trashNote}
                       noteID={key._id}
-                      reminder={this.props.reminder}
-                      trashNote={this.props.trashNote}
-                      
-                    //   archiveStatus={key.archive}
-                      archiveNote={this.props.archiveNote}
+                      deleteNote={this.props.deleteNote}
                     />
-                  </div> */}
+                  </div>
                 </Card>
               );
             })}

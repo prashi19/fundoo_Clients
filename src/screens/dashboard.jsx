@@ -10,6 +10,7 @@ import "../App.css";
 import PrimarySearchAppBar from "../components/appbar";
 import CreateNotes from "../components/createNote";
 import Notes from "../components/notes";
+import { askForPermissioToReceiveNotifications } from '../push-notification';
 export default class DashBoard extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +20,7 @@ export default class DashBoard extends Component {
       reminder: false,
       archive: false,
       trash: false,
+      label:"",
     };
     this.slideCards = this.slideCards.bind(this);
     this.getNewNote = this.getNewNote.bind(this);
@@ -56,6 +58,15 @@ export default class DashBoard extends Component {
     }
   };
 
+  makeLabelFalse=()=> {
+    this.noteToCards.current.makeLabelFalse();
+}
+
+
+  componentWillMount=()=>{
+    askForPermissioToReceiveNotifications();
+  }
+
   render() {
     const slidingCards = this.state.slideCards ? "afterSlide" : "beforeSlide";
     return (
@@ -65,7 +76,8 @@ export default class DashBoard extends Component {
             props={this.props}
             slideCards={this.slideCards}
             notePropsToApp={this.handlecardStyles}
-            handleNavigation={this.handleNavigation}
+            handleNavigation={this.handleNavigation}    
+            makeLabelFalse={this.makeLabelFalse}              
           />
         </div>
         
@@ -76,7 +88,7 @@ export default class DashBoard extends Component {
                 ref={this.noteToCards}
                 navigateArchived={this.state.archive}
                 navigateTrashed={this.state.trash}
-                navigateReminder={this.state.reminder}
+                navigateReminder={this.state.reminder}                
               />
             </div>
           ) : (
@@ -88,6 +100,7 @@ export default class DashBoard extends Component {
                   navigateArchived={this.state.archive}
                   navigateTrashed={this.state.trash}
                   navigateReminder={this.state.reminder}
+                  labelValue={this.state.label}
                 />
               </div>
             )}

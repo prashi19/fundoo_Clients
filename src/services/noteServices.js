@@ -118,6 +118,66 @@ export function updatePin(data) {
       }
   )
 }
+
+export function deleteNoteForever(data) {
+  console.log("delete note data from front-end==>", data);
+  var headers = {
+      'Content-Type': 'application/json',
+      "token": localStorage.getItem("token")
+  }
+  return axios.post('/deleteNote',
+      data, {
+          headers: headers
+      }
+  )
+}
+
+
+export function addLabel(url,data) {
+  console.log("create note call",data);
+  return axios(url, {
+      method: "POST",
+      headers: {
+          "token": localStorage.getItem("token")
+      },
+      data:data
+  })
+}
+export function getLabels() {
+  console.log("*----get labels from front-end----*");
+  return axios.get('/getLabels', {
+      headers: {
+          "token": localStorage.getItem("token")
+      }
+  })
+}   
+export function deleteLabel(data) {
+  return axios('/deleteLabel', {
+      method: "POST",
+      headers: {
+          "token": localStorage.getItem("token")
+      },
+      data:data
+  })
+}
+export function updateLabel(data) {
+  return axios('/updateLabel', {
+      method: "PUT",
+      headers: {
+          "token": localStorage.getItem("token")
+      },
+      data:data
+  })
+}
+
+export function pushNotification(data){
+  var headers={
+    token: localStorage.getItem("token")
+  }
+  return axios.post('/pushNotification',data,{
+    headers :headers
+  })
+}
 /*********************************************************************************************** */
 
 export function otherArray(notesData) {
@@ -133,7 +193,7 @@ export function otherArray(notesData) {
 export function reminderArray(notesData) {
   let reminderArr = [];
   for (let i = 0; i < notesData.length; i++) {
-      if (notesData[i].reminder !== "" && !notesData[i].trash) {
+      if (notesData[i].reminder !== "" && !notesData[i].trash && !notesData[i].archive) {
           reminderArr.push(notesData[i]);
       }
   }
@@ -170,4 +230,5 @@ export function pinArray(notesData) {
   }
   return pinArr;
 }
+
 

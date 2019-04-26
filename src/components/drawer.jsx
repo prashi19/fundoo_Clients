@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import { MenuItem } from "@material-ui/core";
+import EditLabel from "../components/editLabel";
+
 
 const drawerWidth = 220;
 
@@ -38,10 +40,10 @@ const styles = theme => ({
   drawerPaper: {
     width: drawerWidth,
     marginTop: 59,
-    [theme.breakpoints.up("sm")]:{
-      marginTop:66
+    [theme.breakpoints.up("sm")]: {
+      marginTop: 66
     }
-    
+
   },
   drawerHeader: {
     display: "flex",
@@ -78,57 +80,81 @@ const styles = theme => ({
 class PersistentDrawerLeft extends React.Component {
   state = {
     open: false,
-    navigateArchived: false
+    navigateArchived: false,
+    navigateTrashed: false,
+    navigateReminder: false,
+    label: []
   };
 
   // handleClick=evt=>{
   //   this.props.name(evt);
   // }
+  newLabels = (value) => {
+    this.setState({ label: value })
+  }
+
+
+  handleEditLabel = (evt) => {
+    this.props.name(evt)
+    this.setState({ open: !this.state.open })
+  }
+
   async handleArchived(evt) {
     await this.setState({
-    
-        navigateReminder: false,
-        navigateArchived: true,
-        navigateTrashed: false
+      navigateReminder: false,
+      navigateArchived: true,
+      navigateTrashed: false
     })
     this.props.name(evt);
     this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
-}
+  }
 
-async handleTrashed(evt) {
-  await this.setState({
-  
+  async handleTrashed(evt) {
+    await this.setState({
+
       navigateReminder: false,
       navigateArchived: false,
       navigateTrashed: true
-  })
-  this.props.name(evt);
-  this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
-}
+    })
+    this.props.name(evt);
+    this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
+  }
 
 
-async handleNotes(evt) {
-  await this.setState({
-  
+  async handleNotes(evt) {
+    await this.setState({
+
       navigateReminder: false,
       navigateArchived: false,
       navigateTrashed: false
-  })
-  this.props.name(evt);
-  this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
-}
+    })
+    this.props.name(evt);
+    this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
+  }
 
-async handleReminder(evt) {
-  await this.setState({
-  
+  async handleReminder(evt) {
+    await this.setState({
+
       navigateReminder: true,
       navigateArchived: false,
       navigateTrashed: false
-  })
-  this.props.name(evt);
-  this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
-}
+    })
+    this.props.name(evt);
+    this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
+  }
+
   render() {
+    let displayLabels = this.state.label;
+    if (this.state.label !== "") {
+      displayLabels = this.state.label.map((key) =>
+        <MenuItem style={{ display: "flex", flexDirection: "row", color: "#202124", fontFamily: "Google Sans, Roboto, Arial, sans-serif", fontSize: ".875rem" }} onClick={() => this.displaySearchLabels(key.label)} key={key.label}>
+          <img src={require('../assets/menuEdit.svg')} alt="label icon" style={{ marginRight: "50px" }} />
+          <div style={{ marginRight: "50px", marginBottom: "10px", marginTop: "10px", fontWeight: "550" }}>
+            {key.label}
+          </div>
+        </MenuItem>
+      )
+    }
     const { classes } = this.props;
     return (
       <div className={classes.root}>
@@ -140,7 +166,7 @@ async handleReminder(evt) {
             paper: classes.drawerPaper
           }}
         >
-          <MenuItem id="noteMenu" className={classes.menuItem}  onClick={()=>this.handleNotes("Fundoo")}>
+          <MenuItem id="noteMenu" className={classes.menuItem} onClick={() => this.handleNotes("fundoo")}>
             <img
               src={require("../assets/menuNote.svg")}
               alt="note icon"
@@ -148,7 +174,7 @@ async handleReminder(evt) {
             />
             Notes
           </MenuItem>
-          <MenuItem id="reminderMenu" className={classes.menuItem} onClick={()=>this.handleReminder("Reminder")}>
+          <MenuItem id="reminderMenu" className={classes.menuItem} onClick={() => this.handleReminder("Reminder")}>
             <img
               src={require("../assets/menuReminder.svg")}
               alt="reminder icon"
@@ -175,7 +201,7 @@ async handleReminder(evt) {
               LABELS
             </div>
             <div>
-              <MenuItem id="labelMenu" className={classes.menuItem}>
+              <MenuItem id="labelMenu" className={classes.menuItem} onClick={() => this.handleEditLabel("Label")}>
                 <img
                   src={require("../assets/menuEdit.svg")}
                   alt="edit icon"
@@ -185,7 +211,7 @@ async handleReminder(evt) {
               </MenuItem>
             </div>
           </div>
-          <MenuItem id="archiveMenu" className={classes.menuItem} onClick={()=>this.handleArchived("Archive")}>
+          <MenuItem id="archiveMenu" className={classes.menuItem} onClick={() => this.handleArchived("Archive")}>
             <img
               src={require("../assets/menuArchive.svg")}
               alt="archive icon"
@@ -193,7 +219,7 @@ async handleReminder(evt) {
             />
             Archive
           </MenuItem>
-          <MenuItem id="trashIcon" className={classes.menuItem} onClick={()=>this.handleTrashed("Trash")}>
+          <MenuItem id="trashIcon" className={classes.menuItem} onClick={() => this.handleTrashed("Trash")}>
             <img
               src={require("../assets/menuTrash.svg")}
               alt="trash icon"
@@ -202,11 +228,16 @@ async handleReminder(evt) {
             Trash
           </MenuItem>
         </Drawer>
+        <EditLabel
+          newLabels={this.newLabels}
+          label={this.state.label}
+          // showLabels={this.showLabels}
+          drawerPropstoEditLabels={this.state.open}
+          labelToggle={this.handleEditLabel} />
       </div>
     );
   }
 }
-
 PersistentDrawerLeft.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired

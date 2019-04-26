@@ -7,6 +7,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { Button } from "@material-ui/core";
 import "../App.css";
 import CropProfile from './CropProfile';
+import { deleteToken } from '../push-notification';
 /**
  * @description:This method is used to Logout ui..
  */
@@ -49,6 +50,7 @@ export default class Profile extends Component {
   handlelogout = event => {
     try {
       event.preventDefault();
+      deleteToken();
       localStorage.clear();
       this.props.props.props.history.push("/login");
     } catch (err) {

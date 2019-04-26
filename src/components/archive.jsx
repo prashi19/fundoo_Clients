@@ -28,7 +28,7 @@ export default class Archive extends Component {
         }
         else {
           //  this.state.isArchived = false;
-            this.setState({ isArchived: false });
+          await  this.setState({ isArchived: false });
             console.log(" this.state.isArchived changle else", this.state.isArchived);
             this.props.archiveNote(this.state.isArchived, this.props.noteID)
         }

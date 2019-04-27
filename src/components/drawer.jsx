@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import { MenuItem } from "@material-ui/core";
 import EditLabel from "../components/editLabel";
+import { getLabels } from "../services/noteServices";
 
 
 const drawerWidth = 220;
@@ -89,6 +90,33 @@ class PersistentDrawerLeft extends React.Component {
   // handleClick=evt=>{
   //   this.props.name(evt);
   // }
+
+  componentDidMount() {
+    getLabels()
+      .then((result) => {
+        this.setState({
+          label: result.data.data
+        })
+        // console.log("getLabels result from back-end", result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  displaySearchLabels = (value) => {
+    this.props.searchLabels(value)
+  }
+  showLabels = (value) => {
+    let labelArr = this.state.label;
+    if (value !== undefined) {
+      labelArr.push(value);
+      this.setState({ label: labelArr });
+    }
+    // this.setState({
+    //     label: [...this.state.label, value]
+    // })
+    //console.log("label-----------<",this.state.label);
+  }
   newLabels = (value) => {
     this.setState({ label: value })
   }
@@ -209,6 +237,9 @@ class PersistentDrawerLeft extends React.Component {
                 />
                 Edit Labels
               </MenuItem>
+              <div>
+                {displayLabels}
+              </div>
             </div>
           </div>
           <MenuItem id="archiveMenu" className={classes.menuItem} onClick={() => this.handleArchived("Archive")}>

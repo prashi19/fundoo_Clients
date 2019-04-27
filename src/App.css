@@ -559,6 +559,9 @@ div .currentDate {
     transition: 0.25s;
   }
 
+  main_createNote{
+    margin-left: 100px;
+  }
   #createNoteParent {
     margin-left: 0px;
   }
@@ -609,6 +612,15 @@ div .currentDate {
     font-size: 1.6rem;
     padding: 2px;
   }
+
+  /*for archive navigator */
+  .archive_cardview{
+    margin-left:20px;
+  }
+  .staticCreateNote{
+    margin-right:10px;
+  }
+
 }
 
 /***************** MEDIA QUERY for TABLETS ****************/
@@ -677,3 +689,6 @@ div .currentDate {
 }
 
 
+.main_createNote{
+  margin-left: -3px;
+}

@@ -22,7 +22,7 @@ export default class EditLabel extends Component {
                 .then(async (result) => {
                     console.log("label result", result);
                     this.setState({ label: "" })
-                    // this.props.showLabels(result.data.data);
+                    this.props.showLabels(result.data.data);
                     // this.props.showLabels(result.data.data);
                 })
                 .catch((error) => {

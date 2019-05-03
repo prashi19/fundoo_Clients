@@ -144,7 +144,7 @@ export function addLabel(url,data) {
   })
 }
 export function getLabels() {
-  console.log("*----get labels from front-end----*");
+  console.log("get labels----------->");  
   return axios.get('/getLabels', {
       headers: {
           "token": localStorage.getItem("token")
@@ -170,6 +170,16 @@ export function updateLabel(data) {
   })
 }
 
+export function saveLabel(url,data) {
+  return axios(url, {
+      method: "POST",
+      headers: {
+          "token": localStorage.getItem("token")
+      },
+      data:data
+  })
+}
+
 export function pushNotification(data){
   var headers={
     token: localStorage.getItem("token")
@@ -182,6 +192,8 @@ export function pushNotification(data){
 
 export function otherArray(notesData) {
   let otherArr = [];
+  console.log("notesData in services",notesData);
+  
   for (let i = 0; i < notesData.length; i++) {
       if (!notesData[i].archive && !notesData[i].trash) {
           otherArr.push(notesData[i]);

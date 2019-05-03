@@ -122,14 +122,14 @@ class PrimarySearchAppBar extends React.Component {
                 <MenuIcon />
               </Tooltip>
             </IconButton>
-          
+
             {this.state.name === "fundoo" ? (
               <img
                 src={"https://img.icons8.com/color/48/000000/google-keep.png"}
                 alt="Fundoo"
               />
             ) : null}
-            
+
 
             {/* <img
               src={"https://img.icons8.com/color/48/000000/google-keep.png"}
@@ -150,7 +150,7 @@ class PrimarySearchAppBar extends React.Component {
                   <SearchIcon />
                 </Tooltip>
               </div>
-             
+
               <InputBase
                 placeholder="Search"
                 classes={{
@@ -158,7 +158,7 @@ class PrimarySearchAppBar extends React.Component {
                   input: classes.inputInput
                 }}
               />
-         
+
             </div>
 
             <div className={classes.grow} />
@@ -173,23 +173,17 @@ class PrimarySearchAppBar extends React.Component {
             <div className={classes.list}>
               <CardsView appPropstoCardsView={this.handleAppbar} />
             </div>
-
-
-
             <IconButton id="Button" onClick={this.handlePopper}>
               <Tooltip title="Fundoo Account">
                 <Profile props={this.props} />
               </Tooltip>
             </IconButton>
-
-
           </Toolbar>
         </AppBar>
         <PersistentDrawerLeft
           appBarProps={this.state.open}
           name={this.handleName}
           handleNavigation={this.props.handleNavigation}
-          makeLabelFalse={this.props.makeLabelFalse}
         />
       </div>
     );

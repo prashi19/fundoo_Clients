@@ -6,7 +6,8 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Fade from "@material-ui/core/Fade";
 import { MenuItem } from "@material-ui/core";
 import "../App.css";
-import Lable from "./lable";
+import NoteLabels from "./lable";
+
 
 export default class MoreOptions extends Component {
   constructor(props) {
@@ -61,7 +62,6 @@ export default class MoreOptions extends Component {
   };
 
 
-
   async handleTrash() {
     console.log("(this.props.trashStatus", this.state.isTrash);
     if (this.props.trashStatus === false) {
@@ -88,23 +88,10 @@ export default class MoreOptions extends Component {
         openSnackBar: false
       });
     } catch (err) {
-      console.log("error at handleSnackClose in login");
+      console.log("error at handleSnackClose");
     }
   };
 
-
-  closeLabelPopper = () => {
-    try {
-      this.setState({
-        open: false
-      })
-    } catch (err) {
-      console.log("error at closeLabelPopper in moreOptions");
-    }
-  }
-  /**
-   * @description:it will handle add label to notes
-   */
   handleLabelsOnNote = (event) => {
     try {
       this.setState({
@@ -115,6 +102,7 @@ export default class MoreOptions extends Component {
       console.log("error at handleLabelOnNote in moreOptions");
     }
   }
+
   render() {
     const { anchorEl, open, placement } = this.state;
     return (
@@ -140,13 +128,21 @@ export default class MoreOptions extends Component {
                     <MenuItem onClick={() => this.handleTrash()}>
                       Delete Note
                     </MenuItem>
-                    <MenuItem onClick={() => this.handleLable()} >Add Label</MenuItem>
+                    <MenuItem onClick={this.handleLabelsOnNote} >Add Label</MenuItem>
                   </div>
                 </ClickAwayListener>
               </Paper>
             </Fade>
           )}
+
         </Popper>
+        <NoteLabels
+          ref={this.moreOptionsToAddLabels}
+          noteID={this.props.noteID}
+          addLabelToNote={this.props.addLabelToNote}
+          anchorEl={this.state.anchorEl}
+        />
+
         <div className="iconButton">
           <Tooltip title="More options">
             <img
@@ -156,13 +152,6 @@ export default class MoreOptions extends Component {
               onClick={this.handleClick("bottom-start")}
             />
           </Tooltip>
-          {/* <Lable>
-            ref={this.moreOptionsToAddLabels}
-            noteID={this.props.noteID}
-            addLabelToNote={this.props.addLabelToNote}
-            anchorEl={this.state.anchorEl}
-          </Lable> */}
-
         </div>
       </div>
     );

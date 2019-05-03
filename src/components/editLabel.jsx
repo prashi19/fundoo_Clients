@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Dialog, TextField, Tooltip, Divider, Snackbar, Button } from '@material-ui/core';
+import { Dialog, TextField, Tooltip, Divider, Button } from '@material-ui/core';
 import { addLabel, deleteLabel, updateLabel } from '../services/noteServices';
+import SnackBar from '../components/snackbar';
 
 let displayErr = "";
 export default class EditLabel extends Component {
@@ -11,9 +12,10 @@ export default class EditLabel extends Component {
             labelID: "",
             editLabel: ""
         }
+        this.openSnackBar = React.createRef();
     }
 
-    addLabel=(value)=> {
+    addLabel = (value) => {
         const label = {
             label: value
         }
@@ -35,7 +37,7 @@ export default class EditLabel extends Component {
             this.openSnackBar.current.handleClick();
         }
     }
-    deleteLabel=(value)=> {
+    deleteLabel = (value) => {
         const labelId = {
             labelID: value
         }
@@ -59,14 +61,17 @@ export default class EditLabel extends Component {
             .catch((error) => {
                 displayErr = "Internal Server Error";
                 this.openSnackBar.current.handleClick();
+                alert("err");
             });
     }
 
-    editLabel=(Label, id)=> {
+    editLabel = (Label, id) => {
         const editLabel = {
             editLabel: Label,
             labelID: id
         }
+        console.log("...."+Label+"--------------->"+id);
+        
         updateLabel(editLabel)
             .then((result) => {
                 console.log("success", result.data, this.props.label);
@@ -75,29 +80,32 @@ export default class EditLabel extends Component {
                     if (newArray[i]._id === editLabel.labelID) {
                         newArray[i].label = result.data.data.editLabel;
                         this.props.newLabels(newArray);
+                        console.log("label Id is--->",editLabel.labelID);
+                        
                         this.setState({ labelID: "" })
                     }
                 }
             })
             .catch((error) => {
-                displayErr = error.message;
+                // displayErr = error.message;
+                displayErr = "make some changes"
                 console.log("message", displayErr);
                 this.openSnackBar.current.handleClick();
             });
     }
-    createLabel=()=> {
+    createLabel = () => {
         this.setState({ labelID: "" })
     }
-    handlEditLabel=(evt)=> {
+    handlEditLabel = (evt) => {
         this.setState({ editLabel: evt.target.value });
     }
-    changeLables=(id)=> {
+    changeLables = (id) => {
         this.setState({ labelID: id })
     }
-    handleLabel=(evt)=> {
+    handleLabel = (evt) => {
         this.setState({ label: evt.target.value })
     }
-    handleToggle() {
+    handleToggle = () => {
         this.props.labelToggle()
     }
 
@@ -126,16 +134,24 @@ export default class EditLabel extends Component {
                         </div>
                         {this.props.label.map((key) =>
                             this.state.labelID !== key._id ?
-                                <div onClick={() => this.changeLables(key._id)} key={key._id}
+                                <div onClick={() => this.changeLables(key._id)}
+                                    // key={key._id}  
                                     style={{ display: "flex", justifyContent: "space-between", height: "45px", alignItems: "center" }}>
                                     <div style={{ display: "flex", flexDirection: "row" }}>
-                                        <div><img src={require('../assets/iconLabel.svg')} alt="filled label icon" /></div>
-                                        <div style={{ width: "182px", margin: "0px 15px 0px 15px", fontWeight: "500" }}>{key.label}</div>
+                                        <div>
+                                            <img src={require('../assets/iconLabel.svg')} alt="filled label icon" />
+                                        </div>
+                                        <div
+                                            style={{ width: "182px", margin: "0px 15px 0px 15px", fontWeight: "500" }}>
+                                            {key.label}</div>
                                     </div>
-                                    <div><img src={require('../assets/menuEdit.svg')} alt="edit label icon" /></div>
+                                    <div>
+                                        <img src={require('../assets/menuEdit.svg')} alt="edit label icon" /></div>
+
                                 </div>
                                 :
-                                <div onClick={() => this.changeLables(key._id)}
+                                <div
+                                    // onClick={() => this.changeLables(key._id)}
                                     style={{ display: "flex", justifyContent: "space-between", height: "45px", alignItems: "center" }}>
                                     <div style={{ display: "flex", flexDirection: "row" }}>
                                         <img src={require('../assets/menuTrash.svg')}
@@ -159,7 +175,7 @@ export default class EditLabel extends Component {
                     <div style={{ padding: "10px", display: "flex", flexDirection: "row-reverse" }} >
                         <Button className="editCloseButton" onClick={() => this.handleToggle()}>Done</Button>
                     </div>
-                    <Snackbar ref={this.openSnackBar} error={displayErr} />
+                    <SnackBar ref={this.openSnackBar} error={displayErr} />
                 </Dialog>
             </div>
         )

@@ -144,7 +144,7 @@ export default class Login extends Component {
               <h6>to continue to Fundoo</h6>
             </div>
             <br />
-            <div>
+            <div className="email">
               <TextField
                 className="text-filed"
                 id="input1"
@@ -159,8 +159,9 @@ export default class Login extends Component {
               />
             </div>
 
-            <div id="password1">
+            <div className="password1">
               <TextField
+              className="text-filed1"
                 id="input"
                 label="Password"
                 name="Password"

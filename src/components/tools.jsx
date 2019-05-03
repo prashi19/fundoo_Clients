@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import Reminder from '../components/reminder';
 import ColorBox from '../components/colorBox';
 import Archive from '../components/archive';
-import MoreOptions from '../components/moreOption'
+import MoreOptions from '../components/moreOption';
 export default class Tools extends Component {
     constructor(props) {
         super(props);

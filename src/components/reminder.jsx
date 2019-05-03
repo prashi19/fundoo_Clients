@@ -83,6 +83,8 @@ class Reminder extends Component {
     };
     handleChange=(date) => event =>{
         this.setState({[date]:new Date(event.target.value).toLocaleString()});
+        console.log("custom date is:",this.state.date);
+        
     }
     sendDate=event=>{
         event.preventDefault();

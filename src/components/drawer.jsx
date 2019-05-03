@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import { MenuItem } from "@material-ui/core";
+import { MenuItem, MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import EditLabel from "../components/editLabel";
 import { getLabels } from "../services/noteServices";
 
@@ -13,6 +13,7 @@ const styles = theme => ({
   root: {
     display: "flex"
   },
+  selected: {},
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
@@ -42,7 +43,7 @@ const styles = theme => ({
     width: drawerWidth,
     marginTop: 59,
     [theme.breakpoints.up("sm")]: {
-      marginTop: 66
+      marginTop: 66,
     }
 
   },
@@ -78,15 +79,32 @@ const styles = theme => ({
   }
 });
 
-class PersistentDrawerLeft extends React.Component {
-  state = {
-    open: false,
-    navigateArchived: false,
-    navigateTrashed: false,
-    navigateReminder: false,
-    label: []
-  };
+const theme = createMuiTheme({
+  overrides: {
+    MuiMenuItem: {
+      selected: {
+        background: 'linear-gradient(to bottom, #feefc3 -5%, #feefc3 -2%);'
+      }
+    }
+  }
+});
 
+class PersistentDrawerLeft extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      open: false,
+      noteSelect: true,
+      reminderSelect: false,
+      archiveSelect: false,
+      trashSelect: false,
+      labelSelect: false,
+      navigateArchived: false,
+      navigateTrashed: false,
+      navigateReminder: false,
+      label: []
+    };
+  }
   // handleClick=evt=>{
   //   this.props.name(evt);
   // }
@@ -97,25 +115,20 @@ class PersistentDrawerLeft extends React.Component {
         this.setState({
           label: result.data.data
         })
-        // console.log("getLabels result from back-end", result);
+        console.log("getLabels result from back-end------>", this.state.label);
       })
       .catch((error) => {
         console.log(error);
       });
   }
-  displaySearchLabels = (value) => {
-    this.props.searchLabels(value)
-  }
   showLabels = (value) => {
     let labelArr = this.state.label;
     if (value !== undefined) {
       labelArr.push(value);
+      console.log("Labels", this.state.label);
+
       this.setState({ label: labelArr });
     }
-    // this.setState({
-    //     label: [...this.state.label, value]
-    // })
-    //console.log("label-----------<",this.state.label);
   }
   newLabels = (value) => {
     this.setState({ label: value })
@@ -124,11 +137,21 @@ class PersistentDrawerLeft extends React.Component {
 
   handleEditLabel = (evt) => {
     this.props.name(evt)
-    this.setState({ open: !this.state.open })
+    this.setState({
+      open: !this.state.open, labelSelect: true, noteSelect: false,
+      reminderSelect: false,
+      archiveSelect: false,
+      trashSelect: false,
+    })
   }
 
   async handleArchived(evt) {
     await this.setState({
+      noteSelect: false,
+      reminderSelect: false,
+      archiveSelect: true,
+      trashSelect: false,
+      labelSelect: false,
       navigateReminder: false,
       navigateArchived: true,
       navigateTrashed: false
@@ -139,7 +162,11 @@ class PersistentDrawerLeft extends React.Component {
 
   async handleTrashed(evt) {
     await this.setState({
-
+      noteSelect: false,
+      reminderSelect: false,
+      archiveSelect: false,
+      trashSelect: true,
+      labelSelect: false,
       navigateReminder: false,
       navigateArchived: false,
       navigateTrashed: true
@@ -151,7 +178,11 @@ class PersistentDrawerLeft extends React.Component {
 
   async handleNotes(evt) {
     await this.setState({
-
+      noteSelect: true,
+      reminderSelect: false,
+      archiveSelect: false,
+      trashSelect: false,
+      labelSelect: false,
       navigateReminder: false,
       navigateArchived: false,
       navigateTrashed: false
@@ -162,7 +193,11 @@ class PersistentDrawerLeft extends React.Component {
 
   async handleReminder(evt) {
     await this.setState({
-
+      noteSelect: false,
+      reminderSelect: true,
+      archiveSelect: false,
+      trashSelect: false,
+      labelSelect: false,
       navigateReminder: true,
       navigateArchived: false,
       navigateTrashed: false
@@ -175,9 +210,10 @@ class PersistentDrawerLeft extends React.Component {
     let displayLabels = this.state.label;
     if (this.state.label !== "") {
       displayLabels = this.state.label.map((key) =>
-        <MenuItem style={{ display: "flex", flexDirection: "row", color: "#202124", fontFamily: "Google Sans, Roboto, Arial, sans-serif", fontSize: ".875rem" }} onClick={() => this.displaySearchLabels(key.label)} key={key.label}>
-          <img src={require('../assets/menuEdit.svg')} alt="label icon" style={{ marginRight: "50px" }} />
-          <div style={{ marginRight: "50px", marginBottom: "10px", marginTop: "10px", fontWeight: "550" }}>
+        <MenuItem style={{ display: "flex", flexDirection: "row", color: "#202124", fontFamily: "Google Sans, Roboto, Arial, sans-serif", fontSize: ".875rem" }}
+        >
+          <img src={require('../assets/iconLabel.svg')} alt="label icon" style={{ marginRight: "50px" }} />
+          <div style={{ marginRight: "50px", marginBottom: "10px", marginTop: "10px", fontWeight: "550" }} >
             {key.label}
           </div>
         </MenuItem>
@@ -186,85 +222,87 @@ class PersistentDrawerLeft extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          open={this.props.appBarProps}
-          classes={{
-            paper: classes.drawerPaper
-          }}
-        >
-          <MenuItem id="noteMenu" className={classes.menuItem} onClick={() => this.handleNotes("fundoo")}>
-            <img
-              src={require("../assets/menuNote.svg")}
-              alt="note icon"
-              style={{ marginRight: "30px" }}
-            />
-            Notes
-          </MenuItem>
-          <MenuItem id="reminderMenu" className={classes.menuItem} onClick={() => this.handleReminder("Reminder")}>
-            <img
-              src={require("../assets/menuReminder.svg")}
-              alt="reminder icon"
-              style={{ marginRight: "30px" }}
-            />
-            Reminders
-          </MenuItem>
-          <div
-            style={{
-              borderBottom: "1px solid lightgrey",
-              borderTop: "1px solid lightgrey"
+        <MuiThemeProvider theme={theme}>
+          <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            open={this.props.appBarProps}
+            classes={{
+              paper: classes.drawerPaper
             }}
           >
+            <MenuItem id="noteMenu" selected={this.state.noteSelect} className={classes.menuItem} onClick={() => this.handleNotes("fundoo")}>
+              <img
+                src={require("../assets/menuNote.svg")}
+                alt="note icon"
+                style={{ marginRight: "30px" }}
+              />
+              Notes
+          </MenuItem>
+            <MenuItem id="reminderMenu" selected={this.state.reminderSelect} className={classes.menuItem} onClick={() => this.handleReminder("Reminder")}>
+              <img
+                src={require("../assets/menuReminder.svg")}
+                alt="reminder icon"
+                style={{ marginRight: "30px" }}
+              />
+              Reminders
+          </MenuItem>
             <div
               style={{
-                padding: "3.5% 8%",
-                fontSize: "12px",
-                marginBottom: "15px",
-                marginTop: "10px",
-                fontFamily: "arial",
-                color: "gray"
+                borderBottom: "1px solid lightgrey",
+                borderTop: "1px solid lightgrey"
               }}
             >
-              LABELS
+              <div
+                style={{
+                  padding: "3.5% 8%",
+                  fontSize: "12px",
+                  marginBottom: "15px",
+                  marginTop: "10px",
+                  fontFamily: "arial",
+                  color: "gray"
+                }}
+              >
+                LABELS
             </div>
-            <div>
-              <MenuItem id="labelMenu" className={classes.menuItem} onClick={() => this.handleEditLabel("Label")}>
-                <img
-                  src={require("../assets/menuEdit.svg")}
-                  alt="edit icon"
-                  style={{ marginRight: "30px" }}
-                />
-                Edit Labels
-              </MenuItem>
-              <div>
+              <div className="labScroll">
                 {displayLabels}
               </div>
+              <div>
+                <MenuItem id="labelMenu" selected={this.state.labelSelect} className={classes.menuItem} onClick={() => this.handleEditLabel("Label")}>
+                  <img
+                    src={require("../assets/menuEdit.svg")}
+                    alt="edit icon"
+                    style={{ marginRight: "30px" }}
+                  />
+                  Edit Labels
+              </MenuItem>
+              </div>
             </div>
-          </div>
-          <MenuItem id="archiveMenu" className={classes.menuItem} onClick={() => this.handleArchived("Archive")}>
-            <img
-              src={require("../assets/menuArchive.svg")}
-              alt="archive icon"
-              style={{ marginRight: "30px" }}
-            />
-            Archive
+            <MenuItem id="archiveMenu" selected={this.state.archiveSelect} className={classes.menuItem} onClick={() => this.handleArchived("Archive")}>
+              <img
+                src={require("../assets/menuArchive.svg")}
+                alt="archive icon"
+                style={{ marginRight: "30px" }}
+              />
+              Archive
           </MenuItem>
-          <MenuItem id="trashIcon" className={classes.menuItem} onClick={() => this.handleTrashed("Trash")}>
-            <img
-              src={require("../assets/menuTrash.svg")}
-              alt="trash icon"
-              style={{ marginRight: "30px" }}
-            />
-            Trash
+            <MenuItem id="trashIcon" selected={this.state.trashSelect} className={classes.menuItem} onClick={() => this.handleTrashed("Trash")}>
+              <img
+                src={require("../assets/menuTrash.svg")}
+                alt="trash icon"
+                style={{ marginRight: "30px" }}
+              />
+              Trash
           </MenuItem>
-        </Drawer>
-        <EditLabel
-          newLabels={this.newLabels}
-          label={this.state.label}
-          // showLabels={this.showLabels}
-          drawerPropstoEditLabels={this.state.open}
-          labelToggle={this.handleEditLabel} />
+          </Drawer>
+          <EditLabel
+            newLabels={this.newLabels}
+            label={this.state.label}
+            showLabels={this.showLabels}
+            drawerPropstoEditLabels={this.state.open}
+            labelToggle={this.handleEditLabel} />
+        </MuiThemeProvider>
       </div>
     );
   }

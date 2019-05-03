@@ -58,10 +58,6 @@ export default class DashBoard extends Component {
     }
   };
 
-  makeLabelFalse=()=> {
-    this.noteToCards.current.makeLabelFalse();
-}
-
 
   componentWillMount=()=>{
     askForPermissioToReceiveNotifications();
@@ -76,8 +72,7 @@ export default class DashBoard extends Component {
             props={this.props}
             slideCards={this.slideCards}
             notePropsToApp={this.handlecardStyles}
-            handleNavigation={this.handleNavigation}    
-            makeLabelFalse={this.makeLabelFalse}              
+            handleNavigation={this.handleNavigation}               
           />
         </div>
         

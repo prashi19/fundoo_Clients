@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import { createNote } from "../services/noteServices";
 import Tools from "./tools";
-import EditPin from "../components/editpin"
+// import EditPin from "../components/editpin"
 
 const theme = createMuiTheme({
   overrides: {
@@ -39,7 +39,6 @@ export default class CreateNote extends Component {
       color: "rgb(255, 255, 255)",
       newNote: {},
       trash: false,
-      pinned: false,
     };
     this.handleTitle = this.handleTitle.bind(this);
     this.handleDescription = this.handleDescription.bind(this);
@@ -48,7 +47,6 @@ export default class CreateNote extends Component {
     this.handleReminder = this.handleReminder.bind(this);
     this.handleArchive = this.handleArchive.bind(this);
     this.handleTrash = this.handleTrash.bind(this);
-    this.handlePinned = this.handlePinned.bind(this);
   }
 
   handleTitle(evt) {
@@ -93,14 +91,6 @@ export default class CreateNote extends Component {
   }
 
 
-  handlePinned(value) {
-    try {
-      this.setState({ pinned: value });
-    } catch (err) {
-      console.log("error at handleTrash in createNotes");
-    }
-  }
-
   handleTrash(value) {
     try {
       this.setState({ trash: value });
@@ -127,13 +117,12 @@ export default class CreateNote extends Component {
           reminder: this.state.reminder,
           archive: this.state.archive,
           trash: this.state.trash,
-          pinned: this.state.pinned
         };
         createNote(note)
           .then(result => {
-            console.log("create note result from back-end====>", result);
+            console.log("create note result from back-end====>", result.data.data);
             this.setState({
-              newNote: result.data.data.note
+              newNote: result.data.data
             });
             this.props.getNewNote(this.state.newNote);
           })
@@ -147,7 +136,6 @@ export default class CreateNote extends Component {
           reminder: "",
           archive: false,
           trash: false,
-          pinned: false
         });
       }
     } catch (err) {
@@ -191,12 +179,6 @@ export default class CreateNote extends Component {
                   placeholder="Title"
                   value={this.state.title}
                   onChange={this.handleTitle}
-                />
-              </div>
-              <div>
-                <EditPin
-                  pinStatus={this.state.pinned}
-                  cardPropsToPin={this.handlePinned}
                 />
               </div>
               <Input

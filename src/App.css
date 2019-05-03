@@ -1,368 +1,441 @@
-.App {
-  /* text-align: center; */
-  justify-items: center;
-}
-
-.content {
-  text-align: center;
-  width: 30%;
-  margin: auto;
-  margin-top: 6%;
-}
-
-#logo {
-  width: 25%;
-  margin-top: 10%;
-}
-
-#text-field {
-  margin-left: 20%;
-  width: 60%;
-}
-#password {
-  width: 60%;
-  margin-left: 0%;
-}
-#button1 {
-  float: left;
-  margin-left: 10%;
-  text-transform: none;
-  color: #1a73e8;
-  font-weight: bold;
-}
-#button2 {
-  float: left;
-  width: 30%;
-  margin-left: 20%;
-}
-#button3 {
-  text-transform: none;
-  float: left;
-  margin-left: 10%;
-  color: #1a73e8;
-  font-weight: bold;
-}
-.text-filed {
-  width: 72%;
-}
-
-@media screen and (max-width: 425px) {
-  .content {
-    display: contents;
-  }
-  #password1 {
-    margin-left: 14%;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .content {
-    /* width:700px; */
-    width: 448px;
-    height: 500px;
-  }
-  #input {
-    width: 238px;
-  }
-}
-
-/*********************** Css for Register Password page ******************************/
-
-#reg_logo {
-  width: 25%;
-  margin-left: 5%;
-  margin-top: 3%;
-}
-
-.reg_content {
-  width: 50%;
-  margin: auto;
-  border: 2px black;
-}
-.input3 {
-  width: 80%;
-}
-.input4 {
-  width: 90%;
-}
-.reg_main {
-  margin-top: 2%;
-}
-.reg_center {
-  text-align: center;
-}
-
-#reg_hed {
-  margin-left: 10%;
-}
-.reg_textfield1 {
-  display: inline-block;
-}
-.reg_textfield2 {
-  display: inline-block;
-  margin-left: 10%;
-}
-
-.reg_textfield4 {
-  display: inline-block;
-}
-/* .reg_textfield3{
+        .App {
+            /* text-align: center; */
+            justify-items: center;
+        }
+        
+        .content {
+            text-align: center;
+            width: 30%;
+            margin: auto;
+            margin-top: 6%;
+        }
+        
+        #logo {
+            width: 25%;
+            margin-top: 10%;
+        }
+        
+        #text-field {
+            margin-left: 20%;
+            width: 60%;
+        }
+        
+        #password {
+            width: 60%;
+            margin-left: 0%;
+        }
+        
+        #button1 {
+            float: left;
+            margin-left: 10%;
+            text-transform: none;
+            color: #1a73e8;
+            font-weight: bold;
+        }
+        
+        #button2 {
+            float: left;
+            width: 30%;
+            margin-left: 20%;
+        }
+        
+        #button3 {
+            text-transform: none;
+            float: left;
+            margin-left: 10%;
+            color: #1a73e8;
+            font-weight: bold;
+        }
+        
+        .text-filed {
+            width: 72%;
+        }
+        /*********** login ******************/
+        
+        @media screen and (max-width: 320px) {
+            .content {
+                display: contents;
+            }
+            .password1 {
+                margin-left: 0%;
+            }
+            .text-filed1 {
+                width: 230px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .content {
+                /* width:700px; */
+                width: 448px;
+                height: 500px;
+            }
+            #input {
+                width: 238px;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .content {
+                /* width:700px; */
+                width: 448px;
+                height: 500px;
+            }
+            #input {
+                width: 238px;
+            }
+        }
+        /*********************** Css for Register Password page ******************************/
+        
+        #reg_logo {
+            width: 25%;
+            margin-left: 5%;
+            margin-top: 3%;
+        }
+        
+        .reg_content {
+            width: 50%;
+            margin: auto;
+            border: 2px black;
+        }
+        
+        .input3 {
+            width: 80%;
+        }
+        
+        .input4 {
+            width: 90%;
+        }
+        
+        .reg_main {
+            margin-top: 2%;
+        }
+        
+        .reg_center {
+            text-align: center;
+        }
+        
+        #reg_hed {
+            margin-left: 10%;
+        }
+        
+        .reg_textfield1 {
+            display: inline-block;
+        }
+        
+        .reg_textfield2 {
+            display: inline-block;
+            margin-left: 10%;
+        }
+        
+        .reg_textfield4 {
+            display: inline-block;
+        }
+        /* .reg_textfield3{
  width:650px;
  margin-left: -8%;
 } */
-.reg_textfield5 {
-  display: inline-block;
-  margin-left: 5%;
-}
-.reg_textfield6 {
-  display: inline-block;
-}
-#reg_button2 {
-  margin-left: 50%;
-  margin-top: 2%;
-}
-
-.popinfo {
-  width: fit-content;
-  float: right;
-  margin-top: 16%;
-}
-/*********************** Css for Forgot Password page ******************************/
-.for_content {
-  text-align: center;
-  width: 30%;
-  margin: auto;
-  margin-top: 6%;
-}
-
-#for_logo {
-  width: 25%;
-  margin-top: 10%;
-}
-
-#text-field {
-  margin-left: 20%;
-  width: 60%;
-}
-/******************************** Appbar *********************************/
-#typo {
-  opacity: 0.7;
-  font-weight: 300;
-  width: 100px;
-}
-
-/*********************** Css for Reset page ******************************/
-.res_password {
-  width: 60%;
-  margin-left: 14%;
-}
-/************************* DashBoard *************************************/
-#Button:focus,
-#Button:active {
-  outline: none;
-  box-shadow: none;
-}
-
-.afterSlide {
-  margin-left: 250px;
-  transition: margin-left 0.25s;
-}
-
-.beforeSlide {
-  margin-left: 100px;
-  transition: 0.25s;
-}
-
-.dash_content {
-  margin-top: 70px;
-}
-
-#noteMenu {
-  font-family: Google Sans, Roboto, Arial, sans-serif;
-  height: 30px;
-  font-size: 0.875rem;
-  font-weight: 550;
-  color: #424242;
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
-}
-
-#reminderMenu {
-  font-family: Google Sans, Roboto, Arial, sans-serif;
-  height: 30px;
-  font-size: 0.875rem;
-  font-weight: 550;
-  color: #424242;
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
-}
-
-#archiveMenu {
-  font-family: Google Sans, Roboto, Arial, sans-serif;
-  height: 30px;
-  font-size: 0.875rem;
-  font-weight: 550;
-  color: #424242;
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
-}
-
-#labelMenu {
-  font-family: Google Sans, Roboto, Arial, sans-serif;
-  height: 30px;
-  font-size: 0.875rem;
-  font-weight: 550;
-  color: #424242;
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
-}
-
-#trashIcon {
-  font-family: Google Sans, Roboto, Arial, sans-serif;
-  height: 30px;
-  font-size: 0.875rem;
-  font-weight: 550;
-  color: #202124;
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
-}
-
-#Button1:focus,
-#Button1:active {
-  outline: none;
-  box-shadow: none;
-}
-
-.createNote {
-  height: 0px;
-  width: 550px;
-  margin-left: 90px;
-  margin-top: 100px;
-  text-align: left;
-  padding: 20px;
-  border: 1px solid #dadce0;
-}
-
-.createNote1 {
-  /* height: 100px; */
-  width: 550px;
-  margin-left: 90px;
-  margin-top: 100px;
-  border-radius: 10px;
-  text-align: left;
-  padding: 20px;
-  border: 1px solid #dadce0;
-}
-
-.noteInputBase {
-  margin-top: 3%;
-  width: 460px;
-  overflow: "-webkit-paged-x";
-}
-.noteInputBase1 {
-  margin-top: 0%;
-  width: 460px;
-}
-
-#createNoteParent {
-  margin-left: 160px;
-}
-
-#createNoteParent1 {
-  margin-left: 160px;
-}
-.staticCreateNote {
-  /* display:flex; */
-  flex-direction: row;
-  margin-top: -3%;
-}
-
-#close {
-  float: right;
-  text-transform: none;
-  font-weight: 450;
-  outline: none;
-  box-shadow: none;
-  opacity: 0.7;
-  margin-top: -26px;
-}
-
-#avatar:focus,
-#avatar:active {
-  outline: none;
-  box-shadow: none;
-}
-
-#userProfileIcon:focus,
-#userProfileIcon:active {
-  outline: none;
-  box-shadow: none;
-}
-
-.ColorBox {
-  width: fit-content;
-}
-#ToolButton {
-  margin: 0 16px;
-  cursor: pointer;
-  opacity: 0.71;
-  height: 24px;
-  width: 24px;
-}
-#cardViewIcon:focus,
-#cardViewIcon:active {
-  outline: none;
-  box-shadow: none;
-}
-
-.CardsView {
-  width: 900px;
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 3%;
-  margin-left: 160px;
-  word-break: break-word;
-}
-
-.dialogInputBase {
-  width: 550px;
-}
-
-#gap {
-  display: flex;
-  /* margin-left: 12%; */
-  margin-left: 140px;
-  width: fit-content;
-}
-.cardTools {
-  margin-top: 4%;
-  display: flex;
-
-  /* opacity: .71;  */
-}
-
-.Reminder_Contents {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 3%;
-  margin-left: 160px;
-  width: 530px;
-}
-.colorPalleteCard {
-  position: absolute;
-  max-width: 126px;
-  /* margin-left: 26.5%;
+        
+        .reg_textfield5 {
+            display: inline-block;
+            margin-left: 5%;
+        }
+        
+        .reg_textfield6 {
+            display: inline-block;
+        }
+        
+        #reg_button2 {
+            margin-left: 50%;
+            margin-top: 2%;
+        }
+        
+        .popinfo {
+            width: fit-content;
+            float: right;
+            margin-top: 16%;
+        }
+        
+        @media screen and (max-width: 320px) {
+            .reg_content {
+                width: 100%;
+                margin: auto;
+                border: 2px black;
+            }
+            .reg_textfield2 {
+                display: inline-block;
+                margin-left: 0%;
+            }
+            .reg_textfield3 {
+                width: 289px;
+                margin-left: 15px;
+            }
+        }
+        
+        @media screen and (max-width: 320px) {
+            .reg_content {
+                width: 100%;
+                margin: auto;
+                border: 2px black;
+            }
+            .reg_textfield2 {
+                display: inline-block;
+                margin-left: 0%;
+            }
+            .reg_textfield3 {
+                width: 289px;
+                margin-left: 15px;
+            }
+        }
+        
+        @media screen and (max-width: 425px) {
+            .reg_content {
+                width: 100%;
+            }
+        }
+        /*********************** Css for Forgot Password page ******************************/
+        
+        .for_content {
+            text-align: center;
+            width: 50%;
+            margin: auto;
+            margin-top: 6%;
+        }
+        
+        #for_logo {
+            width: 25%;
+            margin-top: 10%;
+        }
+        
+        #text-field {
+            margin-left: 20%;
+            width: 60%;
+        }
+        /******************************** Appbar *********************************/
+        
+        #typo {
+            opacity: 0.7;
+            font-weight: 300;
+            width: 100px;
+        }
+        /*********************** Css for Reset page ******************************/
+        
+        .res_password {
+            width: 60%;
+            margin-left: 14%;
+        }
+        /************************* DashBoard *************************************/
+        
+        #Button:focus,
+        #Button:active {
+            outline: none;
+            box-shadow: none;
+        }
+        
+        .afterSlide {
+            margin-left: 250px;
+            transition: margin-left 0.25s;
+        }
+        
+        .beforeSlide {
+            margin-left: 100px;
+            transition: 0.25s;
+        }
+        
+        .dash_content {
+            margin-top: 70px;
+        }
+        
+        #noteMenu {
+            font-family: Google Sans, Roboto, Arial, sans-serif;
+            height: 30px;
+            font-size: 0.875rem;
+            font-weight: 550;
+            color: #424242;
+            border-top-right-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+        
+        #reminderMenu {
+            font-family: Google Sans, Roboto, Arial, sans-serif;
+            height: 30px;
+            font-size: 0.875rem;
+            font-weight: 550;
+            color: #424242;
+            border-top-right-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+        
+        #archiveMenu {
+            font-family: Google Sans, Roboto, Arial, sans-serif;
+            height: 30px;
+            font-size: 0.875rem;
+            font-weight: 550;
+            color: #424242;
+            border-top-right-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+        
+        #labelMenu {
+            font-family: Google Sans, Roboto, Arial, sans-serif;
+            height: 30px;
+            font-size: 0.875rem;
+            font-weight: 550;
+            color: #424242;
+            border-top-right-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+        
+        #trashIcon {
+            font-family: Google Sans, Roboto, Arial, sans-serif;
+            height: 30px;
+            font-size: 0.875rem;
+            font-weight: 550;
+            color: #202124;
+            border-top-right-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+        
+        #Button1:focus,
+        #Button1:active {
+            outline: none;
+            box-shadow: none;
+        }
+        
+        .createNote {
+            height: 0px;
+            width: 550px;
+            margin-left: 90px;
+            margin-top: 100px;
+            text-align: left;
+            padding: 20px;
+            border: 1px solid #dadce0;
+        }
+        
+        .createNote1 {
+            /* height: 100px; */
+            width: 550px;
+            margin-left: 90px;
+            margin-top: 100px;
+            border-radius: 10px;
+            text-align: left;
+            padding: 20px;
+            border: 1px solid #dadce0;
+        }
+        
+        .noteInputBase {
+            margin-top: 3%;
+            width: 460px;
+            overflow: "-webkit-paged-x";
+        }
+        
+        .noteInputBase1 {
+            margin-top: 0%;
+            width: 460px;
+        }
+        
+        #createNoteParent {
+            margin-left: 160px;
+        }
+        
+        #createNoteParent1 {
+            margin-left: 160px;
+        }
+        
+        .staticCreateNote {
+            /* display:flex; */
+            flex-direction: row;
+            margin-top: -3%;
+        }
+        
+        #close {
+            float: right;
+            text-transform: none;
+            font-weight: 450;
+            outline: none;
+            box-shadow: none;
+            opacity: 0.7;
+            margin-top: -26px;
+        }
+        
+        #avatar:focus,
+        #avatar:active {
+            outline: none;
+            box-shadow: none;
+        }
+        
+        #userProfileIcon:focus,
+        #userProfileIcon:active {
+            outline: none;
+            box-shadow: none;
+        }
+        
+        .ColorBox {
+            width: fit-content;
+        }
+        
+        #ToolButton {
+            margin: 0 16px;
+            cursor: pointer;
+            opacity: 0.71;
+            height: 24px;
+            width: 24px;
+        }
+        
+        #cardViewIcon:focus,
+        #cardViewIcon:active {
+            outline: none;
+            box-shadow: none;
+        }
+        
+        .CardsView {
+            width: 900px;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 3%;
+            margin-left: 160px;
+            word-break: break-word;
+        }
+        
+        .dialogInputBase {
+            width: 550px;
+        }
+        
+        #gap {
+            display: flex;
+            /* margin-left: 12%; */
+            margin-left: 140px;
+            width: fit-content;
+        }
+        
+        .cardTools {
+            margin-top: 4%;
+            display: flex;
+            /* opacity: .71;  */
+        }
+        
+        .Reminder_Contents {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 3%;
+            margin-left: 160px;
+            width: 530px;
+        }
+        
+        .colorPalleteCard {
+            position: absolute;
+            max-width: 126px;
+            /* margin-left: 26.5%;
     margin-top: -4%; */
-  padding: 3px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  z-index: 2;
-  transition: 5s;
-  overflow: auto;
-}
-
-/* .displaycontentdiv{
+            padding: 3px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            z-index: 2;
+            transition: 5s;
+            overflow: auto;
+        }
+        /* .displaycontentdiv{
     visibility:hidden;
     display: none
   }
@@ -370,285 +443,280 @@
     visibility:visible;
     display: block;
   } */
-
-/***************************************************************************************************************/
-/***************************************************************************************************************/
-
-.root {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.listCards {
-  width: 550px;
-  margin-left: 90px;
-  margin-top: 10px;
-  padding: 15px;
-}
-.cards {
-  width: 250px;
-  padding: 15px;
-  margin: 8px;
-}
-#dibut {
-  float: right;
-  margin-top: -5%;
-}
-/***************** REMINDER NAVIGATOR CSS *****************/
-
-
-/***************** ARCHIVE NAVIGATOR CSS ******************/
-.archive_cardview{
-  margin-top:110px;
-}
-/**************** TRASH NAVIGATOR CSS ********************/
-
-.trash_cardview{
-  margin-top:110px;
-}
-.TrashNavi1 {
-  margin-top: 20px;
-  margin-left: -120px;
-}
-
-.a1 {
-  margin-top: 20px;
-  margin-left: -120px;
-}
-/*************** Label *******************/
-.cardToolsClose {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 5.5%
-}
-
-.cardToolsDialog {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 5.5%
-}
-
-.cardTools {
-  width: 200px;
-  display: flex;
-  justify-content: space-between;
-}
-
-/* 
+        /***************************************************************************************************************/
+        /***************************************************************************************************************/
+        
+        .root {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .listCards {
+            width: 550px;
+            margin-left: 90px;
+            margin-top: 10px;
+            padding: 15px;
+        }
+        
+        .cards {
+            width: 250px;
+            padding: 15px;
+            margin: 8px;
+        }
+        
+        #dibut {
+            float: right;
+            margin-top: -5%;
+        }
+        /***************** REMINDER NAVIGATOR CSS *****************/
+        /***************** ARCHIVE NAVIGATOR CSS ******************/
+        
+        .archive_cardview {
+            margin-top: 110px;
+        }
+        /**************** TRASH NAVIGATOR CSS ********************/
+        
+        .trash_cardview {
+            margin-top: 110px;
+        }
+        
+        .TrashNavi1 {
+            margin-top: 20px;
+            margin-left: -120px;
+        }
+        
+        .a1 {
+            margin-top: 20px;
+            margin-left: -120px;
+        }
+        /*************** Label *******************/
+        
+        .cardToolsClose {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5.5%
+        }
+        
+        .cardToolsDialog {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5.5%
+        }
+        
+        .cardTools {
+            width: 200px;
+            display: flex;
+            justify-content: space-between;
+        }
+        /* 
 .listCards:hover .cardTools {
   visibility: visible
 } */
-
-
-.listCards .cardTools {
-  visibility: visible
-}
-
-.pinIcon {
-  visibility: hidden;
-}
-
-/* 
+        
+        .listCards .cardTools {
+            visibility: visible
+        }
+        
+        .pinIcon {
+            visibility: hidden;
+        }
+        /* 
 .listCards:hover .pinIcon {
   visibility: visible
 } */
-
-#createNotetools {
-  display: flex;
-  flex-direction: row
-}
-
-.createNotePinIcon {
-  display: flex;
-  flex-direction: row;
-  margin-top: 0%
-}
-
-div .listRemindr {
-  padding-left: 15px
-}
-
-div .currentDate {
-  display: flex;
-  justify-content: space-between;
-}
-
-.pickDateTime {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-}
-
-.moreOptionsPopper {
-  margin-top: -95px;
-  z-index: -1
-}
-
-.addDrawingOptions {
-  margin-left: -8px;
-  font-family: arial;
-  font-size: 15px;
-  color: gray
-}
-
-#moreOptionsMenu {
-  font-family: arial;
-  font-size: 15px;
-  height: 5%;
-}
-
-#editLabelTextField {
-  font-family: 'Roboto', arial, sans-serif;
-  font-size: 14px;
-  font-weight: 550;
-  width: 182px;
-  height: 45px;
-  color: black;
-  padding-bottom: 0px;
-  padding-top: 0px;
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-.editCloseButton {
-  margin-left: 195px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.editTitleInput {
-  width: 550px;
-}
-
-.editNote {
-  width: 550px;
-}
-
-.editDialog {
-  display: flex;
-  flex-direction: row;
-}
-
-#doneButton {
-  margin-left: 300px
-}
-
-#appBarIcons {
-  display: flex;
-  line-height: 3
-}
-
-#appBarMenu {
-  display: flex;
-  line-height: 3;
-  color: gray
-}
-
-/***************** MEDIA QUERY for MOBILE ****************/
-@media screen and (max-width: 425px) {
-  /* body{
+        
+        #createNotetools {
+            display: flex;
+            flex-direction: row
+        }
+        
+        .createNotePinIcon {
+            display: flex;
+            flex-direction: row;
+            margin-top: 0%
+        }
+        
+        div .listRemindr {
+            padding-left: 15px
+        }
+        
+        div .currentDate {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .pickDateTime {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .moreOptionsPopper {
+            margin-top: -95px;
+            z-index: -1
+        }
+        
+        .addDrawingOptions {
+            margin-left: -8px;
+            font-family: arial;
+            font-size: 15px;
+            color: gray
+        }
+        
+        #moreOptionsMenu {
+            font-family: arial;
+            font-size: 15px;
+            height: 5%;
+        }
+        
+        #editLabelTextField {
+            font-family: 'Roboto', arial, sans-serif;
+            font-size: 14px;
+            font-weight: 550;
+            width: 182px;
+            height: 45px;
+            color: black;
+            padding-bottom: 0px;
+            padding-top: 0px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        
+        .editCloseButton {
+            margin-left: 195px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .editTitleInput {
+            width: 550px;
+        }
+        
+        .editNote {
+            width: 550px;
+        }
+        
+        .editDialog {
+            display: flex;
+            flex-direction: row;
+        }
+        
+        #doneButton {
+            margin-left: 300px
+        }
+        
+        #appBarIcons {
+            display: flex;
+            line-height: 3
+        }
+        
+        #appBarMenu {
+            display: flex;
+            line-height: 3;
+            color: gray
+        }
+        
+        .labScroll {
+            max-height: 200px;
+            overflow-y: scroll;
+        }
+        /***************** MEDIA QUERY for MOBILE ****************/
+        
+        @media screen and (max-width: 425px) {
+            /* body{
     font-size: 2rem;
   } */
-  .afterSlide {
-    margin-left: 100px;
-    transition: margin-left 0.25s;
-  }
-
-  .beforeSlide {
-    margin-left: 100px;
-    transition: 0.25s;
-  }
-
-  main_createNote{
-    margin-left: 100px;
-  }
-  #createNoteParent {
-    margin-left: 0px;
-  }
-  #createNoteParent1 {
-    margin-left: 0px;
-  }
-  .CardsView {
-    margin-top: 20px;
-    margin-left: -120px;
-    width: 350px;
-  }
-  .root {
-    margin-left: -110px;
-  }
-
-  .cards {
-    width: 550px;
-    margin-left: 80px;
-  }
-  #cardViewIcon {
-    display: none;
-  }
-  .createNote {
-    margin-left: 40px;
-  }
-  .createNote1 {
-    margin-left: 40px;
-  }
-
-  .Reminder_Contents {
-    margin-left: -170px;
-  }
-  .CardsView1 {
-    margin-left: 0px;
-  }
-  #notesfont {
-    font-size: 1.6rem;
-    margin-left: 10px;
-  }
-  #close {
-    font-size: 1.5rem;
-  }
-
-  #title {
-    font-size: 1.6rem;
-  }
-  #description {
-    font-size: 1.6rem;
-    padding: 2px;
-  }
-
-  /*for archive navigator */
-  .archive_cardview{
-    margin-left:20px;
-  }
-  .staticCreateNote{
-    margin-right:10px;
-  }
-
-}
-
-/***************** MEDIA QUERY for TABLETS ****************/
-@media screen and (max-width: 768px) {
-  .afterSlide {
-    margin-left: 100px;
-    transition: margin-left 0.25s;
-  }
-
-  .beforeSlide {
-    margin-left: 100px;
-    transition: 0.25s;
-  }
-
-  #createNoteParent {
-    margin-left: -17px;
-  }
-  #createNoteParent1 {
-    margin-left: -17px;
-  }
-  .CardsView {
-    margin-top: 20px;
-    margin-left: -17px;
-  }
-  .root {
-    margin-left: -50px;
-  }
-  /* 
+            .afterSlide {
+                margin-left: 100px;
+                transition: margin-left 0.25s;
+            }
+            .beforeSlide {
+                margin-left: 100px;
+                transition: 0.25s;
+            }
+            main_createNote {
+                margin-left: 100px;
+            }
+            #createNoteParent {
+                margin-left: 0px;
+            }
+            #createNoteParent1 {
+                margin-left: 0px;
+            }
+            .CardsView {
+                margin-top: 20px;
+                margin-left: -120px;
+                width: 350px;
+            }
+            .root {
+                margin-left: -110px;
+            }
+            .cards {
+                width: 550px;
+                margin-left: 80px;
+            }
+            #cardViewIcon {
+                display: none;
+            }
+            .createNote {
+                margin-left: 40px;
+            }
+            .createNote1 {
+                margin-left: 40px;
+            }
+            .Reminder_Contents {
+                margin-left: -170px;
+            }
+            .CardsView1 {
+                margin-left: 0px;
+            }
+            #notesfont {
+                font-size: 1.6rem;
+                margin-left: 10px;
+            }
+            #close {
+                font-size: 1.5rem;
+            }
+            #title {
+                font-size: 1.6rem;
+            }
+            #description {
+                font-size: 1.6rem;
+                padding: 2px;
+            }
+            /*for archive navigator */
+            .archive_cardview {
+                margin-left: 20px;
+            }
+            .staticCreateNote {
+                margin-right: 10px;
+            }
+        }
+        /***************** MEDIA QUERY for TABLETS ****************/
+        
+        @media screen and (max-width: 768px) {
+            .afterSlide {
+                margin-left: 100px;
+                transition: margin-left 0.25s;
+            }
+            .beforeSlide {
+                margin-left: 100px;
+                transition: 0.25s;
+            }
+            #createNoteParent {
+                margin-left: -17px;
+            }
+            #createNoteParent1 {
+                margin-left: -17px;
+            }
+            .CardsView {
+                margin-top: 20px;
+                margin-left: -17px;
+            }
+            .root {
+                margin-left: -50px;
+            }
+            /* 
   .cards {
     width: 550px;
     margin-left: 180px; 
@@ -656,39 +724,35 @@ div .currentDate {
   padding: 15px;
   margin:8px;
 } */
-  /* #cardViewIcon{
+            /* #cardViewIcon{
   display: none;
 } */
-  .createNote {
-    margin-left: 40px;
-  }
-  .createNote1 {
-    margin-left: 40px;
-  }
-
-  .Reminder_Contents {
-    margin-left: -170px;
-  }
-  .CardsView1 {
-    margin-left: 0px;
-  }
-}
-
-
-/********************** MEDIA QUERY FOR LAPTOP **********************/
-
-
-/************* Empty contents *************/
-.NoteDiv{
- margin-left: 30%;
- margin-top: 10%;
-}
-#blurimage3{
-  width:120px;
-  opacity: .20;
-}
-
-
-.main_createNote{
-  margin-left: -3px;
-}
+            .createNote {
+                margin-left: 40px;
+            }
+            .createNote1 {
+                margin-left: 40px;
+            }
+            .Reminder_Contents {
+                margin-left: -170px;
+            }
+            .CardsView1 {
+                margin-left: 0px;
+            }
+        }
+        /********************** MEDIA QUERY FOR LAPTOP **********************/
+        /************* Empty contents *************/
+        
+        .NoteDiv {
+            margin-left: 30%;
+            margin-top: 10%;
+        }
+        
+        #blurimage3 {
+            width: 120px;
+            opacity: .20;
+        }
+        
+        .main_createNote {
+            margin-left: -3px;
+        }

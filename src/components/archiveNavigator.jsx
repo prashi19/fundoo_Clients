@@ -36,7 +36,7 @@ export default class ArchivedNavigator extends Component {
     super(props);
     this.state = {
       openSnackBar: false,
-      open:false,
+      open: false,
     };
     this.cardsToDialogBox = React.createRef();
   }
@@ -51,7 +51,7 @@ export default class ArchivedNavigator extends Component {
       open: false
     })
   }
-  
+
   /**
    * @description:use to auto close snackBar
    */
@@ -65,108 +65,125 @@ export default class ArchivedNavigator extends Component {
     }
   };
   render() {
-    let cardsView= this.props.noteProps ? "listCards" : "cards";
-    return(
+    let cardsView = this.props.noteProps ? "listCards" : "cards";
+    return (
       <div>
         {
-          this.props.archiveArray.length<1?
-        <div>
-         
-        </div>
-        :
-        <div>
-          <MuiThemeProvider theme={theme}>
-        <div>
-          <div className="archive_cardview">
-            {this.props.archiveArray.map(key => {
-              return (
-                <Card 
-                onClick={this.props.onClick}
-                  className={cardsView}
-                  style={{
-                    backgroundColor: key.color,
-                    borderRadius: "15px",
-                    border: "1px solid #dadce0",
-                    wordBreak: "break-word"
-                  }}
-                >
-                  <div className="DispCont">
-                    <div onClick={()=>this.openDialog(key)}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between"
-                      }}
-                    >
-                      <b> {key.title}</b>
-                    </div>
-                    <div onClick={()=>this.openDialog(key)} style={{ paddingBottom: "10px", paddingTop: "10px" }}>
-                      {key.description}
-                    </div>
-                    {key.reminder ? (
-                      <Chip
-                        label={key.reminder}
-                        onDelete={() => this.props.reminder("", key._id)}
-                      />
-                    ) : null}
-                  </div>
-                  <div id="displaycontentdiv">
-                    <Tools
-                      createNotePropsToTools={this.props.getColor}
-                      note={key}
-                      noteID={key._id}
-                      reminder={this.props.reminder}
-                      trashNote={this.props.trashNote}
-                      archiveStatus={key.archive}
+          this.props.archiveArray.length < 1 ?
+            <div>
+
+            </div>
+            :
+            <div>
+              <MuiThemeProvider theme={theme}>
+                <div>
+                  <div className="archive_cardview">
+                    {this.props.archiveArray.reverse().map(key => {
+                      return (
+                        <Card
+                          onClick={this.props.onClick}
+                          className={cardsView}
+                          style={{
+                            backgroundColor: key.color,
+                            borderRadius: "15px",
+                            border: "1px solid #dadce0",
+                            wordBreak: "break-word"
+                          }}
+                        >
+                          <div className="DispCont">
+                            <div onClick={() => this.openDialog(key)}
+                              style={{
+                                display: "flex",
+                                justifyContent: "space-between"
+                              }}
+                            >
+                              <b> {key.title}</b>
+                            </div>
+                            <div onClick={() => this.openDialog(key)} style={{ paddingBottom: "10px", paddingTop: "10px" }}>
+                              {key.description}
+                            </div>
+                            {key.reminder ? (
+                              <Chip
+                                label={key.reminder}
+                                onDelete={() => this.props.reminder("", key._id)}
+                              />
+                            ) : null}
+                          </div>
+                          <div>
+                            {key.label.length > 0 ?
+                              key.label.map((key1, index) =>
+                                <div key={index} >
+                                  <Chip
+                                    label={key1}
+                                    onDelete={() => this.props.deleteLabelFromNote(key1, key._id)}
+                                  />
+                                </div>
+                              )
+                              :
+                              null}
+                          </div>
+                          <div id="displaycontentdiv">
+                            <Tools
+                              createNotePropsToTools={this.props.getColor}
+                              note={key}
+                              noteID={key._id}
+                              reminder={this.props.reminder}
+                              trashNote={this.props.trashNote}
+                              archiveStatus={key.archive}
+                              archiveNote={this.props.archiveNote}
+                              addLabelToNote={this.props.addLabelToNote}
+                              deleteLabelFromNote={this.props.deleteLabelFromNote}
+                            />
+                          </div>
+                        </Card>
+                      );
+                    })}
+                    <DialogBox
+                      ref={this.cardsToDialogBox}
+                      parentProps={this.state.open}
+                      close={this.close}
                       archiveNote={this.props.archiveNote}
+                      reminder={this.props.reminderNote}
+                      trashNote={this.props.trashNote}
+                      editTitle={this.props.editTitle}
+                      editDescription={this.props.editDescription}
+                      createNotePropsToTools={this.props.getColor}
+                      addLabelToNote={this.props.addLabelToNote}
+                      deleteLabelFromNote={this.props.deleteLabelFromNote}
                     />
                   </div>
-                </Card>
-              );
-            })}
-            <DialogBox
-              ref={this.cardsToDialogBox}
-              parentProps={this.state.open}
-              close={this.close}
-              archiveNote={this.props.archiveNote}
-              reminder={this.props.reminderNote}
-              trashNote={this.props.trashNote}
-              editTitle={this.props.editTitle}
-              editDescription={this.props.editDescription}
-              createNotePropsToTools={this.props.getColor}
-            />
-          </div>
-          <Snackbar
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "right"
-            }}
-            open={this.state.openSnackBar}
-            autoHideDuration={6000}
-            onClose={this.handleSnackClose}
-            variant="error"
-            ContentProps={{
-              "aria-describedby": "message-id"
-            }}
-            message={<span id="message-id"> Note Unarchived</span>}
-            action={[
-              <div>
-                <IconButton
-                  key="close"
-                  aria-label="Close" 
-                  color="inherit"
-                  onClick={this.handleSnackClose}
-                >
-                  <CloseIcon />
-                </IconButton>
-              </div>
-            ]}
-          />
-        </div>
-      </MuiThemeProvider>
-          </div>
-          }
+                  <Snackbar
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "right"
+                    }}
+                    open={this.state.openSnackBar}
+                    autoHideDuration={6000}
+                    onClose={this.handleSnackClose}
+                    variant="error"
+                    ContentProps={{
+                      "aria-describedby": "message-id"
+                    }}
+                    message={<span id="message-id"> Note Unarchived</span>}
+                    action={[
+                      <div>
+                        <IconButton
+                          key="close"
+                          aria-label="Close"
+                          color="inherit"
+                          onClick={this.handleSnackClose}
+                        >
+                          <CloseIcon />
+                        </IconButton>
+                      </div>
+                    ]}
+                  />
+                </div>
+              </MuiThemeProvider>
+            </div>
+        }
       </div>
-      
+
     );
   }
 }

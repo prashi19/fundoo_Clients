@@ -98,6 +98,7 @@ export default class MoreOptions extends Component {
         open: false
       })
       this.moreOptionsToAddLabels.current.addLabelPopup(event);
+      this.handleToggle();
     } catch (err) {
       console.log("error at handleLabelOnNote in moreOptions");
     }
@@ -111,7 +112,7 @@ export default class MoreOptions extends Component {
           open={open}
           anchorEl={anchorEl}
           placement={placement}
-          transition style={{ zIndex: 9999 }}
+          transition style={{ zIndex: 5500 }}
         >
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>

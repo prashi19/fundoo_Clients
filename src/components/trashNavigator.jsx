@@ -4,7 +4,7 @@ import {
   MuiThemeProvider,
   createMuiTheme,
   Snackbar,
-  IconButton
+  IconButton,Chip
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import TrashOptions from "../components/trashOption"
@@ -64,7 +64,7 @@ export default class TrashNavigator extends Component {
           >
           </label>
           <div className="trash_cardview">
-            {this.props.trashArray.map(key => {
+            {this.props.trashArray.reverse().map(key => {
               return (
                 <Card
                   className={cardsView}
@@ -93,6 +93,18 @@ export default class TrashNavigator extends Component {
                         onDelete={() => this.props.reminder("", key._id)}
                       />
                     ) : null} */}
+                  </div>
+                  <div>
+                    {key.label.length > 0 ?
+                      key.label.map((key1, index) =>
+                        <div key={index} >
+                          <Chip
+                            label={key1}
+                          />
+                        </div>
+                      )
+                      :
+                      null}
                   </div>
                   <div id="displaycontentdiv">
                     <TrashOptions

@@ -7,19 +7,8 @@ import {
 } from "@material-ui/core";
 import Tools from "../components/tools";
 import {
-  getNotes,
-  updateColor,
-  otherArray,
-  setReminder,
-  archiveArray,
-  trashArray,
-  reminderArray,
-  pinArray,
-  updateArchiveStatus,
-  updateTrashStatus,
-  updateDescription,
-  updateTitle,
-  deleteNoteForever,
+  getNotes, updateColor, otherArray, setReminder, archiveArray, trashArray, reminderArray, pinArray,
+  updateArchiveStatus, updateTrashStatus, updateDescription, updateTitle, deleteNoteForever,
   // updatePin,
   saveLabel
 } from "../services/noteServices";
@@ -69,6 +58,10 @@ export default class Cards extends Component {
     console.log("note--------------------->", note);
     this.cardsToDialogBox.current.getData(note);
     await this.setState({ openDialog: true });
+  }
+
+  displayLabelledCards() {
+    this.setState({ label: true })
   }
 
   componentDidMount() {
@@ -259,55 +252,61 @@ export default class Cards extends Component {
       });
   }
 
-    addLabelToNote = (noteId, value) => {
-      const addLabel = {
-          noteID: noteId,
-          label: value
-      }
-      saveLabel('/saveLabelToNote', addLabel)
-          .then((result) => {
-              console.log("labellllllllllllll", result);
+  addLabelToNote = (noteId, value) => {
+  var noteA=this.state.notes;
+  noteA.map((key)=>(
+  console.log("key---->",key.label)   
+  ))
+  console.log("noteAAAAAAA",noteA);
+  
+    const addLabel = {
+      noteID: noteId,
+      label: value
+    }
+    saveLabel('/saveLabelToNote', addLabel)
+      .then((result) => {
+        console.log("labellllllllllllll", result);
 
-              let newArray = this.state.notes
-              for (let i = 0; i < newArray.length; i++) {
-                  if (newArray[i]._id === noteId) {
-                      newArray[i].label = result.data.data;
-                      this.setState({
-                          notes: newArray
-                      })
-                  }
-              }
-          })
-          .catch((error) => {
-              // NotificationManager.error(error);
-              alert(error)
-          });
+        let newArray = this.state.notes
+        for (let i = 0; i < newArray.length; i++) {
+          if (newArray[i]._id === noteId) {
+            newArray[i].label = result.data.data;
+            this.setState({
+              notes: newArray
+            })
+          }
+        }
+      })
+      .catch((error) => {
+        // NotificationManager.error(error);
+        alert(error)
+      });
   }
   deleteLabelFromNote = (value, noteId) => {
-      const deleteLabel = {
-          pull: true,
-          value: value,
-          noteID: noteId
-      }
-      saveLabel('/saveLabelToNote', deleteLabel)
-          .then((result) => {
-              let newArray = this.state.notes
-              for (let i = 0; i < newArray.length; i++) {
-                  if (newArray[i]._id === noteId) {
-                      newArray[i].label = result.data.data;
-                      this.setState({
-                          notes: newArray
-                      })
-                  }
-              }
-          })
-          .catch((error) => {
-              // NotificationManager.error(error);
-              alert(error)
-          });
+    const deleteLabel = {
+      pull: true,
+      label: value,
+      noteID: noteId
+    }
+    saveLabel('/saveLabelToNote', deleteLabel)
+      .then((result) => {
+        let newArray = this.state.notes
+        for (let i = 0; i < newArray.length; i++) {
+          if (newArray[i]._id === noteId) {
+            newArray[i].label = result.data.data;
+            this.setState({
+              notes: newArray
+            })
+          }
+        }
+      })
+      .catch((error) => {
+        // NotificationManager.error(error);
+        alert(error)
+      });
   }
   makeLabelFalse = () => {
-      this.setState({ label: false })
+    this.setState({ label: false })
   }
 
   render() {
@@ -324,6 +323,7 @@ export default class Cards extends Component {
           noteProps={this.props.noteProps}
           reminder={this.reminderNote}
           archiveNote={this.archiveNote}
+          trashNote={this.trashNote}
           addLabelToNote={this.addLabelToNote}
           deleteLabelFromNote={this.deleteLabelFromNote}
           editTitle={this.editTitle}
@@ -374,8 +374,8 @@ export default class Cards extends Component {
                 />
               </div>
               <div id="text3" style={{ fontFamily: "georgia", color: "grey", fontSize: "25px", width: "inherit" }}>
-                Notes you add appear here
-                                    </div>
+                <i> Notes you add appear here </i>
+              </div>
             </div>
             :
             null
@@ -442,18 +442,19 @@ export default class Cards extends Component {
                             }
                           />
                         ) : null}
-
-                        {/* {notesArray[key].label.length > 0 ?
-                            notesArray[key].label.map((key1, index) =>
-                              <div key={index} >
-                                <Chip
-                                  label={key1}
-                                  onDelete={() => this.deleteLabelFromNote(key1, notesArray[key]._id)}
-                                />
-                              </div>
-                            )
-                            :
-                            null} */}
+                        </div>
+                        <div>
+                        {notesArray[key].label.length > 0 ?
+                          notesArray[key].label.map((key1, index) =>
+                            // <div key={index} >
+                              <Chip 
+                                label={key1}
+                                onDelete={() => this.deleteLabelFromNote(key1, notesArray[key]._id)}
+                              />
+                            // {/* </div> */}
+                          )
+                          :
+                          null}
                       </div>
                       <div className="displaycontentdiv">
                         <Tools id="noteToolSize"

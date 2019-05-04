@@ -53,7 +53,8 @@ class ResponsiveDialog extends React.Component {
       color: "",
       archive: "",
       _id: "",
-      reminder: ""
+      reminder: "",
+      label: ""
     };
     this.getData = this.getData.bind(this);
     this.handleTitleClick = this.handleTitleClick.bind(this);
@@ -71,6 +72,14 @@ class ResponsiveDialog extends React.Component {
     this.props.close();
   }
 
+  async DeleteLabel(label, id) {
+    let newArr = this.state.label;
+    newArr = newArr.filter(item => item !== label);
+    await this.setState({
+      label: newArr
+    });
+    this.props.deleteLabelFromNote(label, id)
+  }
   getData(note) {
     console.log("note in dialog==>", note);
     if (note.title !== undefined || note.description !== undefined) {
@@ -82,6 +91,8 @@ class ResponsiveDialog extends React.Component {
         archive: note.archive,
         _id: note._id,
         reminder: note.reminder,
+        label: note.label
+
       })
     }
   }
@@ -104,7 +115,7 @@ class ResponsiveDialog extends React.Component {
   ispinned = (value, noteID) => {
     this.setState({ pinned: value })
     this.props.ispinned(value, noteID);
-}
+  }
 
   createNotePropsToTools = (value, noteID) => {
     console.log("note id in dialog---->", noteID);
@@ -153,6 +164,16 @@ class ResponsiveDialog extends React.Component {
                 />
                 :
                 null}
+
+              {this.state.label.length > 0 ?
+                this.state.label.map((key1, index) => (
+                  <Chip
+                    label={key1}
+                    onDelete={() => this.DeleteLabel(key1, this.state._id)}
+                  />
+                ))
+                : null
+              }
               <div className="cardToolsClose1">
                 <Tools
                   createNotePropsToTools={this.createNotePropsToTools}
@@ -162,6 +183,9 @@ class ResponsiveDialog extends React.Component {
                   noteID={this.state._id}
                   trashNote={this.trashNote}
                   trashStatus={this.state.trash}
+                  addLabelToNote={this.props.addLabelToNote}
+                  deleteLabelFromNote={this.props.deleteLabelFromNote}
+
                 />
                 <Button id="dibut" onClick={this.handleClose}>close</Button>
               </div>

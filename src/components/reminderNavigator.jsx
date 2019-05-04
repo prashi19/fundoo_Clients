@@ -3,7 +3,7 @@ import {
   Card,
   MuiThemeProvider,
   createMuiTheme,
-  Snackbar,Chip,
+  Snackbar, Chip,
   IconButton
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
@@ -34,7 +34,7 @@ export default class ReminderNavigator extends Component {
     super(props);
     this.state = {
       openSnackBar: false,
-      open:false,
+      open: false,
     };
     this.cardsToDialogBox = React.createRef();
   }
@@ -78,7 +78,7 @@ export default class ReminderNavigator extends Component {
           >
           </label>
           <div className="reminder_cardview">
-            {this.props.reminderArray.map(key => {
+            {this.props.reminderArray.reverse().map(key => {
               return (
                 <Card
                   className={cardsView}
@@ -91,7 +91,7 @@ export default class ReminderNavigator extends Component {
                 >
                   <div className="DispCont">
                     <div
-                    onClick={()=>this.openDialog(key)}
+                      onClick={() => this.openDialog(key)}
                       style={{
                         display: "flex",
                         justifyContent: "space-between"
@@ -99,7 +99,7 @@ export default class ReminderNavigator extends Component {
                     >
                       <b> {key.title}</b>
                     </div>
-                    <div onClick={()=>this.openDialog(key)} style={{ paddingBottom: "10px", paddingTop: "10px" }}>
+                    <div onClick={() => this.openDialog(key)} style={{ paddingBottom: "10px", paddingTop: "10px" }}>
                       {key.description}
                     </div>
                     {key.reminder ? (
@@ -108,6 +108,19 @@ export default class ReminderNavigator extends Component {
                         onDelete={() => this.props.reminder("", key._id)}
                       />
                     ) : null}
+
+
+                    {key.label.length > 0 ?
+                     key.label.map((key1, index) =>
+                        <div key={index} >
+                          <Chip
+                            label={key1}
+                            onDelete={() => this.props.deleteLabelFromNote(key1, key._id)}
+                          />
+                        </div>
+                      )
+                      :
+                      null}
                   </div>
                   <div id="displaycontentdiv">
                     <Tools
@@ -119,9 +132,11 @@ export default class ReminderNavigator extends Component {
                       trashStatus={key.trash}
                       archiveNote={this.props.archiveNote}
                       archiveStatus={key.archive}
-                      
+                      addLabelToNote={this.props.addLabelToNote}
+                      deleteLabelFromNote={this.props.deleteLabelFromNote}
+
                     //   archiveStatus={key.archive}
-                     
+
                     />
                   </div>
                 </Card>
@@ -137,6 +152,8 @@ export default class ReminderNavigator extends Component {
               editTitle={this.props.editTitle}
               editDescription={this.props.editDescription}
               createNotePropsToTools={this.props.getColor}
+              addLabelToNote={this.props.addLabelToNote}
+              deleteLabelFromNote={this.props.deleteLabelFromNote}
             />
           </div>
           <Snackbar

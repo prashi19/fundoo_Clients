@@ -42,14 +42,16 @@ export default class NoteLabels extends Component {
             open: false
         })
     }
+
     selectLabel(noteID, label) {
         this.setState({
-            open: false
+            open: false,
         })
         this.props.addLabelToNote(noteID, label)
     }
     render() {
         let displayLabels = this.state.label;
+        console.log("display labels-->",displayLabels);   
         if (this.state.label !== "") {
             displayLabels = this.state.label.map((key) =>
                 <MenuItem style={{ display: "flex", flexDirection: "row", }}>
@@ -63,7 +65,7 @@ export default class NoteLabels extends Component {
         const { anchorEl, open } = this.state;
         return (
             <div>
-                <Popper open={open} anchorEl={anchorEl} placement={'right'} transition>
+                <Popper open={open} anchorEl={anchorEl} placement={'right'} transition style={{ zIndex: 5500 }}>
                     {({ TransitionProps }) => (
                         <Fade {...TransitionProps} timeout={0}>
                             <Paper className="moreOptionsPopper" style={{ paddingTop: "10px" }}>

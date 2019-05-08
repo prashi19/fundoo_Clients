@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MenuItem, Popper, Paper, Fade, Checkbox, ClickAwayListener } from '@material-ui/core';
+import { MenuItem, Popper, Paper, Fade, Checkbox } from '@material-ui/core';
 import { getLabels } from '../services/noteServices';
 // import { NotificationManager } from 'react-notifications';
 export default class NoteLabels extends Component {
@@ -9,7 +9,8 @@ export default class NoteLabels extends Component {
             anchorEl: null,
             open: false,
             placement: null,
-            label: []
+            label: [],
+            labelName: ""
         }
     }
     addLabelPopup = () => {
@@ -37,7 +38,7 @@ export default class NoteLabels extends Component {
             label: [...this.state.label, value]
         })
     }
-    closeLabelPopper() {
+    closeLabelPopper = () => {
         this.setState({
             open: false
         })
@@ -51,11 +52,11 @@ export default class NoteLabels extends Component {
     }
     render() {
         let displayLabels = this.state.label;
-        console.log("display labels-->",displayLabels);   
+        // console.log("display labels-->", displayLabels);
         if (this.state.label !== "") {
-            displayLabels = this.state.label.map((key) =>
+            displayLabels = this.state.label.filter(x => x.label.includes(this.state.labelName)).map((key, i) =>
                 <MenuItem style={{ display: "flex", flexDirection: "row", }}>
-                    <Checkbox onClick={() => this.selectLabel(this.props.noteID, key.label)} />
+                    <Checkbox onClick={() => this.selectLabel(this.props.noteID, key.label)} key={i} />
                     <div style={{ color: "black", marginRight: "50px", fontFamily: "arial", fontSize: "1rem", marginBottom: "10px", marginTop: "10px" }}>
                         {key.label}
                     </div>
@@ -69,14 +70,30 @@ export default class NoteLabels extends Component {
                     {({ TransitionProps }) => (
                         <Fade {...TransitionProps} timeout={0}>
                             <Paper className="moreOptionsPopper" style={{ paddingTop: "10px" }}>
-                                <ClickAwayListener onClick={() => this.closeLabelPopper()}>
-                                    <div style={{ color: "#3c4043", fontSize: "15px", fontWeight: "500", fontFamily: "'Roboto',arial,sans-serif", paddingLeft: "10px", paddingRight: "10px" }}>
-                                        Label Note
+                                {/* <ClickAwayListener onClick={() => this.closeLabelPopper()}> */}
+                                <div style={{ color: "#3c4043", fontSize: "15px", fontWeight: "500", fontFamily: "'Roboto',arial,sans-serif", paddingLeft: "10px", paddingRight: "10px" }}>
+                                    Label Note
+                                        <div className="closeLabel" onClick={this.closeLabelPopper}>
+                                        <img src={require("../assets/close.svg")} alt="close"></img>
+
                                     </div>
-                                    <div>
-                                        {displayLabels}
+                                </div>
+                                <div>
+                                    <input className="LabelSearch" style={{paddingTop:"10px"}}
+                                        id="LabelSearchInput"
+                                        maxLength="50"
+                                        placeholder="enter the label name"
+                                        value={this.state.labelName}
+                                        onChange={(e) => { this.setState({ labelName: e.target.value }) }}
+                                    />
+                                    <div className="searchLabel" style={{paddingTop:"10px"}}>
+                                        <img src={require("../assets/search.svg")} alt="search"></img>
                                     </div>
-                                </ClickAwayListener>
+                                </div>
+                                <div>
+                                    {displayLabels}
+                                </div>
+                                {/* </ClickAwayListener> */}
                             </Paper>
                         </Fade>
                     )}

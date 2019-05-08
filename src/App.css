@@ -620,6 +620,13 @@
             max-height: 200px;
             overflow-y: scroll;
         }
+
+        @media screen and (max-width:475px){
+            .archive_cardview {
+                width: 390px;
+                margin-left: -90px;
+            }
+        }
         /***************** MEDIA QUERY for MOBILE ****************/
         
         @media screen and (max-width: 425px) {
@@ -685,12 +692,15 @@
                 padding: 2px;
             }
             /*for archive navigator */
-            .archive_cardview {
-                margin-left: 20px;
-            }
+            
+            /* .archive_DispCont{
+            margin-right: 20px
+            } */
             .staticCreateNote {
                 margin-right: 10px;
             }
+            
+            
         }
         /***************** MEDIA QUERY for TABLETS ****************/
         
@@ -755,4 +765,21 @@
         
         .main_createNote {
             margin-left: -3px;
+        }
+
+
+        /*************************   Label      ***********************/
+
+        .closeLabel{
+            float: right;
+        }
+        .searchLabel{
+            float: right;
+            opacity: .7;
+            margin-right: 9px;
+        }
+        .LabelSearch{
+            border:none;
+            outline: none;
+            margin-left: 10px;
         }

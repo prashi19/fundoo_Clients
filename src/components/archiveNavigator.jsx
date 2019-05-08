@@ -80,7 +80,8 @@ export default class ArchivedNavigator extends Component {
                   <div className="archive_cardview">
                     {this.props.archiveArray.reverse().map(key => {
                       return (
-                        <Card
+                        <Card 
+                          id="archive_card"
                           onClick={this.props.onClick}
                           className={cardsView}
                           style={{
@@ -90,7 +91,7 @@ export default class ArchivedNavigator extends Component {
                             wordBreak: "break-word"
                           }}
                         >
-                          <div className="DispCont">
+                          <div className="archive_DispCont">
                             <div onClick={() => this.openDialog(key)}
                               style={{
                                 display: "flex",

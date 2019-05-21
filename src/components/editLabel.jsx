@@ -70,8 +70,8 @@ export default class EditLabel extends Component {
             editLabel: Label,
             labelID: id
         }
-        console.log("...."+Label+"--------------->"+id);
-        
+        console.log("...." + Label + "--------------->" + id);
+
         updateLabel(editLabel)
             .then((result) => {
                 console.log("success", result.data, this.props.label);
@@ -80,8 +80,8 @@ export default class EditLabel extends Component {
                     if (newArray[i]._id === editLabel.labelID) {
                         newArray[i].label = result.data.data.editLabel;
                         this.props.newLabels(newArray);
-                        console.log("label Id is--->",editLabel.labelID);
-                        
+                        console.log("label Id is--->", editLabel.labelID);
+
                         this.setState({ labelID: "" })
                     }
                 }

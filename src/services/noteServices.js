@@ -192,7 +192,7 @@ export function pushNotification(data){
 
 export function otherArray(notesData) {
   let otherArr = [];
-  // console.log("notesData in services",notesData);
+  console.log("notesData in otherArray",notesData);
   
   for (let i = 0; i < notesData.length; i++) {
       if (!notesData[i].archive && !notesData[i].trash) {

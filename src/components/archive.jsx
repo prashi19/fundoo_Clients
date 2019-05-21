@@ -1,3 +1,10 @@
+/*****************************************************************************************************
+ *  @Purpose        : Here we will archive the created notes
+ *  @file           : archive.jsx       
+ *  @author         : PRASHANTH S
+ *  @version        : v0.1
+
+ *****************************************************************************************************/
 import React, { Component } from 'react';
 import Archiveicon from '../assets/menuArchive.svg';
 import { Snackbar, IconButton, Tooltip } from '@material-ui/core';

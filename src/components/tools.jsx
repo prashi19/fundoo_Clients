@@ -31,36 +31,36 @@ export default class Tools extends Component {
     render() {
         // const setNoteTime = parseInt(new Date().getHours()) >= 8 ? "PM" : "AM";
         return (
-          
-                <div className="cardTools">
-                    <Reminder
-                        handleToggle={this.handleToggle}
-                        // parentToolsProps={setNoteTime}
-                        reminder={this.props.reminder}
-                        noteID={this.props.noteID}
-                    />
-                   
-                    <ColorBox
-                        handleToggle={this.handleToggle}
-                        toolsPropsToColorpallete={this.props.createNotePropsToTools}
-                        noteID={this.props.noteID}
-                    />
-                  
-                    <Archive
-                        archiveNote={this.props.archiveNote}
-                        noteID={this.props.noteID}
-                        archiveStatus={this.props.archiveStatus}
-                    />
 
-                    <MoreOptions
-                        handleToggle={this.handleToggle}
-                        trashNote={this.props.trashNote}
-                        noteID={this.props.noteID}
-                        trashStatus={this.props.trashStatus}
-                        addLabelToNote={this.props.addLabelToNote}
-                    />
-                    
-                </div>
+            <div className="cardTools">
+                <Reminder
+                    handleToggle={this.handleToggle}
+                    // parentToolsProps={setNoteTime}
+                    reminder={this.props.reminder}
+                    noteID={this.props.noteID}
+                />
+
+                <ColorBox
+                    handleToggle={this.handleToggle}
+                    toolsPropsToColorpallete={this.props.createNotePropsToTools}
+                    noteID={this.props.noteID}
+                />
+
+                <Archive
+                    archiveNote={this.props.archiveNote}
+                    noteID={this.props.noteID}
+                    archiveStatus={this.props.archiveStatus}
+                />
+
+                <MoreOptions
+                    handleToggle={this.handleToggle}
+                    trashNote={this.props.trashNote}
+                    noteID={this.props.noteID}
+                    trashStatus={this.props.trashStatus}
+                    addLabelToNote={this.props.addLabelToNote}
+                />
+
+            </div>
         )
     }
 }

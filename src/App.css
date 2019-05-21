@@ -439,10 +439,15 @@
     visibility:hidden;
     display: none
   }
+  
   .displaycontentdiv:hover.CardsView1{
     visibility:visible;
     display: block;
   } */
+
+    /* .displaycontentdiv{
+        visibility: hidden;
+    } */
         /***************************************************************************************************************/
         /***************************************************************************************************************/
         
@@ -650,7 +655,7 @@
             #createNoteParent1 {
                 margin-left: 0px;
             }
-            .CardsView {
+            .CardsView { 
                 margin-top: 20px;
                 margin-left: -120px;
                 width: 350px;
@@ -782,4 +787,10 @@
             border:none;
             outline: none;
             margin-left: 10px;
+        }
+
+        .editdate{
+            float:right;
+            margin-top:-25px;
+            font-size: .80rem;
         }

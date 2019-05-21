@@ -4,7 +4,7 @@ import {
   MuiThemeProvider,
   createMuiTheme,
   Snackbar,
-  IconButton,Chip
+  IconButton, Chip
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import TrashOptions from "../components/trashOption"

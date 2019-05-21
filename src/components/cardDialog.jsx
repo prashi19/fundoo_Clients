@@ -54,7 +54,8 @@ class ResponsiveDialog extends React.Component {
       archive: "",
       _id: "",
       reminder: "",
-      label: ""
+      label: "",
+      editdate: "",
     };
     this.getData = this.getData.bind(this);
     this.handleTitleClick = this.handleTitleClick.bind(this);
@@ -82,6 +83,11 @@ class ResponsiveDialog extends React.Component {
   }
   getData(note) {
     console.log("note in dialog==>", note);
+    var date = note.updatedAt;
+    date = new Date(date).toString().split(' ');
+    var dd = date[1] + " " + date[2];
+
+    console.log("note date===>", date);
     if (note.title !== undefined || note.description !== undefined) {
       this.setState({
         note: note,
@@ -91,9 +97,11 @@ class ResponsiveDialog extends React.Component {
         archive: note.archive,
         _id: note._id,
         reminder: note.reminder,
-        label: note.label
-
+        label: note.label,
+        editdate: dd,
       })
+      console.log("edited date===>", dd);
+
     }
   }
   archiveNote = (value, noteId) => {
@@ -157,23 +165,31 @@ class ResponsiveDialog extends React.Component {
                   onChange={this.handleDescClick}
                 />
               </div>
-              {this.state.reminder ?
-                <Chip id="chipcss"
-                  label={this.state.reminder}
-                  onDelete={() => this.reminderNote("", this.state._id)}
-                />
-                :
-                null}
-
-              {this.state.label.length > 0 ?
-                this.state.label.map((key1, index) => (
-                  <Chip
-                    label={key1}
-                    onDelete={() => this.DeleteLabel(key1, this.state._id)}
+              <div>
+                {this.state.reminder ?
+                  <Chip id="chipcss"
+                    label={this.state.reminder}
+                    onDelete={() => this.reminderNote("", this.state._id)}
                   />
-                ))
-                : null
-              }
+                  :
+                  null}
+
+                {this.state.label.length > 0 ?
+                  this.state.label.map((key1, index) => (
+                    <Chip
+                      label={key1}
+                      onDelete={() => this.DeleteLabel(key1, this.state._id)}
+                    />
+                  ))
+                  : null
+                }
+              </div>
+              <div className="editdate" fontSize="10px">
+                <i>Edited{" "}
+                  {
+                    this.state.editdate
+                  }</i>
+              </div>
               <div className="cardToolsClose1">
                 <Tools
                   createNotePropsToTools={this.createNotePropsToTools}

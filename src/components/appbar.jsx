@@ -1,3 +1,10 @@
+/*****************************************************************************************************
+ *  @Purpose        : Here we have to create the appbar that contains all required appbar components.
+ *  @file           : appbar.jsx       
+ *  @author         : PRASHANTH S
+ *  @version        : v0.1
+ 
+ *****************************************************************************************************/
 import React from "react";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";

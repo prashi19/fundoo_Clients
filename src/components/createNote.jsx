@@ -100,10 +100,10 @@ export default class CreateNote extends Component {
     }
   }
 
-  addLabelToNote=(noteID,label)=>{
+  addLabelToNote = (noteID, label) => {
     this.state.label.push(label)
-    console.log("sss",label);
-    this.setState({label:this.state.label})
+    console.log("sss", label);
+    this.setState({ label: this.state.label })
   }
 
   async DeleteLabel(label, id) {
@@ -130,7 +130,7 @@ export default class CreateNote extends Component {
           reminder: this.state.reminder,
           archive: this.state.archive,
           trash: this.state.trash,
-          label:this.state.label
+          label: this.state.label
         };
         createNote(note)
           .then(result => {
@@ -150,7 +150,7 @@ export default class CreateNote extends Component {
           reminder: "",
           archive: false,
           trash: false,
-          label:[]
+          label: []
         });
       }
     } catch (err) {
@@ -213,15 +213,15 @@ export default class CreateNote extends Component {
               ) : null}
 
               <div>
-              {this.state.label.length > 0 ?
-                this.state.label.map((key1, index) => (
-                  <Chip
-                    label={key1}
-                    onDelete={() => this.DeleteLabel(key1, this.state._id)}
-                  />
-                ))
-                : null
-              }
+                {this.state.label.length > 0 ?
+                  this.state.label.map((key1, index) => (
+                    <Chip
+                      label={key1}
+                      onDelete={() => this.DeleteLabel(key1, this.state._id)}
+                    />
+                  ))
+                  : null
+                }
               </div>
               <div className="cardToolsClose">
                 <Tools

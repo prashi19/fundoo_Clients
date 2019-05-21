@@ -79,14 +79,14 @@ export default class NoteLabels extends Component {
                                     </div>
                                 </div>
                                 <div>
-                                    <input className="LabelSearch" style={{paddingTop:"10px"}}
+                                    <input className="LabelSearch" style={{ paddingTop: "10px" }}
                                         id="LabelSearchInput"
                                         maxLength="50"
                                         placeholder="enter the label name"
                                         value={this.state.labelName}
                                         onChange={(e) => { this.setState({ labelName: e.target.value }) }}
                                     />
-                                    <div className="searchLabel" style={{paddingTop:"10px"}}>
+                                    <div className="searchLabel" style={{ paddingTop: "10px" }}>
                                         <img src={require("../assets/search.svg")} alt="search"></img>
                                     </div>
                                 </div>

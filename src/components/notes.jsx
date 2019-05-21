@@ -71,6 +71,13 @@ export default class Cards extends Component {
           notes: result.data.data
         });
         console.log("getNotes result from back-end", result);
+        // for(let i=0;i<this.state.notes.length;i++)
+        var n2=this.state.notes;
+        console.log("n222",n2);
+        
+        var n1=result.data.data
+        for(let i=0;i<n1.length;i++)
+        console.log("NOTES--->",n1[i].label);
       })
       .catch(error => {
         alert(error);
